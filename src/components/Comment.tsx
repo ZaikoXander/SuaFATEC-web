@@ -1,14 +1,22 @@
-import { useAtomValue } from "jotai";
-
-import { commentsAtom } from "@/atoms/comments";
-
 import LikeButton from "./LikeButton";
 
-export default function Comment({ id }: { id: number }) {
-  const comments = useAtomValue(commentsAtom)
-  const commentIndex = comments.findIndex(comment => comment.id === id)
-  const { studentName, conclusionDate, content } = comments[commentIndex]
+interface CommentProps {
+  id: number
+  studentName: string
+  content: string
+  quantityLikes: number
+  conclusionDate: string
+  liked: boolean
+}
 
+export default function Comment({
+  id,
+  studentName,
+  content,
+  quantityLikes,
+  conclusionDate,
+  liked
+}: CommentProps) {
   return (
     <div className="h-min px-4 py-2 w-80 gap-2 flex flex-col">
       <div className="flex items-center justify-between">
@@ -19,7 +27,11 @@ export default function Comment({ id }: { id: number }) {
       </div>
       <p className="leading-tight">{content}</p>
       <div className="flex justify-end">
-        <LikeButton commentId={id} />
+        <LikeButton
+          commentId={id}
+          quantityLikes={quantityLikes}
+          liked={liked}
+        />
       </div>
     </div>
   )

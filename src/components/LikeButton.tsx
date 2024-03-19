@@ -6,14 +6,22 @@ import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function LikeButton({ commentId }: { commentId: number }) {
+interface LikeButtonProps {
+  commentId: number
+  quantityLikes: number
+  liked: boolean
+}
+
+export default function LikeButton({
+  commentId,
+  quantityLikes,
+  liked
+}: LikeButtonProps) {
   const [comments, setComments] = useAtom(commentsAtom)
-  const commentIndex = comments.findIndex(comment => comment.id === commentId)
-  const { quantityLikes, liked } = comments[commentIndex]
-  
+
   function handleButtonClick() {
-    const updatedComments = comments.map((comment, index) => {
-      if (index === commentIndex) {
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === commentId) {
         return {
           ...comment,
           quantityLikes: liked ?
