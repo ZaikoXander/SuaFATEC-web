@@ -1,7 +1,7 @@
 'use client'
 
 import {
-  AdvancedMarker,
+  Marker,
   APIProvider,
   Map,
   MapCameraChangedEvent
@@ -54,7 +54,7 @@ export default function GoogleMaps() {
           onCameraChanged={handleCameraChange}
           mapId={process.env.NEXT_PUBLIC_MAP_ID}
         >
-          <AdvancedMarker position={santosFatecPosition} />
+          <Marker position={santosFatecPosition} />
         </Map>
       </div>
     </APIProvider>
