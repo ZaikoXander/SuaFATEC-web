@@ -27,4 +27,22 @@ const initialComments = [
   }
 ]
 
-export const commentsAtom =  atom(initialComments)
+export const commentsAtom = atom(initialComments)
+
+export const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
+  const updatedComments = get(commentsAtom).map((comment) => {
+    if (comment.id === commentId) {
+      return {
+        ...comment,
+        quantityLikes: comment.liked ?
+          comment.quantityLikes - 1 :
+          comment.quantityLikes + 1,
+        liked: !comment.liked
+      }
+    }
+
+    return comment
+  })
+
+  set(commentsAtom, updatedComments)
+})

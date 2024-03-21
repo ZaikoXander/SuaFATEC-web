@@ -1,6 +1,6 @@
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 
-import { commentsAtom } from "@/atoms/comments";
+import { toggleCommentLikeByIdAtom } from "@/atoms/comments";
 
 import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
@@ -17,30 +17,12 @@ export default function LikeButton({
   quantityLikes,
   liked
 }: LikeButtonProps) {
-  const [comments, setComments] = useAtom(commentsAtom)
-
-  function handleButtonClick() {
-    const updatedComments = comments.map((comment) => {
-      if (comment.id === commentId) {
-        return {
-          ...comment,
-          quantityLikes: liked ?
-            comment.quantityLikes - 1 :
-            comment.quantityLikes + 1,
-          liked: !liked
-        }
-      }
-
-      return comment
-    })
-
-    setComments(updatedComments)
-  }
+  const toggleCommentLikeById = useSetAtom(toggleCommentLikeByIdAtom)
 
   return (
     <Button
       className="flex items-center group p-0 pr-1 h-min bg-transparent hover:bg-transparent"
-      onClick={handleButtonClick}
+      onClick={() => toggleCommentLikeById(commentId)}
     >
       <Heart
         className={cn(
