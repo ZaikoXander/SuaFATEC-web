@@ -1,4 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.fatecpg.edu.br',
+        port: '',
+        pathname: '/img/**'
+      }
+    ]
+  }
+};
 
 export default nextConfig;
