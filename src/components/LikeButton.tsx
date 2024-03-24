@@ -1,10 +1,10 @@
-import { useSetAtom } from "jotai";
+import { useSetAtom } from 'jotai'
 
-import { toggleCommentLikeByIdAtom } from "@/atoms/comments";
+import { toggleCommentLikeByIdAtom } from '@/atoms/comments'
 
-import { Button } from "./ui/button";
-import { Heart } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Button } from './ui/button'
+import { Heart } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface LikeButtonProps {
   commentId: number
@@ -15,30 +15,30 @@ interface LikeButtonProps {
 export default function LikeButton({
   commentId,
   quantityLikes,
-  liked
+  liked,
 }: LikeButtonProps) {
   const toggleCommentLikeById = useSetAtom(toggleCommentLikeByIdAtom)
 
   return (
     <Button
-      className="flex items-center group p-0 pr-1 h-min bg-transparent hover:bg-transparent"
+      className='group flex h-min items-center bg-transparent p-0 pr-1 hover:bg-transparent'
       onClick={() => toggleCommentLikeById(commentId)}
     >
       <Heart
         className={cn(
-          "group-hover:stroke-red-600 rounded-full group-hover:bg-red-300",
-          "p-1 transition-colors duration-500",
-          liked ?
-            "stroke-red-600 fill-red-600" :
-            "stroke-gray-500 fill-transparent"
+          'rounded-full group-hover:bg-red-300 group-hover:stroke-red-600',
+          'p-1 transition-colors duration-500',
+          liked
+            ? 'fill-red-600 stroke-red-600'
+            : 'fill-transparent stroke-gray-500',
         )}
         size={28}
       />
       <span
         className={cn(
-          "group-hover:text-red-600 text-sm font-medium leading-none",
-          "transition-colors duration-500",
-          liked ? "text-red-600" : "text-gray-500"
+          'text-sm font-medium leading-none group-hover:text-red-600',
+          'transition-colors duration-500',
+          liked ? 'text-red-600' : 'text-gray-500',
         )}
       >
         {quantityLikes}
