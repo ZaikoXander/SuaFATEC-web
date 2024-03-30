@@ -10,7 +10,7 @@ export default function Home() {
         placeholder='Pesquisar cidade ou FATEC'
       />
       <GoogleMaps />
-      <ScrollAreaDemo/>
+      <ScrollAreaDemo />
     </main>
   )
 }
