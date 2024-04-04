@@ -1,4 +1,5 @@
 import { Input } from './ui/input'
+import { add } from 'date-fns'
 
 import type { ChangeEvent } from 'react'
 
@@ -13,7 +14,7 @@ export default function DateInput({ onChange, className }: DateInputProps) {
       className={className}
       type='date'
       onChange={(event: ChangeEvent<HTMLInputElement>) =>
-        onChange(new Date(event.target.value))
+        onChange(add(new Date(event.target.value), { days: 1 }))
       }
     />
   )
