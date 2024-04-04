@@ -18,10 +18,19 @@ import { Textarea } from './ui/textarea'
 import DateInput from './DateInput'
 
 const formSchema = z.object({
-  // Adicionar frases de validacao em portugues
-  studentName: z.string().min(2).max(64),
-  conclusionDate: z.date().max(new Date()),
-  content: z.string().min(5).max(280),
+  studentName: z
+    .string({ required_error: 'O nome é obrigatório' })
+    .min(2, 'O nome deve conter pelo menos 2 caracteres')
+    .max(64, 'O nome deve conter no máximo 64 caracteres'),
+  conclusionDate: z
+    .date({
+      required_error: 'A data de término do curso é obrigatória',
+    })
+    .max(new Date(), 'A data não pode ser no futuro'),
+  content: z
+    .string({ required_error: 'O conteúdo é obrigatório' })
+    .min(5, 'O conteúdo deve conter pelo menos 5 caracteres')
+    .max(280, 'O conteúdo deve conter no máximo 280 caracteres'),
 })
 
 export default function CommentForm() {
