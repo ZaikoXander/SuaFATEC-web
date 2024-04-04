@@ -27,10 +27,6 @@ const formSchema = z.object({
 export default function CommentForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      studentName: '',
-      content: '',
-    },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
