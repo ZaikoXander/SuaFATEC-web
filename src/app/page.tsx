@@ -1,5 +1,5 @@
-import { Input } from "@/components/ui/input";
-import GoogleMaps from "@/components/GoogleMaps";
+import { Input } from '@/components/ui/input'
+import GoogleMaps from '@/components/GoogleMaps'
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
@@ -7,8 +7,11 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen">
-      <Input className="m-3 w-60 absolute z-10" placeholder="Pesquisar cidade ou FATEC" />
+    <main className='flex min-h-screen'>
+      <Input
+        className='absolute z-10 m-3 w-60'
+        placeholder='Pesquisar cidade ou FATEC'
+      />
       <Sheet>
         <SheetTrigger asChild>
           <Button className="mt-20 absolute z-10" variant="outline">Open</Button>
@@ -72,5 +75,5 @@ export default function Home() {
       </Sheet>
       <GoogleMaps />
     </main>
-  );
+  )
 }
