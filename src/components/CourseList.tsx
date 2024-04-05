@@ -53,7 +53,7 @@ const courses = [
   },
 ]
 
-export function ScrollAreaDemo() {
+export function CoursesList() {
   return (
     <ScrollArea className='m-3 h-96 w-96 rounded-md border pr-2'>
       <div className='p-4'>
