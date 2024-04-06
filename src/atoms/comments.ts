@@ -28,6 +28,24 @@ const initialComments = [
     conclusionDate: '10/10/2021',
     liked: false,
   },
+  {
+    id: 3,
+    studentName: 'Paulo Ricardo',
+    content:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
+    quantityLikes: 269,
+    conclusionDate: '10/10/2021',
+    liked: false,
+  },
+  {
+    id: 4,
+    studentName: 'Paulo Ricardo',
+    content:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
+    quantityLikes: 269,
+    conclusionDate: '10/10/2021',
+    liked: false,
+  },
 ]
 
 export const commentsAtom = atom(initialComments)
