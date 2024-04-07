@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { useAtom, WritableAtom } from 'jotai'
+import { useAtom, type WritableAtom } from 'jotai'
 
 import { Button } from '../ui/button'
 
