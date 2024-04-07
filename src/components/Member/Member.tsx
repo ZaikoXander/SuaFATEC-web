@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+
 import styles from './Member.module.css'
 
 import { Github, Linkedin } from 'lucide-react'
@@ -19,7 +21,10 @@ export default function Member({
 }: MemberProps) {
   return (
     <div className='flex flex-col'>
-      <img src={photoUrl} className={styles.img} />
+      <Avatar className='h-24 w-24'>
+        <AvatarImage src={photoUrl} alt={`${name} photo`} />
+        <AvatarFallback>{name}</AvatarFallback>
+      </Avatar>
       <p className={styles.text}>{name}</p>
       <div className={styles.icons}>
         <Link href={githubUrl}>
