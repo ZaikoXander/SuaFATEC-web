@@ -7,6 +7,7 @@ import {
   moreRecentFilterAtom,
 } from '@/atoms/commentListFilters'
 
+import FilterButton from './FilterButton'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 
@@ -16,13 +17,6 @@ import { ChevronDown, ChevronUp, Heart } from 'lucide-react'
 
 export default function Filters() {
   const [likeFilter, setLikeFilter] = useAtom(likeFilterAtom)
-  const [moreRecentFilter, setMoreRecentFilter] = useAtom(moreRecentFilterAtom)
-  const [descendingOrderFilter, setDescendingOrderFilter] = useAtom(
-    descendingOrderFilterAtom,
-  )
-  const [ascendingOrderFilter, setAscendingOrderFilter] = useAtom(
-    ascendingOrderFilterAtom,
-  )
 
   return (
     <div className='flex h-7 items-center gap-2'>
@@ -45,41 +39,19 @@ export default function Filters() {
               size={28}
             />
           </Button>
-          <Button
-            className={cn(
-              'flex h-min items-center bg-transparent p-0',
-              'transition-colors duration-500 hover:bg-transparent',
-              'hover:text-red-600',
-              moreRecentFilter ? 'text-red-600' : 'text-gray-500',
-            )}
-            onClick={() => setMoreRecentFilter(!moreRecentFilter)}
-          >
+          <FilterButton filterAtom={moreRecentFilterAtom}>
             mais recentes
-          </Button>
+          </FilterButton>
         </div>
         <div className='flex items-center gap-3'>
-          <Button
-            className={cn(
-              'flex h-min items-center bg-transparent p-0',
-              'transition-colors duration-500 hover:bg-transparent',
-              'hover:text-red-600',
-              descendingOrderFilter ? 'text-red-600' : 'text-gray-500',
-            )}
-            onClick={() => setDescendingOrderFilter(!descendingOrderFilter)}
-          >
-            <ChevronUp />
-          </Button>
-          <Button
-            className={cn(
-              'flex h-min items-center bg-transparent p-0',
-              'transition-colors duration-500 hover:bg-transparent',
-              'hover:text-red-600',
-              ascendingOrderFilter ? 'text-red-600' : 'text-gray-500',
-            )}
-            onClick={() => setAscendingOrderFilter(!ascendingOrderFilter)}
-          >
-            <ChevronDown />
-          </Button>
+          <FilterButton
+            filterAtom={descendingOrderFilterAtom}
+            icon={ChevronUp}
+          />
+          <FilterButton
+            filterAtom={ascendingOrderFilterAtom}
+            icon={ChevronDown}
+          />
         </div>
       </div>
     </div>
