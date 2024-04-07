@@ -67,11 +67,15 @@ export default function CommentForm() {
             <FormField
               control={form.control}
               name='conclusionDate'
-              render={({ field }) => (
+              render={({ field: { onChange, onBlur } }) => (
                 <FormItem>
                   <FormLabel>Término do curso</FormLabel>
                   <FormControl>
-                    <DateInput className='w-min' {...field} />
+                    <DateInput
+                      className='w-min'
+                      onChange={onChange}
+                      onBlur={onBlur}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
