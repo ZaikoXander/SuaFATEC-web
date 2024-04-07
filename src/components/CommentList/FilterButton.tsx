@@ -1,11 +1,10 @@
-import { ReactNode } from 'react'
-
 import { useAtom, type WritableAtom } from 'jotai'
 
 import { Button } from '../ui/button'
 
 import { cn } from '@/lib/utils'
 
+import type { ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 
 type FilterButtonProps = {
