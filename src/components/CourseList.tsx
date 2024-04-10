@@ -56,7 +56,7 @@ const courses = [
   },
 ]
 
-export default function CoursesList() {
+export default function CourseList() {
   return (
     <ScrollArea className='m-3 h-96 w-96 rounded-md border p-4'>
       <h4 className='mb-4 text-lg font-bold leading-none'>
