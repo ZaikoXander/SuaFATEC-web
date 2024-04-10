@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className='flex min-h-screen'>
       <Input
-        className='absolute z-10 m-3 w-72'
+        className='absolute z-10 m-3 w-60'
         placeholder='Pesquisar cidade ou FATEC'
       />
       <GoogleMaps />
