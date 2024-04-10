@@ -1,7 +1,8 @@
+import { Fragment } from 'react'
+
+import { Button } from './ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
-import { Button } from './ui/button'
-import { Fragment } from 'react'
 
 const courses = [
   {
@@ -55,7 +56,7 @@ const courses = [
   },
 ]
 
-function CoursesList() {
+export default function CoursesList() {
   return (
     <ScrollArea className='m-3 h-96 w-96 rounded-md border p-4'>
       <h4 className='mb-4 text-lg font-bold leading-none'>
@@ -87,5 +88,3 @@ function CoursesList() {
     </ScrollArea>
   )
 }
-
-export default CoursesList
