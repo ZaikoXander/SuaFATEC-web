@@ -1,6 +1,5 @@
 import { Input } from '@/components/ui/input'
 import GoogleMaps from '@/components/GoogleMaps'
-import CoursesList from '@/components/CourseList'
 
 export default function Home() {
   return (
@@ -10,7 +9,6 @@ export default function Home() {
         placeholder='Pesquisar cidade ou FATEC'
       />
       <GoogleMaps />
-      <CoursesList />
     </main>
   )
 }
