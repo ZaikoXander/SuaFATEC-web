@@ -1,11 +1,13 @@
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { Button } from './ui/button'
+import { Fragment } from 'react'
 
 const courses = [
   {
     id: 1,
-    title: 'Introdução à Programação',
+    title:
+      'Design de Produto com ênfase em Processos de Produção e Industrialização',
   },
   {
     id: 2,
@@ -53,27 +55,37 @@ const courses = [
   },
 ]
 
-export function CoursesList() {
+function CoursesList() {
   return (
-    <ScrollArea className='m-3 h-96 w-96 rounded-md border pr-2'>
-      <div className='p-4'>
-        <h4 className='mb-4 text-lg font-bold leading-none'>
-          Cursos disponíveis
-        </h4>
-        {courses.map((course) => (
-          <>
+    <ScrollArea className='m-3 h-96 w-96 rounded-md border p-4'>
+      <h4 className='mb-4 text-lg font-bold leading-none'>
+        Cursos disponíveis
+      </h4>
+      {courses.map((course) => {
+        const lastCourseId = courses.at(-1)?.id
+        if (lastCourseId === course.id) {
+          return (
             <Button
               key={course.id}
               variant='outline'
-              size='lg'
-              className='w-full'
+              className='h-auto w-full text-pretty'
             >
               {course.title}
             </Button>
+          )
+        }
+
+        return (
+          <Fragment key={course.id}>
+            <Button variant='outline' className='h-auto w-full text-pretty'>
+              {course.title}
+            </Button>
             <Separator className='my-2' />
-          </>
-        ))}
-      </div>
+          </Fragment>
+        )
+      })}
     </ScrollArea>
   )
 }
+
+export default CoursesList
