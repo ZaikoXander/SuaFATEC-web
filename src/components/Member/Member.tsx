@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
-import styles from './Member.module.css'
 
 import { Github, Linkedin } from 'lucide-react'
 
@@ -14,26 +13,30 @@ interface MemberProps {
 }
 
 export default function Member({
-  photoUrl,
+  photoUrl,  
   name,
   githubUrl,
   linkedinUrl,
 }: MemberProps) {
   return (
-    <div className='flex flex-col'>
-      <Avatar className='h-24 w-24'>
-        <AvatarImage src={photoUrl} alt={`${name} photo`} />
+    <div className='flex flex-col items-center space-y-4 border border-solid border-purple-300 '>
+      <div className='flex flex-col items-center space-y-4 border border-solid border-purple-300 '>
+      <Avatar className='relative'>
+        <AvatarImage className='border-2 border-solid border-black' src={photoUrl} alt={`${name} photo` } />
         <AvatarFallback>{name}</AvatarFallback>
       </Avatar>
-      <p className={styles.text}>{name}</p>
-      <div className={styles.icons}>
+      <p className='font-bold'>{name}</p>
+      <div className="flex space-x-5" >
         <Link href={githubUrl}>
-          <Github />
+          <Github className="text-purple-600 h-6 w-6  ml-2 hover:text-purple-400 hover:animate-bounce"  />
         </Link>
         <Link href={linkedinUrl}>
-          <Linkedin />
+          <Linkedin className=" text-blue-600 h-6 w-6  mr-2 hover:text-blue-400 hover:animate-bounce"/>
         </Link>
+        </div>
       </div>
     </div>
   )
 }
+
+
