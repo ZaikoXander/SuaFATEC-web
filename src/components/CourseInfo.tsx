@@ -9,7 +9,49 @@ import {
   SheetTrigger,
 } from './ui/sheet'
 
-export default function CourseInfo() {
+type Shift = 'morning' | 'afternoon' | 'night'
+
+interface CourseInfoProps {
+  institutionName: string
+  courseName: string
+  courseDescription: string
+  courseImageUrl: string
+  shifts: Shift[]
+  distanceLearning: boolean
+}
+
+export default function CourseInfo({
+  institutionName,
+  courseName,
+  courseDescription,
+  courseImageUrl,
+  shifts,
+  distanceLearning,
+}: CourseInfoProps) {
+  function shiftsToPortuguese() {
+    return shifts.map((shift) => {
+      switch (shift) {
+        case 'morning':
+          return 'Matutino'
+        case 'afternoon':
+          return 'Vespertino'
+        case 'night':
+          return 'Noturno'
+      }
+    })
+  }
+
+  function FormattedShifts() {
+    return shiftsToPortuguese()
+      .map((shift, index) => {
+        if (index === shifts.length - 1) return shift
+        if (index === shifts.length - 2) return `${shift} e `
+
+        return `${shift}, `
+      })
+      .join('')
+  }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -21,26 +63,16 @@ export default function CourseInfo() {
         <SheetHeader>
           <SheetTitle>
             <span className='block scroll-m-20 text-2xl font-semibold tracking-tight'>
-              Fatec de Praia Grande
+              {institutionName}
             </span>
             <span className='block scroll-m-20 text-xl font-semibold tracking-tight'>
-              Informações do curso Análise e Desenvolvimento de Sistemas
+              Informações do curso {courseName}
             </span>
           </SheetTitle>
-          <SheetDescription>
-            A matemática, em especial raciocínio lógico e cálculo, é necessária
-            para que o aluno aprenda a otimizar computadores e a desenvolver
-            desenvolver softwares. O aluno recebe noções sobre Bancos de Dados,
-            sistemas baseados em web (como serviços bancários pela internet) e
-            programação distribuída, que conecta computadores em rede para que
-            funcionem como se fossem um só computador. Administração,
-            contabilidade, economia, estatística e inglês também fazem parte do
-            currículo. Além disso, habilidades para leitura e interpretação de
-            textos são fundamentais para o aprendizado durante o curso.
-          </SheetDescription>
+          <SheetDescription>{courseDescription}</SheetDescription>
           <Image
-            src='https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg'
-            alt='Foto de Análise e Desenvolvimento de Sistemas'
+            src={courseImageUrl}
+            alt={`Foto de ${courseName}`}
             width={400}
             height={230}
             className='w-full rounded-md'
@@ -50,13 +82,13 @@ export default function CourseInfo() {
           <span className='font-semibold'>
             Turnos:{' '}
             <span className='self-center text-sm font-medium leading-none'>
-              Matutino, Vespertino e Noturno
+              <FormattedShifts />
             </span>
           </span>
           <span className='font-semibold'>
             EAD?{' '}
             <span className='self-center text-sm font-medium leading-none'>
-              Sim
+              {distanceLearning ? 'Sim' : 'Não'}
             </span>
           </span>
           <Button className='mt-auto w-full' variant='outline'>
