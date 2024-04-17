@@ -1,10 +1,5 @@
 import { Input } from '@/components/ui/input'
 import GoogleMaps from '@/components/GoogleMaps'
-import Member from '@/components/Member'
-
-const arthurLinkedin = 'https://www.linkedin.com/in/arthur-barbosa-28a28322a/'
-const arthurGithubUrl = 'https://github.com/Arthurbhs'
-const arthurGithubPhotoUrl = arthurGithubUrl + '.png'
 
 export default function Home() {
   return (
@@ -14,12 +9,6 @@ export default function Home() {
         placeholder='Pesquisar cidade ou FATEC'
       />
       <GoogleMaps />
-      <Member
-        name='Arthur'
-        photoUrl={arthurGithubPhotoUrl}
-        linkedinUrl={arthurLinkedin}
-        githubUrl={arthurGithubUrl}
-      />
     </main>
   )
 }
