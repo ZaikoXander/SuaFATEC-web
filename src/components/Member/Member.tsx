@@ -18,26 +18,20 @@ export default function Member({
   linkedinUrl,
 }: MemberProps) {
   return (
-    <div className='flex flex-col items-center space-y-4 border border-solid border-purple-300 '>
-      <div className='flex flex-col items-center space-y-4 border border-solid border-purple-300 '>
-        <Avatar className='relative'>
-          <AvatarImage
-            className='border-2 border-solid border-black'
-            src={photoUrl}
-            alt={`${name} photo`}
-          />
-          <AvatarFallback>{name}</AvatarFallback>
-        </Avatar>
-        <p className='font-bold'>{name}</p>
-        <div className='flex space-x-5'>
-          <Link href={githubUrl}>
-            <Github className='ml-2 h-6 w-6  text-purple-600 hover:animate-bounce hover:text-purple-400' />
-          </Link>
-          <Link href={linkedinUrl}>
-            <Linkedin className=' mr-2 h-6 w-6  text-blue-600 hover:animate-bounce hover:text-blue-400' />
-          </Link>
-        </div>
-      </div>
+    <div className='flex flex-col items-center gap-y-1'>
+      <Avatar className='h-40 w-40'>
+        <AvatarImage src={photoUrl} alt={`${name} photo`} />
+        <AvatarFallback>{name}</AvatarFallback>
+      </Avatar>
+      <span className='text-lg font-semibold'>{name}</span>
+      <nav className='flex w-4/5 justify-center gap-x-4'>
+        <Link href={linkedinUrl}>
+          <Linkedin size={28} color='#0077B5' fill='#0077B5' />
+        </Link>
+        <Link href={githubUrl}>
+          <Github size={28} />
+        </Link>
+      </nav>
     </div>
   )
 }
