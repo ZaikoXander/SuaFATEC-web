@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
 } from '../ui/tooltip'
 
+import type { CSSProperties } from 'react'
 import type { LucideIcon } from 'lucide-react'
 
 interface SocialMediaButtonLinkProps {
@@ -33,7 +34,15 @@ export default function SocialMediaButtonLink({
             <Link href={url}>
               <Icon
                 size={28}
-                className={`fill-[${baseColor}] text-[${baseColor}] transition-colors group-hover:fill-[${hoverColor}] group-hover:text-[${hoverColor}]`}
+                className={
+                  'fill-[var(--base-color)] text-[var(--base-color)] transition-colors group-hover:fill-[var(--hover-color)] group-hover:text-[var(--hover-color)]'
+                }
+                style={
+                  {
+                    '--base-color': baseColor,
+                    '--hover-color': hoverColor,
+                  } as CSSProperties
+                }
               />
             </Link>
           </Button>
