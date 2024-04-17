@@ -35,7 +35,7 @@ export default function SocialMediaButtonLink({
               <Icon
                 size={28}
                 className={
-                  'fill-[var(--base-color)] text-[var(--base-color)] transition-colors group-hover:fill-[var(--hover-color)] group-hover:text-[var(--hover-color)]'
+                  'fill-[var(--base-color)] text-[var(--base-color)] drop-shadow transition-colors group-hover:fill-[var(--hover-color)] group-hover:text-[var(--hover-color)]'
                 }
                 style={
                   {
