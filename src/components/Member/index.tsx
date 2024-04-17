@@ -19,7 +19,7 @@ export default function Member({
 }: MemberProps) {
   return (
     <div className='flex flex-col items-center gap-y-1'>
-      <Avatar className='h-40 w-40'>
+      <Avatar className='h-40 w-40 shadow'>
         <AvatarImage src={photoUrl} alt={`${name} photo`} />
         <AvatarFallback>{name}</AvatarFallback>
       </Avatar>
