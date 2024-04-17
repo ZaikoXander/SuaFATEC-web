@@ -31,7 +31,7 @@ export default function SocialMediaButtonLink({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button variant='link' className='group h-auto p-0' asChild>
-            <Link href={url}>
+            <Link href={url} target='_blank'>
               <Icon
                 size={28}
                 className={
