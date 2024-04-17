@@ -1,57 +1,14 @@
-import Link from 'next/link'
-
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { Button } from '../ui/button'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../ui/tooltip'
 
-import { Github, Linkedin, type LucideIcon } from 'lucide-react'
+import SocialMediaButtonLink from './SocialMediaButtonLink'
+
+import { Github, Linkedin } from 'lucide-react'
 
 interface MemberProps {
   photoUrl: string
   name: string
   githubUrl: string
   linkedinUrl: string
-}
-
-interface SocialMediaButtonLinkProps {
-  url: string
-  baseColor: string
-  hoverColor: string
-  name: string
-  icon: LucideIcon
-}
-
-function SocialMediaButtonLink({
-  url,
-  baseColor,
-  hoverColor,
-  name,
-  icon: Icon,
-}: SocialMediaButtonLinkProps) {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant='link' className='group h-auto p-0' asChild>
-            <Link href={url}>
-              <Icon
-                size={28}
-                className={`fill-[${baseColor}] text-[${baseColor}] transition-colors group-hover:fill-[${hoverColor}] group-hover:text-[${hoverColor}]`}
-              />
-            </Link>
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Meu {name}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  )
 }
 
 export default function Member({
