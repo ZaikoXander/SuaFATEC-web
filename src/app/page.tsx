@@ -1,6 +1,6 @@
 import { Input } from '@/components/ui/input'
 import GoogleMaps from '@/components/GoogleMaps'
-import Member from '@/components/Member/Member'
+import Member from '@/components/Member'
 
 const arthurLinkedin = 'https://www.linkedin.com/in/arthur-barbosa-28a28322a/'
 const arthurGithubUrl = 'https://github.com/Arthurbhs'
