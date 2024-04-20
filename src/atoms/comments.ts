@@ -1,6 +1,22 @@
 import { atom } from 'jotai'
+import {
+  ascendingOrderFilterAtom,
+  likeFilterAtom,
+  moreRecentFilterAtom,
+} from './commentListFilters'
 
-const initialComments = [
+import { compareAsc, parse } from 'date-fns'
+
+interface Comment {
+  id: number
+  studentName: string
+  content: string
+  quantityLikes: number
+  conclusionDate: string
+  liked: boolean
+}
+
+const initialComments: Comment[] = [
   {
     id: 0,
     studentName: 'Pedro Henrique',
@@ -28,11 +44,51 @@ const initialComments = [
     conclusionDate: '10/10/2021',
     liked: false,
   },
+  {
+    id: 3,
+    studentName: 'Paulo Ricardo',
+    content:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
+    quantityLikes: 269,
+    conclusionDate: '10/10/2021',
+    liked: false,
+  },
+  {
+    id: 4,
+    studentName: 'Paulo Ricardo',
+    content:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
+    quantityLikes: 269,
+    conclusionDate: '10/10/2021',
+    liked: false,
+  },
 ]
 
-export const commentsAtom = atom(initialComments)
+const commentsAtom = atom<Comment[]>(initialComments)
 
-export const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
+const filteredCommentsAtom = atom((get) => {
+  const comments = [...get(commentsAtom)]
+  let sortFunction
+
+  if (get(likeFilterAtom)) {
+    sortFunction = (a: Comment, b: Comment) => a.quantityLikes - b.quantityLikes
+  } else if (get(moreRecentFilterAtom)) {
+    sortFunction = (a: Comment, b: Comment) =>
+      compareAsc(
+        parse(a.conclusionDate, 'dd/MM/yyyy', new Date()),
+        parse(b.conclusionDate, 'dd/MM/yyyy', new Date()),
+      )
+  }
+
+  if (sortFunction) {
+    const orderMultiplier = get(ascendingOrderFilterAtom) ? 1 : -1
+    comments.sort((a, b) => orderMultiplier * sortFunction(a, b))
+  } else if (get(ascendingOrderFilterAtom)) comments.reverse()
+
+  return comments
+})
+
+const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
   const updatedComments = get(commentsAtom).map((comment) => {
     if (comment.id === commentId) {
       return {
@@ -49,3 +105,17 @@ export const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
 
   set(commentsAtom, updatedComments)
 })
+
+const courseCommentsOpenAtom = atom(false)
+
+const openCourseCommentsAtom = atom(null, (_get, set) => {
+  set(courseCommentsOpenAtom, true)
+})
+
+export {
+  commentsAtom,
+  filteredCommentsAtom,
+  toggleCommentLikeByIdAtom,
+  courseCommentsOpenAtom,
+  openCourseCommentsAtom,
+}

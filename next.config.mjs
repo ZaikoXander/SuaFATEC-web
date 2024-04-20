@@ -4,12 +4,18 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'bkpsitecpsnew.blob.core.windows.net',
+        port: '',
+        pathname: '/uploadsitecps/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'www.fatecpg.edu.br',
         port: '',
-        pathname: '/img/**'
-      }
-    ]
-  }
-};
+        pathname: '/img/**',
+      },
+    ],
+  },
+}
 
-export default nextConfig;
+export default nextConfig
