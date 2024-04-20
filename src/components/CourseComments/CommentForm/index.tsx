@@ -3,7 +3,7 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card'
 import {
   Form,
   FormControl,
@@ -11,11 +11,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { Textarea } from '../ui/textarea'
-import DateInput from '../DateInput'
+} from '../../ui/form'
+import { Input } from '../../ui/input'
+import { Button } from '../../ui/button'
+import { Textarea } from '../../ui/textarea'
+import DateInput from '../../DateInput'
 
 const formSchema = z.object({
   studentName: z
