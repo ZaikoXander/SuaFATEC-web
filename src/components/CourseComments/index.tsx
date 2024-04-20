@@ -1,14 +1,14 @@
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from './ui/sheet'
+} from '../ui/sheet'
 
-import CommentList from './CommentList'
-import CommentForm from './CommentForm'
+import CommentList from '../CommentList'
+import CommentForm from '../CommentForm'
 
 import Image from 'next/image'
 
