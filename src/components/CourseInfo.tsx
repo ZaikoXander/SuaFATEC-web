@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Button } from './ui/button'
 import {
   Sheet,
@@ -8,6 +7,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from './ui/sheet'
+
+import Image from 'next/image'
 
 type Shift = 'morning' | 'afternoon' | 'night'
 
@@ -28,29 +29,25 @@ export default function CourseInfo({
   shifts,
   distanceLearning,
 }: CourseInfoProps) {
-  function shiftsToPortuguese() {
-    return shifts.map((shift) => {
-      switch (shift) {
-        case 'morning':
-          return 'Matutino'
-        case 'afternoon':
-          return 'Vespertino'
-        case 'night':
-          return 'Noturno'
-      }
+  const shiftsToPortuguese = shifts.map((shift) => {
+    switch (shift) {
+      case 'morning':
+        return 'Matutino'
+      case 'afternoon':
+        return 'Vespertino'
+      case 'night':
+        return 'Noturno'
+    }
+  })
+
+  const formattedShifts = shiftsToPortuguese
+    .map((shift, index) => {
+      if (index === shifts.length - 1) return shift
+      if (index === shifts.length - 2) return `${shift} e `
+
+      return `${shift}, `
     })
-  }
-
-  function FormattedShifts() {
-    return shiftsToPortuguese()
-      .map((shift, index) => {
-        if (index === shifts.length - 1) return shift
-        if (index === shifts.length - 2) return `${shift} e `
-
-        return `${shift}, `
-      })
-      .join('')
-  }
+    .join('')
 
   return (
     <Sheet>
@@ -82,7 +79,7 @@ export default function CourseInfo({
           <span className='font-semibold'>
             Turnos:{' '}
             <span className='self-center text-sm font-medium leading-none'>
-              <FormattedShifts />
+              {formattedShifts}
             </span>
           </span>
           <span className='font-semibold'>
