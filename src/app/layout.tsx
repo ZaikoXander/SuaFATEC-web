@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Sua FATEC',
   description:
     'Site para estudantes encontrarem sua FATEC. Diversas informações sobre as FATECs do estado de Sao Paulo e seus cursos.',
+  icons: 'favicon.png',
 }
 
 export default function RootLayout({
