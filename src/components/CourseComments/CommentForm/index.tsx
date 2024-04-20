@@ -15,7 +15,7 @@ import {
 import { Input } from '../../ui/input'
 import { Button } from '../../ui/button'
 import { Textarea } from '../../ui/textarea'
-import DateInput from '../../DateInput'
+import DateInput from './DateInput'
 
 const formSchema = z.object({
   studentName: z
