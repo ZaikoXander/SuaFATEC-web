@@ -63,16 +63,17 @@ export default function InstitutionInfo({
               {phoneNumber}
             </span>
           </span>
-          <div className='flex gap-1'>
+          <div className='flex gap-2'>
             {imagePairs.map((imagePair, index) => (
-              <div key={index} className='flex flex-col gap-1'>
+              <div key={index} className='flex flex-col gap-2'>
                 {imagePair.map((image, index) => (
                   <Image
                     key={index}
                     src={image.src}
                     alt={image.alt}
-                    width={240}
-                    height={240}
+                    width={256}
+                    height={256}
+                    className='rounded-sm'
                   />
                 ))}
               </div>
