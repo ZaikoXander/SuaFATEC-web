@@ -1,6 +1,13 @@
+'use client'
+
+import { useSetAtom } from 'jotai'
+
+import { openCourseCommentsAtom } from '@/atoms/comments'
+
 import { Button } from './ui/button'
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -29,6 +36,8 @@ export default function CourseInfo({
   shifts,
   distanceLearning,
 }: CourseInfoProps) {
+  const openCourseCommentsModal = useSetAtom(openCourseCommentsAtom)
+
   const shiftsToPortuguese = shifts.map((shift) => {
     switch (shift) {
       case 'morning':
@@ -88,9 +97,15 @@ export default function CourseInfo({
               {distanceLearning ? 'Sim' : 'Não'}
             </span>
           </span>
-          <Button className='mt-auto w-full' variant='outline'>
-            Abrir comentários
-          </Button>
+          <SheetClose asChild>
+            <Button
+              className='mt-auto w-full'
+              variant='outline'
+              onClick={openCourseCommentsModal}
+            >
+              Abrir comentários
+            </Button>
+          </SheetClose>
         </div>
       </SheetContent>
     </Sheet>
