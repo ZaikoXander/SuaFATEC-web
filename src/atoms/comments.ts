@@ -64,9 +64,9 @@ const initialComments: Comment[] = [
   },
 ]
 
-export const commentsAtom = atom<Comment[]>(initialComments)
+const commentsAtom = atom<Comment[]>(initialComments)
 
-export const filteredCommentsAtom = atom((get) => {
+const filteredCommentsAtom = atom((get) => {
   const comments = [...get(commentsAtom)]
   let sortFunction
 
@@ -88,7 +88,7 @@ export const filteredCommentsAtom = atom((get) => {
   return comments
 })
 
-export const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
+const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
   const updatedComments = get(commentsAtom).map((comment) => {
     if (comment.id === commentId) {
       return {
@@ -105,3 +105,17 @@ export const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
 
   set(commentsAtom, updatedComments)
 })
+
+const courseCommentsOpenAtom = atom(false)
+
+const openCourseCommentsAtom = atom(null, (_get, set) => {
+  set(courseCommentsOpenAtom, true)
+})
+
+export {
+  commentsAtom,
+  filteredCommentsAtom,
+  toggleCommentLikeByIdAtom,
+  courseCommentsOpenAtom,
+  openCourseCommentsAtom,
+}
