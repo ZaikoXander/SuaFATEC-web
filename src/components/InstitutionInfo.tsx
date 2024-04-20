@@ -9,15 +9,17 @@ import {
   SheetTrigger,
 } from './ui/sheet'
 
+type Images = {
+  src: string
+  alt: string
+}[]
+
 interface InstitutionInfoProps {
   title: string
   description: string[]
   address: string
   phoneNumber: string
-  images: {
-    src: string
-    alt: string
-  }[]
+  images: Images
 }
 
 export default function InstitutionInfo({
@@ -27,6 +29,11 @@ export default function InstitutionInfo({
   phoneNumber,
   images,
 }: InstitutionInfoProps) {
+  const imagePairs = images.reduce((result: Images[], value, index, array) => {
+    if (index % 2 === 0) result.push(array.slice(index, index + 2))
+    return result
+  }, [])
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -56,35 +63,20 @@ export default function InstitutionInfo({
               {phoneNumber}
             </span>
           </span>
-          <div className='flex flex-col gap-1'>
-            <div className='flex gap-1'>
-              <Image
-                src={images[0].src}
-                alt={images[0].alt}
-                width={240}
-                height={240}
-              />
-              <Image
-                src={images[1].src}
-                alt={images[1].alt}
-                width={240}
-                height={240}
-              />
-            </div>
-            <div className='flex gap-1'>
-              <Image
-                src={images[2].src}
-                alt={images[2].alt}
-                width={240}
-                height={240}
-              />
-              <Image
-                src={images[3].src}
-                alt={images[3].alt}
-                width={240}
-                height={240}
-              />
-            </div>
+          <div className='flex gap-1'>
+            {imagePairs.map((imagePair, index) => (
+              <div key={index} className='flex flex-col gap-1'>
+                {imagePair.map((image, index) => (
+                  <Image
+                    key={index}
+                    src={image.src}
+                    alt={image.alt}
+                    width={240}
+                    height={240}
+                  />
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </SheetContent>
