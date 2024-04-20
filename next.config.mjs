@@ -8,6 +8,12 @@ const nextConfig = {
         port: '',
         pathname: '/uploadsitecps/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.fatecpg.edu.br',
+        port: '',
+        pathname: '/img/**',
+      },
     ],
   },
 }
