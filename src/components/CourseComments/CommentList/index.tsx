@@ -7,10 +7,10 @@ import { useAtomValue } from 'jotai'
 import { filteredCommentsAtom } from '@/atoms/comments'
 
 import Filters from './Filters'
-import Comment from '../Comment'
+import Comment from '../../Comment'
 
-import { ScrollArea } from '../ui/scroll-area'
-import { Separator } from '../ui/separator'
+import { ScrollArea } from '../../ui/scroll-area'
+import { Separator } from '../../ui/separator'
 
 export default function CommentList() {
   const filteredComments = useAtomValue(filteredCommentsAtom)

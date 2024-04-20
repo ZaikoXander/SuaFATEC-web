@@ -7,8 +7,8 @@ import {
   SheetTrigger,
 } from '../ui/sheet'
 
-import CommentList from '../CommentList'
-import CommentForm from '../CommentForm'
+import CommentList from './CommentList'
+import CommentForm from './CommentForm'
 
 import Image from 'next/image'
 

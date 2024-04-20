@@ -8,8 +8,8 @@ import {
 } from '@/atoms/commentListFilters'
 
 import FilterButton from './FilterButton'
-import { Button } from '../ui/button'
-import { Separator } from '../ui/separator'
+import { Button } from '../../ui/button'
+import { Separator } from '../../ui/separator'
 
 import { cn } from '@/lib/utils'
 
