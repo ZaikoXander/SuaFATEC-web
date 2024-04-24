@@ -65,20 +65,22 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      {onReturnButtonClick ? (
-        <SheetPrimitive.Close
-          onClick={onReturnButtonClick}
-          className="absolute left-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
-        >
-          <ArrowLeft className="h-7 w-7" />
-          <span className="sr-only">Voltar</span>
-        </SheetPrimitive.Close>
-      ) : (
-        <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-          <X className="h-7 w-7" />
-          <span className="sr-only">Fechar</span>
-        </SheetPrimitive.Close>
-      )}
+      <SheetPrimitive.Close
+        onClick={onReturnButtonClick}
+        className={cn(
+          "absolute top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary",
+          onReturnButtonClick ? "left-4" : "right-4"
+        )}
+      >
+        {
+          onReturnButtonClick ?
+            <ArrowLeft className="h-7 w-7" /> :
+            <X className="h-7 w-7" />
+        }
+        <span className="sr-only">
+          {onReturnButtonClick ? 'Voltar' : 'Fechar'}
+        </span>
+      </SheetPrimitive.Close>
     </SheetPrimitive.Content>
   </SheetPortal>
 ))
