@@ -16,39 +16,41 @@ export default function CommentList() {
   const filteredComments = useAtomValue(filteredCommentsAtom)
 
   return (
-    <ScrollArea className='h-[48rem] rounded-md border p-4'>
+    <div className='h-full rounded-md border'>
       <Filters />
-      <Separator className='my-2' />
-      {filteredComments.map((comment) => {
-        const lastCommentId = filteredComments.at(-1)?.id
-        if (lastCommentId === comment.id) {
-          return (
-            <Comment
-              key={comment.id}
-              id={comment.id}
-              studentName={comment.studentName}
-              content={comment.content}
-              conclusionDate={comment.conclusionDate}
-              liked={comment.liked}
-              quantityLikes={comment.quantityLikes}
-            />
-          )
-        }
+      <Separator className='mt-2' />
+      <ScrollArea className='h-[48rem] px-4 pb-0 pt-2'>
+        {filteredComments.map((comment) => {
+          const lastCommentId = filteredComments.at(-1)?.id
+          if (lastCommentId === comment.id) {
+            return (
+              <Comment
+                key={comment.id}
+                id={comment.id}
+                studentName={comment.studentName}
+                content={comment.content}
+                conclusionDate={comment.conclusionDate}
+                liked={comment.liked}
+                quantityLikes={comment.quantityLikes}
+              />
+            )
+          }
 
-        return (
-          <Fragment key={comment.id}>
-            <Comment
-              id={comment.id}
-              studentName={comment.studentName}
-              content={comment.content}
-              conclusionDate={comment.conclusionDate}
-              liked={comment.liked}
-              quantityLikes={comment.quantityLikes}
-            />
-            <Separator className='my-2' />
-          </Fragment>
-        )
-      })}
-    </ScrollArea>
+          return (
+            <Fragment key={comment.id}>
+              <Comment
+                id={comment.id}
+                studentName={comment.studentName}
+                content={comment.content}
+                conclusionDate={comment.conclusionDate}
+                liked={comment.liked}
+                quantityLikes={comment.quantityLikes}
+              />
+              <Separator className='my-2' />
+            </Fragment>
+          )
+        })}
+      </ScrollArea>
+    </div>
   )
 }
