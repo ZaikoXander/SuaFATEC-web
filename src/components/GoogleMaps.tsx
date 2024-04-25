@@ -5,7 +5,10 @@ import {
   APIProvider,
   Map,
   MapCameraChangedEvent,
+  Pin,
 } from '@vis.gl/react-google-maps'
+
+import { GraduationCap } from 'lucide-react'
 
 const SaoPauloStateCenterPosition: google.maps.LatLngLiteral = {
   lat: -22.43096057384716,
@@ -54,7 +57,11 @@ export default function GoogleMaps() {
           onCameraChanged={handleCameraChange}
           mapId={process.env.NEXT_PUBLIC_MAP_ID}
         >
-          <AdvancedMarker position={santosFatecPosition} />
+          <AdvancedMarker position={santosFatecPosition} onClick={() => {}}>
+            <Pin>
+              <GraduationCap fill='#b00' stroke='#b00' size={20} />
+            </Pin>
+          </AdvancedMarker>
         </Map>
       </div>
     </APIProvider>
