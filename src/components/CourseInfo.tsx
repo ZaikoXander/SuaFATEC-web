@@ -1,8 +1,8 @@
 'use client'
 
-import { useSetAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 
-import { openCourseCommentsAtom } from '@/atoms/comments'
+import { courseInfoOpenAtom, openCourseCommentsAtom } from '@/atoms/sheets'
 
 import { Button } from './ui/button'
 import {
@@ -36,6 +36,7 @@ export default function CourseInfo({
   shifts,
   distanceLearning,
 }: CourseInfoProps) {
+  const [open, setOpen] = useAtom(courseInfoOpenAtom)
   const openCourseComments = useSetAtom(openCourseCommentsAtom)
 
   const shiftsToPortuguese = shifts.map((shift) => {
@@ -59,7 +60,7 @@ export default function CourseInfo({
     .join('')
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button className='absolute z-10 mt-20' variant='outline'>
           Open
