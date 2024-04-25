@@ -8,8 +8,8 @@ import {
 } from '@/atoms/commentListFilters'
 
 import FilterButton from './FilterButton'
-import { Button } from '../ui/button'
-import { Separator } from '../ui/separator'
+import { Button } from '../../ui/button'
+import { Separator } from '../../ui/separator'
 
 import { cn } from '@/lib/utils'
 
@@ -19,7 +19,7 @@ export default function Filters() {
   const [likeFilter, setLikeFilter] = useAtom(likeFilterAtom)
 
   return (
-    <div className='flex h-7 items-center gap-2'>
+    <div className='mx-4 my-3 flex h-7 items-center gap-2'>
       <small className='text-sm font-medium leading-none'>Filtros</small>
       <Separator orientation='vertical' className='mx-1 h-full' />
       <div className='flex w-full justify-between'>
