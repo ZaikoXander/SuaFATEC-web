@@ -106,16 +106,4 @@ const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
   set(commentsAtom, updatedComments)
 })
 
-const courseCommentsOpenAtom = atom(false)
-
-const openCourseCommentsAtom = atom(null, (_get, set) => {
-  set(courseCommentsOpenAtom, true)
-})
-
-export {
-  commentsAtom,
-  filteredCommentsAtom,
-  toggleCommentLikeByIdAtom,
-  courseCommentsOpenAtom,
-  openCourseCommentsAtom,
-}
+export { commentsAtom, filteredCommentsAtom, toggleCommentLikeByIdAtom }
