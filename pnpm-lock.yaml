@@ -36,8 +36,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.21)(@types/react@18.2.64)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@vis.gl/react-google-maps':
-        specifier: ^0.7.1
-        version: 0.7.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^0.9.0
+        version: 0.9.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -659,8 +659,8 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@vis.gl/react-google-maps@0.7.1':
-    resolution: {integrity: sha512-KrvSfZ9k9RBrUKCVACTNh96jzzIKumPSymNTd1uNlvLWYVcDaliE6/PF/jBFYVB2n/K5BvDspTF9CLJ3rgx5VQ==}
+  '@vis.gl/react-google-maps@0.9.0':
+    resolution: {integrity: sha512-wgErgurwc6Tqu8Ic10F6oNe39FgSmEz3z2zu2h0wgJGD0wMaNobd5uuleoMklGZMycXrYhSecJw9Tlp/Z/UEoQ==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -2669,7 +2669,7 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vis.gl/react-google-maps@0.7.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@vis.gl/react-google-maps@0.9.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@types/google.maps': 3.55.4
       fast-deep-equal: 3.1.3
