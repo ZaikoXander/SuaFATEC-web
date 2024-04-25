@@ -27,7 +27,7 @@ export default function CourseComments({
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         onReturnButtonClick={openCourseInfo}
-        className='flex w-[72%] flex-col gap-4 sm:max-w-[86%]'
+        className='flex w-[58rem] flex-col gap-4 sm:max-w-[90rem]'
       >
         <SheetHeader className='self-center'>
           <SheetTitle>Comentários do curso {courseName}</SheetTitle>
@@ -40,7 +40,7 @@ export default function CourseComments({
               alt={`Imagem ilustrativa do curso ${courseName}`}
               width={400}
               height={400}
-              className='mt-2 w-10/12 rounded-md'
+              className='mt-2 w-[28rem] rounded-md shadow-sm'
             />
             <CommentForm />
           </div>
