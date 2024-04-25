@@ -36,7 +36,7 @@ export default function CourseInfo({
   shifts,
   distanceLearning,
 }: CourseInfoProps) {
-  const openCourseCommentsModal = useSetAtom(openCourseCommentsAtom)
+  const openCourseComments = useSetAtom(openCourseCommentsAtom)
 
   const shiftsToPortuguese = shifts.map((shift) => {
     switch (shift) {
@@ -101,7 +101,7 @@ export default function CourseInfo({
             <Button
               className='mt-auto w-full'
               variant='outline'
-              onClick={openCourseCommentsModal}
+              onClick={openCourseComments}
             >
               Abrir comentários
             </Button>
