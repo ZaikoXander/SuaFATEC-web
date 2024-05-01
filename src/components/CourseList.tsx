@@ -1,9 +1,8 @@
-import { Fragment } from 'react';
-import { Button } from './ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { useAtom } from 'jotai';
-import { institutionModalState, courseIdState } from './state';
+import { Fragment } from 'react'
+
+import { Button } from './ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
 
 const courses = [
   {
@@ -58,17 +57,7 @@ const courses = [
 ]
 
 export default function CourseList() {
-  const [isOpen, setOpen] = useAtom(institutionModalState);
-  const [, setCourseId] = useAtom(courseIdState);
-
-  const handleCourseClick = (courseId: number) => {
-    setOpen(false); // Fecha o modal InstitutionInfo
-    setCourseId(courseId); // Define o ID do curso selecionado
-  };
-  
   return (
-
-    
     <ScrollArea className='m-3 h-96 w-96 rounded-md border p-4'>
       <h4 className='mb-4 text-lg font-bold leading-none'>
         Cursos disponíveis

@@ -1,12 +1,14 @@
-import Image from 'next/image';
-import { Button } from './ui/button';
-import CourseList from './CourseList';
-import { Sheet,  SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
-import { useAtom } from 'jotai';
-import { institutionModalState } from './state';
-
-
-
+import Image from 'next/image'
+import { Button } from './ui/button'
+import CourseList from './CourseList'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from './ui/sheet'
 
 type Images = {
   src: string
@@ -29,16 +31,12 @@ export default function InstitutionInfo({
   images,
 }: InstitutionInfoProps) {
   const imagePairs = images.reduce((result: Images[], value, index, array) => {
-    if (index % 2 === 0) result.push(array.slice(index, index + 2));
-    return result;
-  }, []);
-
-  const [isOpen, setOpen] = useAtom(institutionModalState);
-
-  const handleCloseModal = () => setOpen(false);
+    if (index % 2 === 0) result.push(array.slice(index, index + 2))
+    return result
+  }, [])
 
   return (
-    <Sheet open={isOpen} onClose={handleCloseModal}> {/* Adicione uma prop open ao componente Sheet */}
+    <Sheet>
       <SheetTrigger asChild>
         <Button className='absolute z-10 mt-20' variant='outline'>
           Open
@@ -86,5 +84,5 @@ export default function InstitutionInfo({
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
