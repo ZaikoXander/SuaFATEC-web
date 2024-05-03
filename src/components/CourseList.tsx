@@ -6,8 +6,9 @@ import { useAtomValue, useSetAtom } from 'jotai'
 import { coursesAtom, selectedCourseAtom } from '@/atoms/institutionCoursesData'
 
 import { Button } from './ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
+import { SheetClose } from './ui/sheet'
+import { ScrollArea } from './ui/scroll-area'
+import { Separator } from './ui/separator'
 
 export default function CourseList() {
   const courses = useAtomValue(coursesAtom)
@@ -22,26 +23,29 @@ export default function CourseList() {
         const lastCourseId = courses.at(-1)?.id
         if (lastCourseId === course.id) {
           return (
-            <Button
-              key={course.id}
-              variant='outline'
-              className='h-auto w-full text-pretty'
-              onClick={() => setSelectedCourse(course)}
-            >
-              {course.title}
-            </Button>
+            <SheetClose key={course.id} asChild>
+              <Button
+                variant='outline'
+                className='h-auto w-full text-pretty'
+                onClick={() => setSelectedCourse(course)}
+              >
+                {course.title}
+              </Button>
+            </SheetClose>
           )
         }
 
         return (
           <Fragment key={course.id}>
-            <Button
-              variant='outline'
-              className='h-auto w-full text-pretty'
-              onClick={() => setSelectedCourse(course)}
-            >
-              {course.title}
-            </Button>
+            <SheetClose key={course.id} asChild>
+              <Button
+                variant='outline'
+                className='h-auto w-full text-pretty'
+                onClick={() => setSelectedCourse(course)}
+              >
+                {course.title}
+              </Button>
+            </SheetClose>
             <Separator className='my-2' />
           </Fragment>
         )
