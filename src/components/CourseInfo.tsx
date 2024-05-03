@@ -17,7 +17,7 @@ import {
 
 import Image from 'next/image'
 
-type Shift = 'morning' | 'afternoon' | 'night'
+import type { Shift } from '@/atoms/institutionCoursesData'
 
 interface CourseInfoProps {
   institutionName: string

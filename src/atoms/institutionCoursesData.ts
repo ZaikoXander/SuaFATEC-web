@@ -6,6 +6,16 @@ interface Course {
   duration: number
 }
 
+type Shift = 'morning' | 'afternoon' | 'night'
+
+interface CourseOffering {
+  id: number
+  courseId: number
+  institutionId: number
+  shifts: Shift[]
+  distanceLearning: boolean
+}
+
 const coursesAtom = atom<Course[]>([
   {
     id: 1,
@@ -70,6 +80,44 @@ const coursesAtom = atom<Course[]>([
   },
 ])
 
+const courseOfferingsAtom = atom<CourseOffering[]>([
+  {
+    id: 1,
+    courseId: 1,
+    institutionId: 1,
+    shifts: ['morning', 'afternoon', 'night'],
+    distanceLearning: false,
+  },
+  {
+    id: 2,
+    courseId: 2,
+    institutionId: 1,
+    shifts: ['morning', 'afternoon'],
+    distanceLearning: true,
+  },
+  {
+    id: 3,
+    courseId: 3,
+    institutionId: 1,
+    shifts: ['night'],
+    distanceLearning: true,
+  },
+  {
+    id: 4,
+    courseId: 4,
+    institutionId: 1,
+    shifts: ['morning', 'afternoon'],
+    distanceLearning: false,
+  },
+  {
+    id: 5,
+    courseId: 5,
+    institutionId: 1,
+    shifts: ['afternoon', 'night'],
+    distanceLearning: false,
+  },
+])
+
 const selectedCourseAtom = atom<Course | undefined>(undefined)
 
-export { coursesAtom, selectedCourseAtom }
+export { type Shift, coursesAtom, courseOfferingsAtom, selectedCourseAtom }
