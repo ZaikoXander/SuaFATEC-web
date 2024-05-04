@@ -1,4 +1,10 @@
+'use client'
+
 import Image from 'next/image'
+
+import { useAtomValue } from 'jotai'
+import { selectedInstitutionAtom } from '@/atoms/institutions'
+
 import { Button } from './ui/button'
 import CourseList from './CourseList'
 import {
@@ -10,30 +16,16 @@ import {
   SheetTrigger,
 } from './ui/sheet'
 
-type Images = {
-  src: string
-  alt: string
-}[]
+export default function InstitutionInfo() {
+  const selectedInstitution = useAtomValue(selectedInstitutionAtom)
 
-interface InstitutionInfoProps {
-  title: string
-  description: string[]
-  address: string
-  phoneNumber: string
-  images: Images
-}
-
-export default function InstitutionInfo({
-  title,
-  description,
-  address,
-  phoneNumber,
-  images,
-}: InstitutionInfoProps) {
-  const imagePairs = images.reduce((result: Images[], value, index, array) => {
-    if (index % 2 === 0) result.push(array.slice(index, index + 2))
-    return result
-  }, [])
+  const imagePairs = selectedInstitution?.images.reduce(
+    (result: string[][], value, index, array) => {
+      if (index % 2 === 0) result.push(array.slice(index, index + 2))
+      return result
+    },
+    [],
+  )
 
   return (
     <Sheet>
@@ -44,9 +36,9 @@ export default function InstitutionInfo({
       </SheetTrigger>
       <SheetContent className='flex w-[36%] flex-col gap-4 sm:max-w-[86%]'>
         <SheetHeader>
-          <SheetTitle>{title}</SheetTitle>
+          <SheetTitle>Informações da {selectedInstitution?.name}</SheetTitle>
           <SheetDescription>
-            {description.map((paragraph, index) => (
+            {selectedInstitution?.description.map((paragraph, index) => (
               <span key={index} className='block'>
                 {paragraph}
               </span>
@@ -57,23 +49,23 @@ export default function InstitutionInfo({
           <span className='font-semibold'>
             Endereço:{' '}
             <span className='self-center text-sm font-medium leading-none'>
-              {address}
+              {selectedInstitution?.address}
             </span>
           </span>
           <span className='font-semibold'>
             Telefone:{' '}
             <span className='text-sm font-medium leading-none'>
-              {phoneNumber}
+              {selectedInstitution?.phoneNumber}
             </span>
           </span>
           <div className='flex gap-2'>
-            {imagePairs.map((imagePair, index) => (
+            {imagePairs?.map((imagePair, index) => (
               <div key={index} className='flex flex-col gap-2'>
                 {imagePair.map((image, index) => (
                   <Image
                     key={index}
-                    src={image.src}
-                    alt={image.alt}
+                    src={image}
+                    alt=''
                     width={256}
                     height={256}
                     className='rounded-sm'
