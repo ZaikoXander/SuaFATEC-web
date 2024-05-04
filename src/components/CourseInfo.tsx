@@ -1,7 +1,13 @@
 'use client'
 
-import { useAtom, useSetAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 
+import { selectedInstitutionAtom } from '@/atoms/institutions'
+import {
+  selectedCourseAtom,
+  selectedCourseOfferingAtom,
+  formattedShiftsAtom,
+} from '@/atoms/institutionCoursesData'
 import { courseInfoOpenAtom, openCourseCommentsAtom } from '@/atoms/sheets'
 
 import { Button } from './ui/button'
@@ -12,78 +18,40 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from './ui/sheet'
 
 import Image from 'next/image'
 
-import type { Shift } from '@/atoms/institutionCoursesData'
-
-interface CourseInfoProps {
-  institutionName: string
-  courseName: string
-  courseDescription: string
-  courseImageUrl: string
-  shifts: Shift[]
-  distanceLearning: boolean
-}
-
-export default function CourseInfo({
-  institutionName,
-  courseName,
-  courseDescription,
-  courseImageUrl,
-  shifts,
-  distanceLearning,
-}: CourseInfoProps) {
+export default function CourseInfo() {
+  const selectedInstitution = useAtomValue(selectedInstitutionAtom)
+  const selectedCourse = useAtomValue(selectedCourseAtom)
+  const selectedCourseOffering = useAtomValue(selectedCourseOfferingAtom)
   const [open, setOpen] = useAtom(courseInfoOpenAtom)
   const openCourseComments = useSetAtom(openCourseCommentsAtom)
-
-  const shiftsToPortuguese = shifts.map((shift) => {
-    switch (shift) {
-      case 'morning':
-        return 'Matutino'
-      case 'afternoon':
-        return 'Vespertino'
-      case 'night':
-        return 'Noturno'
-    }
-  })
-
-  const formattedShifts = shiftsToPortuguese
-    .map((shift, index) => {
-      if (index === shifts.length - 1) return shift
-      if (index === shifts.length - 2) return `${shift} e `
-
-      return `${shift}, `
-    })
-    .join('')
+  const formattedShifts = useAtomValue(formattedShiftsAtom)
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button className='absolute z-10 mt-20' variant='outline'>
-          Open
-        </Button>
-      </SheetTrigger>
       <SheetContent className='flex w-[36%] flex-col gap-4 sm:max-w-[86%]'>
         <SheetHeader>
           <SheetTitle>
             <span className='block scroll-m-20 text-2xl font-semibold tracking-tight'>
-              {institutionName}
+              {selectedInstitution?.name}
             </span>
             <span className='block scroll-m-20 text-xl font-semibold tracking-tight'>
-              Informações do curso {courseName}
+              Informações do curso {selectedCourse?.name}
             </span>
           </SheetTitle>
-          <SheetDescription>{courseDescription}</SheetDescription>
-          <Image
-            src={courseImageUrl}
-            alt={`Foto de ${courseName}`}
-            width={400}
-            height={230}
-            className='w-full rounded-md'
-          />
+          <SheetDescription>{selectedCourse?.description}</SheetDescription>
+          {selectedCourse ? (
+            <Image
+              src={selectedCourse?.photoUrl}
+              alt={`Foto de ${selectedCourse?.name}`}
+              width={400}
+              height={230}
+              className='w-full rounded-md'
+            />
+          ) : null}
         </SheetHeader>
         <div className='flex h-full flex-col gap-2'>
           <span className='font-semibold'>
@@ -95,7 +63,7 @@ export default function CourseInfo({
           <span className='font-semibold'>
             EAD?{' '}
             <span className='self-center text-sm font-medium leading-none'>
-              {distanceLearning ? 'Sim' : 'Não'}
+              {selectedCourseOffering?.distanceLearning ? 'Sim' : 'Não'}
             </span>
           </span>
           <SheetClose asChild>
