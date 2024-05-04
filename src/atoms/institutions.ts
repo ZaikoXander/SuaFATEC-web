@@ -46,6 +46,8 @@ const institutionsAtom = atom<Institution[]>([
   },
 ])
 
-const selectedInstitutionAtom = atom<Institution | undefined>(undefined)
+const selectedInstitutionAtom = atom<Institution | undefined>((get) => {
+  return get(institutionsAtom)[0]
+})
 
 export { institutionsAtom, selectedInstitutionAtom }
