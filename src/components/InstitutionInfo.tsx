@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Button } from './ui/button'
+import CourseList from './CourseList'
 import {
   Sheet,
   SheetContent,
@@ -79,6 +80,7 @@ export default function InstitutionInfo({
               </div>
             ))}
           </div>
+          <CourseList />
         </div>
       </SheetContent>
     </Sheet>

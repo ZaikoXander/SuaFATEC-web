@@ -1,8 +1,8 @@
 'use client'
 
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 
-import { courseCommentsOpenAtom } from '@/atoms/comments'
+import { courseCommentsOpenAtom, openCourseInfoAtom } from '@/atoms/sheets'
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet'
 
@@ -21,10 +21,14 @@ export default function CourseComments({
   courseImageUrl,
 }: CourseCommentsProps) {
   const [open, setOpen] = useAtom(courseCommentsOpenAtom)
+  const openCourseInfo = useSetAtom(openCourseInfoAtom)
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent className='flex w-[72%] flex-col gap-4 sm:max-w-[86%]'>
+      <SheetContent
+        onReturnButtonClick={openCourseInfo}
+        className='flex w-[58rem] flex-col gap-4 sm:max-w-[90rem]'
+      >
         <SheetHeader className='self-center'>
           <SheetTitle>Comentários do curso {courseName}</SheetTitle>
         </SheetHeader>
@@ -36,7 +40,7 @@ export default function CourseComments({
               alt={`Imagem ilustrativa do curso ${courseName}`}
               width={400}
               height={400}
-              className='mt-2 w-10/12 rounded-md'
+              className='mt-2 w-[28rem] rounded-md shadow-sm'
             />
             <CommentForm />
           </div>

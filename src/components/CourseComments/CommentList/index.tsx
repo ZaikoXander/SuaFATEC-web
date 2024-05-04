@@ -16,7 +16,7 @@ export default function CommentList() {
   const filteredComments = useAtomValue(filteredCommentsAtom)
 
   return (
-    <div className='h-full rounded-md border'>
+    <div className='h-full rounded-md border shadow-sm'>
       <Filters />
       <Separator className='mt-2' />
       <ScrollArea className='h-[48rem] px-4 pb-0 pt-2'>
