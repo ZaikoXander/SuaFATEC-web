@@ -47,7 +47,9 @@ export default function InstitutionInfo({
           <SheetTitle>{title}</SheetTitle>
           <SheetDescription>
             {description.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
+              <span key={index} className='block'>
+                {paragraph}
+              </span>
             ))}
           </SheetDescription>
         </SheetHeader>
