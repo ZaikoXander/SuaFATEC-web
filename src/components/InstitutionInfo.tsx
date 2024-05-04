@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
+import { institutionInfoOpenAtom } from '@/atoms/sheets'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 
 import { Button } from './ui/button'
@@ -17,6 +18,7 @@ import {
 } from './ui/sheet'
 
 export default function InstitutionInfo() {
+  const [open, setOpen] = useAtom(institutionInfoOpenAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
 
   const imagePairs = selectedInstitution?.images.reduce(
@@ -28,7 +30,7 @@ export default function InstitutionInfo() {
   )
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button className='absolute z-10 mt-20' variant='outline'>
           Open

@@ -1,5 +1,8 @@
 'use client'
 
+import { useSetAtom } from 'jotai'
+import { openInstitutionInfoAtom } from '@/atoms/sheets'
+
 import {
   AdvancedMarker,
   APIProvider,
@@ -46,6 +49,8 @@ function handleCameraChange(event: MapCameraChangedEvent) {
 }
 
 export default function GoogleMaps() {
+  const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)
+
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <div className='h-screen w-full'>
@@ -57,7 +62,10 @@ export default function GoogleMaps() {
           onCameraChanged={handleCameraChange}
           mapId={process.env.NEXT_PUBLIC_MAP_ID}
         >
-          <AdvancedMarker position={santosFatecPosition} onClick={() => {}}>
+          <AdvancedMarker
+            position={santosFatecPosition}
+            onClick={openInstitutionInfo}
+          >
             <Pin>
               <GraduationCap fill='#b00' stroke='#b00' size={20} />
             </Pin>
