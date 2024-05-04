@@ -6,7 +6,6 @@ import { useAtom, useAtomValue } from 'jotai'
 import { institutionInfoOpenAtom } from '@/atoms/sheets'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 
-import { Button } from './ui/button'
 import CourseList from './CourseList'
 import {
   Sheet,
@@ -14,7 +13,6 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from './ui/sheet'
 
 export default function InstitutionInfo() {
@@ -31,11 +29,6 @@ export default function InstitutionInfo() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button className='absolute z-10 mt-20' variant='outline'>
-          Open
-        </Button>
-      </SheetTrigger>
       <SheetContent className='flex w-[36%] flex-col gap-4 sm:max-w-[86%]'>
         <SheetHeader>
           <SheetTitle>Informações da {selectedInstitution?.name}</SheetTitle>

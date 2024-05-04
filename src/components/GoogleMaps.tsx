@@ -1,6 +1,11 @@
 'use client'
 
-import { useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
+import {
+  type Institution,
+  institutionsAtom,
+  selectedInstitutionAtom,
+} from '@/atoms/institutions'
 import { openInstitutionInfoAtom } from '@/atoms/sheets'
 
 import {
@@ -25,14 +30,9 @@ const SaoPauloStateBounds: google.maps.LatLngBoundsLiteral = {
   west: -44.1613651,
 }
 
-const santosFatecPosition: google.maps.LatLngLiteral = {
-  lat: -23.9426566,
-  lng: -46.3263839,
-}
-
 function isPositionWithinSaoPauloStateBounds(
   position: google.maps.LatLngLiteral,
-) {
+): boolean {
   const { lat, lng } = position
   const { north, south, east, west } = SaoPauloStateBounds
 
@@ -49,7 +49,14 @@ function handleCameraChange(event: MapCameraChangedEvent) {
 }
 
 export default function GoogleMaps() {
+  const institutions = useAtomValue(institutionsAtom)
+  const setSelectedInstitution = useSetAtom(selectedInstitutionAtom)
   const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)
+
+  function handleInstitutionClick(institution: Institution) {
+    setSelectedInstitution(institution)
+    openInstitutionInfo()
+  }
 
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
@@ -62,14 +69,20 @@ export default function GoogleMaps() {
           onCameraChanged={handleCameraChange}
           mapId={process.env.NEXT_PUBLIC_MAP_ID}
         >
-          <AdvancedMarker
-            position={santosFatecPosition}
-            onClick={openInstitutionInfo}
-          >
-            <Pin>
-              <GraduationCap fill='#b00' stroke='#b00' size={20} />
-            </Pin>
-          </AdvancedMarker>
+          {institutions.map((institution) => (
+            <AdvancedMarker
+              key={institution.id}
+              position={{
+                lat: institution.latitudeCoordinate,
+                lng: institution.longitudeCoordinate,
+              }}
+              onClick={() => handleInstitutionClick(institution)}
+            >
+              <Pin>
+                <GraduationCap fill='#b00' stroke='#b00' size={20} />
+              </Pin>
+            </AdvancedMarker>
+          ))}
         </Map>
       </div>
     </APIProvider>
