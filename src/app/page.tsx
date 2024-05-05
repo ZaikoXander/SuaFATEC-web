@@ -13,10 +13,7 @@ export default function Home() {
       />
       <InstitutionInfo />
       <CourseInfo />
-      <CourseComments
-        courseName='Análise e Desenvolvimento de Sistemas'
-        courseImageUrl='https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg'
-      />
+      <CourseComments />
       <GoogleMaps />
     </main>
   )
