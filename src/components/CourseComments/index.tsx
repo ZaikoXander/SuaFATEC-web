@@ -3,7 +3,7 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 
 import { courseCommentsOpenAtom, openCourseInfoAtom } from '@/atoms/sheets'
-import { selectedCourseAtom } from '@/atoms/institutionCoursesData'
+import { selectedCourseAtom } from '@/atoms/courses'
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet'
 

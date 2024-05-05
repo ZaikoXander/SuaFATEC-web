@@ -3,8 +3,8 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 
 import { selectedInstitutionAtom } from '@/atoms/institutions'
+import { selectedCourseAtom } from '@/atoms/courses'
 import {
-  selectedCourseAtom,
   selectedCourseOfferingAtom,
   formattedShiftsAtom,
 } from '@/atoms/institutionCoursesData'

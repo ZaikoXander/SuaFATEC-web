@@ -7,7 +7,7 @@ import {
   type Course,
   institutionCoursesAtom,
   selectedCourseAtom,
-} from '@/atoms/institutionCoursesData'
+} from '@/atoms/courses'
 import { openCourseInfoAtom } from '@/atoms/sheets'
 
 import { Button } from './ui/button'
