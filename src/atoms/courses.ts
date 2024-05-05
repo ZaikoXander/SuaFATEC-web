@@ -1,6 +1,6 @@
 import { atom } from 'jotai'
 
-import { institutionCourseOfferingsAtom } from './institutionCoursesData'
+import { institutionCourseOfferingsAtom } from './courseOfferings'
 
 interface Course {
   id: number

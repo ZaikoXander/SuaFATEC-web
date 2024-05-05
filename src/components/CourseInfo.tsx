@@ -7,7 +7,7 @@ import { selectedCourseAtom } from '@/atoms/courses'
 import {
   selectedCourseOfferingAtom,
   formattedShiftsAtom,
-} from '@/atoms/institutionCoursesData'
+} from '@/atoms/courseOfferings'
 import {
   courseInfoOpenAtom,
   openInstitutionInfoAtom,

@@ -5,7 +5,7 @@ import {
   likeFilterAtom,
   moreRecentFilterAtom,
 } from './commentListFilters'
-import { selectedCourseOfferingAtom } from './institutionCoursesData'
+import { selectedCourseOfferingAtom } from './courseOfferings'
 
 import { compareAsc, parse } from 'date-fns'
 
