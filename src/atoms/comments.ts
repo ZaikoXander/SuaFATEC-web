@@ -1,14 +1,17 @@
 import { atom } from 'jotai'
+
 import {
   ascendingOrderFilterAtom,
   likeFilterAtom,
   moreRecentFilterAtom,
 } from './commentListFilters'
+import { selectedCourseOfferingAtom } from './courseOfferings'
 
 import { compareAsc, parse } from 'date-fns'
 
 interface Comment {
   id: number
+  courseOfferingId: number
   studentName: string
   content: string
   quantityLikes: number
@@ -16,9 +19,10 @@ interface Comment {
   liked: boolean
 }
 
-const initialComments: Comment[] = [
+const commentsAtom = atom<Comment[]>([
   {
     id: 0,
+    courseOfferingId: 2,
     studentName: 'Pedro Henrique',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae natus eligendi amet nihil et perferendis minus rerum reiciendis recusandae, similique laudantium at, nisi voluptatibus distinctio illo exercitationem provident labore ex?',
@@ -28,6 +32,7 @@ const initialComments: Comment[] = [
   },
   {
     id: 1,
+    courseOfferingId: 1,
     studentName: 'Roberto Carlos',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
@@ -37,6 +42,7 @@ const initialComments: Comment[] = [
   },
   {
     id: 2,
+    courseOfferingId: 2,
     studentName: 'Paulo Ricardo',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
@@ -46,6 +52,7 @@ const initialComments: Comment[] = [
   },
   {
     id: 3,
+    courseOfferingId: 1,
     studentName: 'Paulo Ricardo',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
@@ -55,6 +62,7 @@ const initialComments: Comment[] = [
   },
   {
     id: 4,
+    courseOfferingId: 2,
     studentName: 'Paulo Ricardo',
     content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
@@ -62,17 +70,27 @@ const initialComments: Comment[] = [
     conclusionDate: '10/10/2021',
     liked: false,
   },
-]
+])
 
-const commentsAtom = atom<Comment[]>(initialComments)
+const courseOfferingCommentsAtom = atom<Comment[]>((get) => {
+  const comments = get(commentsAtom)
+  const selectedCourseOffering = get(selectedCourseOfferingAtom)
 
-const filteredCommentsAtom = atom((get) => {
-  const comments = [...get(commentsAtom)]
+  return comments.filter(
+    (comment) => comment.courseOfferingId === selectedCourseOffering?.id,
+  )
+})
+
+const filteredCourseOfferingCommentsAtom = atom<Comment[]>((get) => {
+  const courseOfferingComments = [...get(courseOfferingCommentsAtom)]
+
+  const likeFilter = get(likeFilterAtom)
   let sortFunction
+  const moreRecentFilter = get(moreRecentFilterAtom)
 
-  if (get(likeFilterAtom)) {
+  if (likeFilter) {
     sortFunction = (a: Comment, b: Comment) => a.quantityLikes - b.quantityLikes
-  } else if (get(moreRecentFilterAtom)) {
+  } else if (moreRecentFilter) {
     sortFunction = (a: Comment, b: Comment) =>
       compareAsc(
         parse(a.conclusionDate, 'dd/MM/yyyy', new Date()),
@@ -80,16 +98,20 @@ const filteredCommentsAtom = atom((get) => {
       )
   }
 
-  if (sortFunction) {
-    const orderMultiplier = get(ascendingOrderFilterAtom) ? 1 : -1
-    comments.sort((a, b) => orderMultiplier * sortFunction(a, b))
-  } else if (get(ascendingOrderFilterAtom)) comments.reverse()
+  const ascendingOrderFilter = get(ascendingOrderFilterAtom)
 
-  return comments
+  if (sortFunction) {
+    const orderMultiplier = ascendingOrderFilter ? 1 : -1
+    courseOfferingComments.sort((a, b) => orderMultiplier * sortFunction(a, b))
+  } else if (ascendingOrderFilter) courseOfferingComments.reverse()
+
+  return courseOfferingComments
 })
 
-const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
-  const updatedComments = get(commentsAtom).map((comment) => {
+const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId: number) => {
+  const comments = get(commentsAtom)
+
+  const updatedComments = comments.map((comment) => {
     if (comment.id === commentId) {
       return {
         ...comment,
@@ -106,4 +128,8 @@ const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId) => {
   set(commentsAtom, updatedComments)
 })
 
-export { commentsAtom, filteredCommentsAtom, toggleCommentLikeByIdAtom }
+export {
+  commentsAtom,
+  filteredCourseOfferingCommentsAtom,
+  toggleCommentLikeByIdAtom,
+}

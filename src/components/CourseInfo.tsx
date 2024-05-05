@@ -3,12 +3,16 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 
 import { selectedInstitutionAtom } from '@/atoms/institutions'
+import { selectedCourseAtom } from '@/atoms/courses'
 import {
-  selectedCourseAtom,
   selectedCourseOfferingAtom,
   formattedShiftsAtom,
-} from '@/atoms/institutionCoursesData'
-import { courseInfoOpenAtom, openCourseCommentsAtom } from '@/atoms/sheets'
+} from '@/atoms/courseOfferings'
+import {
+  courseInfoOpenAtom,
+  openInstitutionInfoAtom,
+  openCourseCommentsAtom,
+} from '@/atoms/sheets'
 
 import { Button } from './ui/button'
 import {
@@ -27,12 +31,16 @@ export default function CourseInfo() {
   const selectedCourse = useAtomValue(selectedCourseAtom)
   const selectedCourseOffering = useAtomValue(selectedCourseOfferingAtom)
   const [open, setOpen] = useAtom(courseInfoOpenAtom)
+  const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)
   const openCourseComments = useSetAtom(openCourseCommentsAtom)
   const formattedShifts = useAtomValue(formattedShiftsAtom)
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent className='flex w-[36%] flex-col gap-4 sm:max-w-[86%]'>
+      <SheetContent
+        onReturnButtonClick={openInstitutionInfo}
+        className='flex w-[36%] flex-col gap-4 sm:max-w-[86%]'
+      >
         <SheetHeader>
           <SheetTitle>
             <span className='block scroll-m-20 text-2xl font-semibold tracking-tight'>

@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 
 import { useAtomValue } from 'jotai'
 
-import { filteredCommentsAtom } from '@/atoms/comments'
+import { filteredCourseOfferingCommentsAtom } from '@/atoms/comments'
 
 import Filters from './Filters'
 import Comment from '../../Comment'
@@ -13,15 +13,17 @@ import { ScrollArea } from '../../ui/scroll-area'
 import { Separator } from '../../ui/separator'
 
 export default function CommentList() {
-  const filteredComments = useAtomValue(filteredCommentsAtom)
+  const filteredCourseOfferingComments = useAtomValue(
+    filteredCourseOfferingCommentsAtom,
+  )
 
   return (
     <div className='h-full rounded-md border shadow-sm'>
       <Filters />
       <Separator className='mt-2' />
       <ScrollArea className='h-[48rem] px-4 pb-0 pt-2'>
-        {filteredComments.map((comment) => {
-          const lastCommentId = filteredComments.at(-1)?.id
+        {filteredCourseOfferingComments.map((comment) => {
+          const lastCommentId = filteredCourseOfferingComments.at(-1)?.id
           if (lastCommentId === comment.id) {
             return (
               <Comment
