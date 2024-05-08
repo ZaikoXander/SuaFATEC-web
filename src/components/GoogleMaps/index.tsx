@@ -4,43 +4,12 @@ import { useAtomValue } from 'jotai'
 
 import { institutionsAtom } from '@/atoms/institutions'
 
-import {
-  APIProvider,
-  Map,
-  MapCameraChangedEvent,
-} from '@vis.gl/react-google-maps'
+import { APIProvider, Map } from '@vis.gl/react-google-maps'
 
 import InstitutionMarker from './InstitutionMarker'
 
-const SaoPauloStateCenterPosition: google.maps.LatLngLiteral = {
-  lat: -22.43096057384716,
-  lng: -49.130443886609,
-}
-
-const SaoPauloStateBounds: google.maps.LatLngBoundsLiteral = {
-  north: -19.7796559,
-  south: -25.3579997,
-  east: -53.1101115,
-  west: -44.1613651,
-}
-
-function isPositionWithinSaoPauloStateBounds(
-  position: google.maps.LatLngLiteral,
-): boolean {
-  const { lat, lng } = position
-  const { north, south, east, west } = SaoPauloStateBounds
-
-  return lat <= north && lat >= south && lng <= west && lng >= east
-}
-
-function handleCameraChange(event: MapCameraChangedEvent) {
-  const newPosition = event.detail.center
-
-  if (!isPositionWithinSaoPauloStateBounds(newPosition)) {
-    event.map.setZoom(7.5)
-    event.map.panTo(SaoPauloStateCenterPosition)
-  }
-}
+import { SaoPauloStateCenterPosition } from './constants'
+import { handleCameraChange } from './helpers'
 
 export default function GoogleMaps() {
   const institutions = useAtomValue(institutionsAtom)
