@@ -24,4 +24,4 @@ const getInstitutionCityAtom = atom((get) => (institution: Institution) => {
   return cities.find((city) => city.id === institution.cityId)
 })
 
-export { getInstitutionCityAtom }
+export { type City, getInstitutionCityAtom }
