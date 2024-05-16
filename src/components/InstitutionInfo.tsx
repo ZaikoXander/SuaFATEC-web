@@ -3,8 +3,10 @@
 import Image from 'next/image'
 
 import { useAtom, useAtomValue } from 'jotai'
+
 import { institutionInfoOpenAtom } from '@/atoms/sheets'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
+import { institutionPhotosAtom } from '@/atoms/photos'
 
 import CourseList from './CourseList'
 import {
@@ -18,14 +20,15 @@ import {
 export default function InstitutionInfo() {
   const [open, setOpen] = useAtom(institutionInfoOpenAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
+  const institutionPhotos = useAtomValue(institutionPhotosAtom)
 
-  const imagePairs = selectedInstitution?.images.reduce(
-    (result: string[][], value, index, array) => {
-      if (index % 2 === 0) result.push(array.slice(index, index + 2))
-      return result
-    },
-    [],
-  )
+  const imagePairs: string[][] = []
+  for (let i = 0; i < institutionPhotos.length; i += 2) {
+    const pair: string[] = institutionPhotos
+      .slice(i, i + 2)
+      .map((photo) => photo.url)
+    imagePairs.push(pair)
+  }
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
