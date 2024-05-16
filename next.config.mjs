@@ -10,9 +10,9 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'www.fatecpg.edu.br',
+        hostname: 'fatecrl.edu.br',
         port: '',
-        pathname: '/img/**',
+        pathname: '/public/**',
       },
     ],
   },

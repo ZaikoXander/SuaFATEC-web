@@ -7,21 +7,12 @@ interface City {
   name: string
 }
 
-const citiesAtom = atom<City[]>([
-  {
-    id: 1,
-    name: 'Santos',
-  },
-  {
-    id: 2,
-    name: 'São Paulo',
-  },
-])
+const citiesAtom = atom<City[] | undefined>(undefined)
 
 const getInstitutionCityAtom = atom((get) => (institution: Institution) => {
   const cities = get(citiesAtom)
 
-  return cities.find((city) => city.id === institution.cityId)
+  return cities?.find((city) => city.id === institution.cityId)
 })
 
-export { type City, getInstitutionCityAtom }
+export { type City, citiesAtom, getInstitutionCityAtom }
