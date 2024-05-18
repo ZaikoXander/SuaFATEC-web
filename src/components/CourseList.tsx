@@ -38,21 +38,25 @@ function CourseListItem({ course }: { course: Course }) {
 }
 
 function CourseListItems() {
-  const institutionCourses = useAtomValue(institutionCoursesAtom)
+  const institutionCourses: (Course | undefined)[] | undefined = useAtomValue(
+    institutionCoursesAtom,
+  )
   const lastCourse = institutionCourses?.at(-1)
 
   if (!institutionCourses || !lastCourse) return
 
+  const safeInstitutionCourses: Course[] = institutionCourses.filter(
+    (course) => !!course,
+  )
+
   return (
     <>
-      {institutionCourses
-        .filter((course) => !!course)
-        .map((course: Course) => (
-          <Fragment key={course.id}>
-            <CourseListItem course={course} />
-            {lastCourse.id !== course.id && <Separator className='my-2' />}
-          </Fragment>
-        ))}
+      {safeInstitutionCourses.map((course: Course) => (
+        <Fragment key={course.id}>
+          <CourseListItem course={course} />
+          {lastCourse.id !== course.id && <Separator className='my-2' />}
+        </Fragment>
+      ))}
     </>
   )
 }
