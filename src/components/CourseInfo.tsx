@@ -4,6 +4,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 import { selectedCourseAtom } from '@/atoms/courses'
+import { coursePhotoAtom } from '@/atoms/photos'
 import {
   selectedCourseOfferingAtom,
   formattedShiftsAtom,
@@ -29,6 +30,7 @@ import Image from 'next/image'
 export default function CourseInfo() {
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
   const selectedCourse = useAtomValue(selectedCourseAtom)
+  const coursePhoto = useAtomValue(coursePhotoAtom)
   const selectedCourseOffering = useAtomValue(selectedCourseOfferingAtom)
   const [open, setOpen] = useAtom(courseInfoOpenAtom)
   const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)
@@ -51,9 +53,9 @@ export default function CourseInfo() {
             </span>
           </SheetTitle>
           <SheetDescription>{selectedCourse?.description}</SheetDescription>
-          {selectedCourse ? (
+          {coursePhoto ? (
             <Image
-              src={selectedCourse?.photoUrl}
+              src={coursePhoto?.url}
               alt={`Foto de ${selectedCourse?.name}`}
               width={400}
               height={230}
