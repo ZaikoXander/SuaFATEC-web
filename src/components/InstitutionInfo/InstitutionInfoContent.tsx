@@ -1,12 +1,10 @@
-'use client'
-
 import { useEffect } from 'react'
 
 import Image from 'next/image'
 
 import axios from 'axios'
 
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 
 import { institutionPhotosAtom } from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
@@ -19,23 +17,17 @@ import {
   type CourseOffering,
   courseOfferingsAtom,
 } from '@/atoms/courseOfferings'
-import { institutionInfoOpenAtom } from '@/atoms/sheets'
 
-import CourseList from './CourseList'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from './ui/sheet'
+import { SheetDescription, SheetHeader, SheetTitle } from '../ui/sheet'
+
+import CourseList from '../CourseList'
 
 interface FetchInstitutionCoursesDataResponse {
   courses: Course[]
   courseOfferings: CourseOffering[]
 }
 
-function InstitutionInfoContent() {
+export default function InstitutionInfoContent() {
   const institutionPhotos = useAtomValue(institutionPhotosAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
   const fetchedInstitutionsIdsOnInstitutionCoursesData = useAtomValue(
@@ -135,17 +127,5 @@ function InstitutionInfoContent() {
         <CourseList />
       </div>
     </>
-  )
-}
-
-export default function InstitutionInfo() {
-  const [open, setOpen] = useAtom(institutionInfoOpenAtom)
-
-  return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent className='flex w-[36%] flex-col gap-4 sm:max-w-[86%]'>
-        <InstitutionInfoContent />
-      </SheetContent>
-    </Sheet>
   )
 }
