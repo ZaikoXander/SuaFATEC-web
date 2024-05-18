@@ -24,7 +24,7 @@ import {
   SheetTitle,
 } from './ui/sheet'
 
-import Image from 'next/image'
+import CoursePhoto from './CoursePhoto'
 
 export default function CourseInfo() {
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
@@ -51,15 +51,7 @@ export default function CourseInfo() {
             </span>
           </SheetTitle>
           <SheetDescription>{selectedCourse?.description}</SheetDescription>
-          {selectedCourse ? (
-            <Image
-              src={selectedCourse?.photoUrl}
-              alt={`Foto de ${selectedCourse?.name}`}
-              width={400}
-              height={230}
-              className='w-full rounded-md'
-            />
-          ) : null}
+          <CoursePhoto height={230} className='w-full' />
         </SheetHeader>
         <div className='flex h-full flex-col gap-2'>
           <span className='font-semibold'>

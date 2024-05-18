@@ -1,6 +1,7 @@
 import { atom } from 'jotai'
 
 import { selectedInstitutionAtom } from './institutions'
+import { selectedCourseAtom } from './courses'
 
 interface Photo {
   id: number
@@ -16,8 +17,7 @@ const photosAtom = atom<Photo[]>([
   },
   {
     id: 2,
-    url: 'https://fatecrl.edu.br/public/images/institucional/historico/historico-01.jpg',
-    institutionId: 1,
+    url: 'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
   },
   {
     id: 3,
@@ -26,7 +26,8 @@ const photosAtom = atom<Photo[]>([
   },
   {
     id: 4,
-    url: 'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    url: 'https://fatecrl.edu.br/public/images/institucional/historico/historico-01.jpg',
+    institutionId: 1,
   },
   {
     id: 5,
@@ -84,4 +85,11 @@ const institutionPhotosAtom = atom((get) => {
   )
 })
 
-export { institutionPhotosAtom }
+const coursePhotoAtom = atom<Photo | undefined>((get) => {
+  const selectedCourse = get(selectedCourseAtom)
+  const photos = get(photosAtom)
+
+  return photos.find((photo) => photo.id === selectedCourse?.photoId)
+})
+
+export { institutionPhotosAtom, coursePhotoAtom }

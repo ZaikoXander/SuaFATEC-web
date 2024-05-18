@@ -7,7 +7,7 @@ interface Course {
   name: string
   duration: number
   description: string
-  photoUrl: string
+  photoId: number
 }
 
 const coursesAtom = atom<Course[]>([
@@ -16,96 +16,84 @@ const coursesAtom = atom<Course[]>([
     name: 'Design de Produto com ênfase em Processos de Produção e Industrialização',
     duration: 6,
     description: 'Prepara o aluno para o mercado de trabalho',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 2,
     name: 'Desenvolvimento Web Avançado',
     duration: 6,
     description: 'Aprenda as técnicas avançadas de desenvolvimento web',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 3,
     name: 'Machine Learning Fundamentals',
     duration: 6,
     description: 'Explore os fundamentos do Machine Learning',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 4,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 5,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 6,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 7,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 8,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 9,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 10,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 11,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
   {
     id: 12,
     name: 'Gestão de Projetos Ágeis',
     duration: 6,
     description: 'Aprenda a gerenciar projetos de forma ágil',
-    photoUrl:
-      'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
+    photoId: 2,
   },
 ])
 
