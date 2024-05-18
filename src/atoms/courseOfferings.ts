@@ -13,59 +13,25 @@ interface CourseOffering {
   distanceLearning: boolean
 }
 
-const courseOfferingsAtom = atom<CourseOffering[]>([
-  {
-    id: 1,
-    courseId: 1,
-    institutionId: 1,
-    shifts: ['morning', 'afternoon', 'night'],
-    distanceLearning: false,
-  },
-  {
-    id: 2,
-    courseId: 2,
-    institutionId: 2,
-    shifts: ['morning', 'afternoon'],
-    distanceLearning: true,
-  },
-  {
-    id: 3,
-    courseId: 3,
-    institutionId: 1,
-    shifts: ['night'],
-    distanceLearning: true,
-  },
-  {
-    id: 4,
-    courseId: 4,
-    institutionId: 1,
-    shifts: ['morning', 'afternoon'],
-    distanceLearning: false,
-  },
-  {
-    id: 5,
-    courseId: 5,
-    institutionId: 1,
-    shifts: ['afternoon', 'night'],
-    distanceLearning: false,
-  },
-])
+const courseOfferingsAtom = atom<CourseOffering[] | undefined>(undefined)
 
-const institutionCourseOfferingsAtom = atom<CourseOffering[]>((get) => {
-  const courseOfferings = get(courseOfferingsAtom)
-  const selectedInstitution = get(selectedInstitutionAtom)
+const institutionCourseOfferingsAtom = atom<CourseOffering[] | undefined>(
+  (get) => {
+    const courseOfferings = get(courseOfferingsAtom)
+    const selectedInstitution = get(selectedInstitutionAtom)
 
-  return courseOfferings.filter(
-    (courseOffering) =>
-      courseOffering.institutionId === selectedInstitution?.id,
-  )
-})
+    return courseOfferings?.filter(
+      (courseOffering) =>
+        courseOffering.institutionId === selectedInstitution?.id,
+    )
+  },
+)
 
 const selectedCourseOfferingAtom = atom<CourseOffering | undefined>((get) => {
   const selectedCourse = get(selectedCourseAtom)
   const institutionCourseOfferings = get(institutionCourseOfferingsAtom)
 
-  return institutionCourseOfferings.find(
+  return institutionCourseOfferings?.find(
     (courseOffering) => courseOffering.courseId === selectedCourse?.id,
   )
 })
@@ -96,6 +62,7 @@ const formattedShiftsAtom = atom<string | undefined>((get) => {
 
 export {
   type Shift,
+  type CourseOffering,
   courseOfferingsAtom,
   institutionCourseOfferingsAtom,
   selectedCourseOfferingAtom,

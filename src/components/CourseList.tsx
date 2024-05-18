@@ -15,8 +15,7 @@ import { SheetClose } from './ui/sheet'
 import { ScrollArea } from './ui/scroll-area'
 import { Separator } from './ui/separator'
 
-export default function CourseList() {
-  const institutionCourses = useAtomValue(institutionCoursesAtom)
+function CourseListItem({ course }: { course: Course }) {
   const setSelectedCourse = useSetAtom(selectedCourseAtom)
   const openCourseInfo = useSetAtom(openCourseInfoAtom)
 
@@ -26,41 +25,45 @@ export default function CourseList() {
   }
 
   return (
+    <SheetClose asChild>
+      <Button
+        variant='outline'
+        className='h-auto w-full text-pretty'
+        onClick={() => handleSelectCourse(course)}
+      >
+        {course.name}
+      </Button>
+    </SheetClose>
+  )
+}
+
+function CourseListItems() {
+  const institutionCourses = useAtomValue(institutionCoursesAtom)
+  const lastCourse = institutionCourses?.at(-1)
+
+  if (!institutionCourses || !lastCourse) return
+
+  return (
+    <>
+      {institutionCourses
+        .filter((course) => !!course)
+        .map((course) => (
+          <Fragment key={course.id}>
+            <CourseListItem course={course} />
+            {lastCourse.id !== course.id && <Separator className='my-2' />}
+          </Fragment>
+        ))}
+    </>
+  )
+}
+
+export default function CourseList() {
+  return (
     <ScrollArea className='h-80 w-full rounded-md border p-4'>
       <h4 className='mb-4 text-lg font-bold leading-none'>
         Cursos disponíveis
       </h4>
-      {institutionCourses.map((course) => {
-        const lastCourseId = institutionCourses.at(-1)?.id
-        if (lastCourseId === course.id) {
-          return (
-            <SheetClose key={course.id} asChild>
-              <Button
-                variant='outline'
-                className='h-auto w-full text-pretty'
-                onClick={() => handleSelectCourse(course)}
-              >
-                {course.name}
-              </Button>
-            </SheetClose>
-          )
-        }
-
-        return (
-          <Fragment key={course.id}>
-            <SheetClose asChild>
-              <Button
-                variant='outline'
-                className='h-auto w-full text-pretty'
-                onClick={() => handleSelectCourse(course)}
-              >
-                {course.name}
-              </Button>
-            </SheetClose>
-            <Separator className='my-2' />
-          </Fragment>
-        )
-      })}
+      <CourseListItems />
     </ScrollArea>
   )
 }
