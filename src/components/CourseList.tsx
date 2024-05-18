@@ -47,7 +47,7 @@ function CourseListItems() {
     <>
       {institutionCourses
         .filter((course) => !!course)
-        .map((course) => (
+        .map((course: Course) => (
           <Fragment key={course.id}>
             <CourseListItem course={course} />
             {lastCourse.id !== course.id && <Separator className='my-2' />}
