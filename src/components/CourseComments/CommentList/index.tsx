@@ -1,10 +1,21 @@
 'use client'
 
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 
-import { useAtomValue } from 'jotai'
+import axios from 'axios'
 
-import { filteredCourseOfferingCommentsAtom } from '@/atoms/comments'
+import { useAtomValue, useSetAtom } from 'jotai'
+
+import {
+  type Comment as CommentData,
+  commentsAtom,
+  filteredCourseOfferingCommentsAtom,
+} from '@/atoms/comments'
+import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'
+import {
+  fetchedCourseOfferingsIdsOnCourseOfferingCommentsAtom,
+  addFetchedCourseOfferingIdOnCourseOfferingCommentsAtom,
+} from '@/atoms/fetchedData'
 
 import Filters from './Filters'
 import Comment from '../../Comment'
@@ -12,10 +23,56 @@ import Comment from '../../Comment'
 import { ScrollArea } from '../../ui/scroll-area'
 import { Separator } from '../../ui/separator'
 
+interface FetchCourseOfferingCommentsResponse {
+  comments: CommentData[]
+}
+
 export default function CommentList() {
   const filteredCourseOfferingComments = useAtomValue(
     filteredCourseOfferingCommentsAtom,
   )
+  const selectedCourseOffering = useAtomValue(selectedCourseOfferingAtom)
+  const setComments = useSetAtom(commentsAtom)
+  const fetchedCourseOfferingsIdsOnCourseOfferingComments = useAtomValue(
+    fetchedCourseOfferingsIdsOnCourseOfferingCommentsAtom,
+  )
+  const addFetchedCourseOfferingIdOnCourseOfferingComments = useSetAtom(
+    addFetchedCourseOfferingIdOnCourseOfferingCommentsAtom,
+  )
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        if (
+          !selectedCourseOffering ||
+          fetchedCourseOfferingsIdsOnCourseOfferingComments.includes(
+            selectedCourseOffering.id,
+          )
+        )
+          return
+
+        const {
+          data: { comments },
+        } = await axios.get<FetchCourseOfferingCommentsResponse>(
+          `${process.env.NEXT_PUBLIC_API_URL}/comments/${selectedCourseOffering.id}`,
+        )
+
+        setComments(comments)
+        addFetchedCourseOfferingIdOnCourseOfferingComments(
+          selectedCourseOffering.id,
+        )
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchData()
+  }, [
+    selectedCourseOffering,
+    fetchedCourseOfferingsIdsOnCourseOfferingComments,
+    setComments,
+    addFetchedCourseOfferingIdOnCourseOfferingComments,
+  ])
 
   return (
     <div className='h-full rounded-md border shadow-sm'>
