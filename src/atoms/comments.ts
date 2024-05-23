@@ -9,7 +9,7 @@ import { selectedCourseOfferingAtom } from './courseOfferings'
 
 import { compareAsc, parse } from 'date-fns'
 
-interface Comment {
+export interface Comment {
   id: number
   courseOfferingId: number
   studentName: string
@@ -17,72 +17,22 @@ interface Comment {
   quantityLikes: number
   conclusionDate: string
   liked: boolean
+  approved: boolean
 }
 
-const commentsAtom = atom<Comment[]>([
-  {
-    id: 0,
-    courseOfferingId: 2,
-    studentName: 'Pedro Henrique',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae natus eligendi amet nihil et perferendis minus rerum reiciendis recusandae, similique laudantium at, nisi voluptatibus distinctio illo exercitationem provident labore ex?',
-    quantityLikes: 437,
-    conclusionDate: '01/03/2024',
-    liked: false,
-  },
-  {
-    id: 1,
-    courseOfferingId: 1,
-    studentName: 'Roberto Carlos',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
-    quantityLikes: 56,
-    conclusionDate: '20/06/2019',
-    liked: true,
-  },
-  {
-    id: 2,
-    courseOfferingId: 2,
-    studentName: 'Paulo Ricardo',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
-    quantityLikes: 269,
-    conclusionDate: '10/10/2021',
-    liked: false,
-  },
-  {
-    id: 3,
-    courseOfferingId: 1,
-    studentName: 'Paulo Ricardo',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
-    quantityLikes: 269,
-    conclusionDate: '10/10/2021',
-    liked: false,
-  },
-  {
-    id: 4,
-    courseOfferingId: 2,
-    studentName: 'Paulo Ricardo',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti modi animi impedit magni sint ullam fuga dignissimos beatae, nam exercitationem.',
-    quantityLikes: 269,
-    conclusionDate: '10/10/2021',
-    liked: false,
-  },
-])
+const commentsAtom = atom<Comment[] | undefined>(undefined)
 
-const courseOfferingCommentsAtom = atom<Comment[]>((get) => {
+const courseOfferingCommentsAtom = atom<Comment[] | undefined>((get) => {
   const comments = get(commentsAtom)
   const selectedCourseOffering = get(selectedCourseOfferingAtom)
 
-  return comments.filter(
+  return comments?.filter(
     (comment) => comment.courseOfferingId === selectedCourseOffering?.id,
   )
 })
 
 const filteredCourseOfferingCommentsAtom = atom<Comment[]>((get) => {
-  const courseOfferingComments = [...get(courseOfferingCommentsAtom)]
+  const courseOfferingComments = [...(get(courseOfferingCommentsAtom) ?? [])]
 
   const likeFilter = get(likeFilterAtom)
   let sortFunction
@@ -111,7 +61,7 @@ const filteredCourseOfferingCommentsAtom = atom<Comment[]>((get) => {
 const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId: number) => {
   const comments = get(commentsAtom)
 
-  const updatedComments = comments.map((comment) => {
+  const updatedComments = comments?.map((comment) => {
     if (comment.id === commentId) {
       return {
         ...comment,

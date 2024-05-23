@@ -11,7 +11,7 @@ import { selectedInstitutionAtom } from '@/atoms/institutions'
 import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
   addFetchedInstitutionIdOnInstitutionCoursesDataAtom,
-} from '@/atoms/institutionCoursesData'
+} from '@/atoms/fetchedData'
 import { type Course, coursesAtom } from '@/atoms/courses'
 import {
   type CourseOffering,
