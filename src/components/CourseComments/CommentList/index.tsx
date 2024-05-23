@@ -24,7 +24,7 @@ import { ScrollArea } from '../../ui/scroll-area'
 import { Separator } from '../../ui/separator'
 
 interface FetchCourseOfferingCommentsResponse {
-  comments: Omit<CommentData, 'liked'>[]
+  comments: CommentData[]
 }
 
 export default function CommentList() {
@@ -57,12 +57,7 @@ export default function CommentList() {
           `${process.env.NEXT_PUBLIC_API_URL}/comments/${selectedCourseOffering.id}`,
         )
 
-        const commentsWithLiked: CommentData[] = comments.map((comment) => ({
-          ...comment,
-          liked: false,
-        }))
-
-        setComments(commentsWithLiked)
+        setComments(comments)
         addFetchedCourseOfferingIdOnCourseOfferingComments(
           selectedCourseOffering.id,
         )
