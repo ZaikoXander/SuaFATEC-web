@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { useSetAtom } from 'jotai'
 
 import { toggleCommentLikeByIdAtom } from '@/atoms/comments'
@@ -19,10 +21,31 @@ export default function LikeButton({
 }: LikeButtonProps) {
   const toggleCommentLikeById = useSetAtom(toggleCommentLikeByIdAtom)
 
+  async function dislikeComment() {
+    await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}/dislike`,
+    )
+  }
+
+  async function likeComment() {
+    await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}/like`,
+    )
+  }
+
+  async function handleButtonClick() {
+    toggleCommentLikeById(commentId)
+    if (liked) {
+      await dislikeComment()
+    } else {
+      await likeComment()
+    }
+  }
+
   return (
     <Button
       className='group flex h-min items-center bg-transparent p-0 pr-1 hover:bg-transparent'
-      onClick={() => toggleCommentLikeById(commentId)}
+      onClick={handleButtonClick}
     >
       <Heart
         className={cn(
