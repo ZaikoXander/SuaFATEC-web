@@ -4,9 +4,11 @@ import { Fragment, useEffect } from 'react'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
+import api from '@/lib/api'
+
 import {
+  addCommentsAtom,
   type Comment as CommentData,
-  commentsAtom,
   filteredCourseOfferingCommentsAtom,
 } from '@/atoms/comments'
 import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'
@@ -20,7 +22,6 @@ import Comment from '../../Comment'
 
 import { ScrollArea } from '../../ui/scroll-area'
 import { Separator } from '../../ui/separator'
-import api from '@/lib/api'
 
 interface FetchCourseOfferingCommentsResponse {
   comments: CommentData[]
@@ -31,7 +32,7 @@ export default function CommentList() {
     filteredCourseOfferingCommentsAtom,
   )
   const selectedCourseOffering = useAtomValue(selectedCourseOfferingAtom)
-  const setComments = useSetAtom(commentsAtom)
+  const addComments = useSetAtom(addCommentsAtom)
   const fetchedCourseOfferingsIdsOnCourseOfferingComments = useAtomValue(
     fetchedCourseOfferingsIdsOnCourseOfferingCommentsAtom,
   )
@@ -53,10 +54,10 @@ export default function CommentList() {
         const {
           data: { comments },
         } = await api.get<FetchCourseOfferingCommentsResponse>(
-          `/comments/${selectedCourseOffering.id}`,
+          `/comments/course-offering/${selectedCourseOffering.id}`,
         )
 
-        setComments(comments)
+        addComments(comments)
         addFetchedCourseOfferingIdOnCourseOfferingComments(
           selectedCourseOffering.id,
         )
@@ -69,7 +70,7 @@ export default function CommentList() {
   }, [
     selectedCourseOffering,
     fetchedCourseOfferingsIdsOnCourseOfferingComments,
-    setComments,
+    addComments,
     addFetchedCourseOfferingIdOnCourseOfferingComments,
   ])
 
