@@ -13,14 +13,23 @@ interface CourseOffering {
   distanceLearning: boolean
 }
 
-const courseOfferingsAtom = atom<CourseOffering[] | undefined>(undefined)
+const courseOfferingsAtom = atom<CourseOffering[]>([])
+
+const addCourseOfferingsAtom = atom(
+  null,
+  (get, set, newCourseOfferings: CourseOffering[]) => {
+    const courseOfferings = get(courseOfferingsAtom)
+
+    set(courseOfferingsAtom, [...courseOfferings, ...newCourseOfferings])
+  },
+)
 
 const institutionCourseOfferingsAtom = atom<CourseOffering[] | undefined>(
   (get) => {
     const courseOfferings = get(courseOfferingsAtom)
     const selectedInstitution = get(selectedInstitutionAtom)
 
-    return courseOfferings?.filter(
+    return courseOfferings.filter(
       (courseOffering) =>
         courseOffering.institutionId === selectedInstitution?.id,
     )
@@ -64,6 +73,7 @@ export {
   type Shift,
   type CourseOffering,
   courseOfferingsAtom,
+  addCourseOfferingsAtom,
   institutionCourseOfferingsAtom,
   selectedCourseOfferingAtom,
   formattedShiftsAtom,

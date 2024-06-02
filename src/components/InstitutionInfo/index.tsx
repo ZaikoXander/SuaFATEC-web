@@ -13,7 +13,7 @@ export default function InstitutionInfo() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent className='flex w-[36%] flex-col gap-4 sm:max-w-[86%]'>
+      <SheetContent className='flex w-full flex-col gap-4 sm:w-[84%] sm:max-w-full md:w-[66%] lg:w-[52%] xl:w-[42%] 2xl:w-[36%]'>
         <InstitutionInfoContent />
       </SheetContent>
     </Sheet>
