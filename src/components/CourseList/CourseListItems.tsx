@@ -15,7 +15,7 @@ export default function CourseListItems() {
   if (!institutionCourses || !lastCourse) return
 
   return (
-    <>
+    <div className='p-2'>
       {(institutionCourses.filter((course) => !!course) as Course[]).map(
         (course: Course) => (
           <Fragment key={course.id}>
@@ -24,6 +24,6 @@ export default function CourseListItems() {
           </Fragment>
         ),
       )}
-    </>
+    </div>
   )
 }

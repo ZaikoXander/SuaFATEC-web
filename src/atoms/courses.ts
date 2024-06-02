@@ -10,7 +10,13 @@ interface Course {
   photoId: number
 }
 
-const coursesAtom = atom<Course[] | undefined>(undefined)
+const coursesAtom = atom<Course[]>([])
+
+const addCoursesAtom = atom(null, (get, set, newCourses: Course[]) => {
+  const courses = get(coursesAtom)
+
+  set(coursesAtom, [...courses, ...newCourses])
+})
 
 const selectedCourseAtom = atom<Course | undefined>(undefined)
 
@@ -20,9 +26,15 @@ const institutionCoursesAtom = atom<(Course | undefined)[] | undefined>(
     const courses = get(coursesAtom)
 
     return courseOfferings?.map((courseOffering) =>
-      courses?.find((course) => course.id === courseOffering.courseId),
+      courses.find((course) => course.id === courseOffering.courseId),
     )
   },
 )
 
-export { type Course, coursesAtom, selectedCourseAtom, institutionCoursesAtom }
+export {
+  type Course,
+  coursesAtom,
+  addCoursesAtom,
+  selectedCourseAtom,
+  institutionCoursesAtom,
+}

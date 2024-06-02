@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import Image from 'next/image'
 
-import axios from 'axios'
+import api from '@/lib/api'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
@@ -12,15 +12,16 @@ import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
   addFetchedInstitutionIdOnInstitutionCoursesDataAtom,
 } from '@/atoms/fetchedData'
-import { type Course, coursesAtom } from '@/atoms/courses'
+import { addCoursesAtom, coursesAtom, type Course } from '@/atoms/courses'
 import {
+  addCourseOfferingsAtom,
   type CourseOffering,
-  courseOfferingsAtom,
 } from '@/atoms/courseOfferings'
 
 import { SheetDescription, SheetHeader, SheetTitle } from '../ui/sheet'
 
 import CourseList from '../CourseList'
+import { ScrollArea } from '../ui/scroll-area'
 
 interface FetchInstitutionCoursesDataResponse {
   courses: Course[]
@@ -36,16 +37,8 @@ export default function InstitutionInfoContent() {
   const addFetchedInstitutionIdOnInstitutionCoursesData = useSetAtom(
     addFetchedInstitutionIdOnInstitutionCoursesDataAtom,
   )
-  const setCourses = useSetAtom(coursesAtom)
-  const setCourseOfferings = useSetAtom(courseOfferingsAtom)
-
-  const imagePairs: string[][] = []
-  for (let i = 0; i < institutionPhotos.length; i += 2) {
-    const pair: string[] = institutionPhotos
-      .slice(i, i + 2)
-      .map((photo) => photo.url)
-    imagePairs.push(pair)
-  }
+  const addCourses = useSetAtom(addCoursesAtom)
+  const addCourseOfferings = useSetAtom(addCourseOfferingsAtom)
 
   useEffect(() => {
     async function fetchData() {
@@ -60,12 +53,12 @@ export default function InstitutionInfoContent() {
 
         const {
           data: { courses, courseOfferings },
-        } = await axios.get<FetchInstitutionCoursesDataResponse>(
-          `${process.env.NEXT_PUBLIC_API_URL}/institution-courses-data/${selectedInstitution.id}`,
+        } = await api.get<FetchInstitutionCoursesDataResponse>(
+          `/institution-courses-data/${selectedInstitution.id}`,
         )
 
-        setCourses(courses)
-        setCourseOfferings(courseOfferings)
+        addCourses(courses)
+        addCourseOfferings(courseOfferings)
         addFetchedInstitutionIdOnInstitutionCoursesData(selectedInstitution.id)
       } catch (error) {
         console.error(error)
@@ -77,8 +70,8 @@ export default function InstitutionInfoContent() {
     selectedInstitution,
     fetchedInstitutionsIdsOnInstitutionCoursesData,
     addFetchedInstitutionIdOnInstitutionCoursesData,
-    setCourses,
-    setCourseOfferings,
+    addCourses,
+    addCourseOfferings,
   ])
 
   if (!selectedInstitution) return
@@ -95,37 +88,37 @@ export default function InstitutionInfoContent() {
           ))}
         </SheetDescription>
       </SheetHeader>
-      <div className='flex flex-col gap-2'>
-        <span className='font-semibold'>
-          Endereço:{' '}
-          <span className='self-center text-sm font-medium leading-none'>
-            {selectedInstitution.address}
+      <ScrollArea className='mr-3'>
+        <div className='flex flex-col gap-2'>
+          <span className='font-semibold'>
+            Endereço:{' '}
+            <span className='self-center text-sm font-medium leading-none'>
+              {selectedInstitution.address}
+            </span>
           </span>
-        </span>
-        <span className='font-semibold'>
-          Telefone:{' '}
-          <span className='text-sm font-medium leading-none'>
-            {selectedInstitution.phoneNumber}
+          <span className='font-semibold'>
+            Telefone:{' '}
+            <span className='text-sm font-medium leading-none'>
+              {selectedInstitution.phoneNumber}
+            </span>
           </span>
-        </span>
-        <div className='flex gap-2'>
-          {imagePairs.map((imagePair, index) => (
-            <div key={index} className='flex flex-col gap-2'>
-              {imagePair.map((image, index) => (
+          <div className='w-[96%] space-y-4'>
+            <div className=' flex flex-wrap gap-3'>
+              {institutionPhotos.map((image, index) => (
                 <Image
                   key={index}
-                  src={image}
+                  src={image.url}
                   alt=''
                   width={256}
                   height={256}
-                  className='rounded-sm'
+                  className='w-48 rounded-sm shadow-md sm:w-52 2xl:w-72'
                 />
               ))}
             </div>
-          ))}
+            <CourseList />
+          </div>
         </div>
-        <CourseList />
-      </div>
+      </ScrollArea>
     </>
   )
 }
