@@ -3,7 +3,7 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 
-import axios from 'axios'
+import api from '@/lib/api'
 
 import { type Institution, institutionsAtom } from '@/atoms/institutions'
 import { type City, citiesAtom } from '@/atoms/cities'
@@ -29,12 +29,9 @@ export default function GoogleMaps() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const institutionsRequest = axios.get<FetchInstitutionsResponse>(
-          process.env.NEXT_PUBLIC_API_URL + '/institutions',
-        )
-        const citiesRequest = axios.get<FetchCitiesResponse>(
-          process.env.NEXT_PUBLIC_API_URL + '/cities',
-        )
+        const institutionsRequest =
+          api.get<FetchInstitutionsResponse>('/institutions')
+        const citiesRequest = api.get<FetchCitiesResponse>('/cities')
 
         const [
           {

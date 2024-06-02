@@ -1,5 +1,4 @@
-import axios from 'axios'
-
+import api from '@/lib/api'
 import { useSetAtom } from 'jotai'
 
 import { toggleCommentLikeByIdAtom } from '@/atoms/comments'
@@ -22,15 +21,11 @@ export default function LikeButton({
   const toggleCommentLikeById = useSetAtom(toggleCommentLikeByIdAtom)
 
   async function dislikeComment() {
-    await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}/dislike`,
-    )
+    await api.patch(`/comments/${commentId}/dislike`)
   }
 
   async function likeComment() {
-    await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}/like`,
-    )
+    await api.patch(`/comments/${commentId}/like`)
   }
 
   async function handleButtonClick() {

@@ -2,8 +2,6 @@
 
 import { Fragment, useEffect } from 'react'
 
-import axios from 'axios'
-
 import { useAtomValue, useSetAtom } from 'jotai'
 
 import {
@@ -22,6 +20,7 @@ import Comment from '../../Comment'
 
 import { ScrollArea } from '../../ui/scroll-area'
 import { Separator } from '../../ui/separator'
+import api from '@/lib/api'
 
 interface FetchCourseOfferingCommentsResponse {
   comments: CommentData[]
@@ -53,8 +52,8 @@ export default function CommentList() {
 
         const {
           data: { comments },
-        } = await axios.get<FetchCourseOfferingCommentsResponse>(
-          `${process.env.NEXT_PUBLIC_API_URL}/comments/${selectedCourseOffering.id}`,
+        } = await api.get<FetchCourseOfferingCommentsResponse>(
+          `/comments/${selectedCourseOffering.id}`,
         )
 
         setComments(comments)
