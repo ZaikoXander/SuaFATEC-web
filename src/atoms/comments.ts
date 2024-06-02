@@ -20,7 +20,13 @@ export interface Comment {
   approved: boolean
 }
 
-const commentsAtom = atom<Comment[] | undefined>(undefined)
+const commentsAtom = atom<Comment[]>([])
+
+const addCommentsAtom = atom(null, (get, set, newComments: Comment[]) => {
+  const comments = get(commentsAtom)
+
+  set(commentsAtom, [...comments, ...newComments])
+})
 
 const courseOfferingCommentsAtom = atom<Comment[] | undefined>((get) => {
   const comments = get(commentsAtom)
@@ -80,6 +86,7 @@ const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId: number) => {
 
 export {
   commentsAtom,
+  addCommentsAtom,
   filteredCourseOfferingCommentsAtom,
   toggleCommentLikeByIdAtom,
 }
