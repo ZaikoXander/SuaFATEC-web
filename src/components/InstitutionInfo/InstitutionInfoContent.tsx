@@ -12,7 +12,7 @@ import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
   addFetchedInstitutionIdOnInstitutionCoursesDataAtom,
 } from '@/atoms/fetchedData'
-import { addCoursesAtom, coursesAtom, type Course } from '@/atoms/courses'
+import { addCoursesAtom, type Course } from '@/atoms/courses'
 import {
   addCourseOfferingsAtom,
   type CourseOffering,
@@ -109,9 +109,9 @@ export default function InstitutionInfoContent() {
                   key={index}
                   src={image.url}
                   alt=''
-                  width={256}
-                  height={256}
-                  className='w-48 rounded-sm shadow-md sm:w-52 2xl:w-72'
+                  width={512}
+                  height={512}
+                  className='w-56 rounded-sm shadow-md sm:w-80 2xl:w-96'
                 />
               ))}
             </div>

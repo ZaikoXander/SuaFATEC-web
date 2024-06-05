@@ -1,4 +1,4 @@
-import { Input } from '@/components/ui/input'
+// import { Input } from '@/components/ui/input'
 import GoogleMaps from '@/components/GoogleMaps'
 import InstitutionInfo from '@/components/InstitutionInfo'
 import CourseInfo from '@/components/CourseInfo'
@@ -7,10 +7,10 @@ import CourseComments from '@/components/CourseComments'
 export default function Home() {
   return (
     <main className='flex min-h-screen'>
-      <Input
+      {/* <Input
         className='absolute z-10 m-3 w-60'
         placeholder='Pesquisar cidade ou FATEC'
-      />
+      /> */}
       <InstitutionInfo />
       <CourseInfo />
       <CourseComments />
