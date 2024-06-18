@@ -1,8 +1,5 @@
-import { useAtomValue, useSetAtom } from 'jotai'
-import {
-  adminAuthTokenAtom,
-  removeNotApprovedCommentByIdAtom,
-} from '@/atoms/admin'
+import { useSetAtom } from 'jotai'
+import { removeNotApprovedCommentByIdAtom } from '@/atoms/admin'
 
 import api from '@/lib/api'
 
@@ -21,7 +18,8 @@ export default function NotApprovedComment({
   content,
   conclusionDate,
 }: NotApprovedCommentProps) {
-  const adminAuthToken = useAtomValue(adminAuthTokenAtom)
+  const adminAuthToken = window.localStorage.getItem('adminAuthToken')
+
   const removeNotApprovedCommentById = useSetAtom(
     removeNotApprovedCommentByIdAtom,
   )
@@ -31,19 +29,27 @@ export default function NotApprovedComment({
   }
 
   async function deleteComment() {
-    await api.delete(`comments/${id}`, authorizedRequestConfig)
+    try {
+      await api.delete(`comments/${id}`, authorizedRequestConfig)
 
-    removeNotApprovedCommentById(id)
+      removeNotApprovedCommentById(id)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async function approveComment() {
-    await api.patch(
-      `comments/${id}/approve`,
-      undefined,
-      authorizedRequestConfig,
-    )
+    try {
+      await api.patch(
+        `comments/${id}/approve`,
+        undefined,
+        authorizedRequestConfig,
+      )
 
-    removeNotApprovedCommentById(id)
+      removeNotApprovedCommentById(id)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

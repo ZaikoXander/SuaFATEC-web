@@ -5,7 +5,7 @@ import { ChangeEvent } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { atom, useAtom, useSetAtom } from 'jotai'
-import { adminAtom, adminAuthTokenAtom } from '@/atoms/admin'
+import { adminAtom } from '@/atoms/admin'
 
 import api from '@/lib/api'
 
@@ -36,7 +36,6 @@ const credentialsAtom = atom({
 export function LoginForm() {
   const [credentials, setCredentials] = useAtom(credentialsAtom)
   const setAdmin = useSetAtom(adminAtom)
-  const setAdminAuthToken = useSetAtom(adminAuthTokenAtom)
   const router = useRouter()
 
   function handleCredentialsChange(event: ChangeEvent<HTMLInputElement>) {
@@ -51,7 +50,7 @@ export function LoginForm() {
       } = await api.post<AdminsAuthResponse>('admins/auth', credentials)
 
       setAdmin(admin)
-      setAdminAuthToken(token)
+      localStorage.setItem('adminAuthToken', token)
       router.push('/admin/dashboard')
     } catch (error) {
       console.error(error)

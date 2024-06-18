@@ -1,5 +1,4 @@
 import { atom } from 'jotai'
-import { atomWithStorage } from 'jotai/utils'
 
 import { type Comment } from './comments'
 
@@ -9,11 +8,6 @@ interface Admin {
 }
 
 const adminAtom = atom<Admin | undefined>(undefined)
-
-const adminAuthTokenAtom = atomWithStorage<string | undefined>(
-  'adminAuthToken',
-  undefined,
-)
 
 const notApprovedCommentsAtom = atom<Comment[]>([])
 
@@ -29,9 +23,4 @@ const removeNotApprovedCommentByIdAtom = atom(
   },
 )
 
-export {
-  adminAtom,
-  adminAuthTokenAtom,
-  notApprovedCommentsAtom,
-  removeNotApprovedCommentByIdAtom,
-}
+export { adminAtom, notApprovedCommentsAtom, removeNotApprovedCommentByIdAtom }

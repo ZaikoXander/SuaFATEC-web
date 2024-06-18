@@ -2,8 +2,8 @@
 
 import { useEffect, Fragment } from 'react'
 
-import { useAtom, useAtomValue } from 'jotai'
-import { adminAuthTokenAtom, notApprovedCommentsAtom } from '@/atoms/admin'
+import { useAtom } from 'jotai'
+import { notApprovedCommentsAtom } from '@/atoms/admin'
 import { type Comment } from '@/atoms/comments'
 
 import api from '@/lib/api'
@@ -17,12 +17,13 @@ interface NotApprovedCommentsResponse {
 }
 
 export default function NotApprovedCommentList() {
-  const adminAuthToken = useAtomValue(adminAuthTokenAtom)
   const [notApprovedComments, setNotApprovedCommentsAtom] = useAtom(
     notApprovedCommentsAtom,
   )
 
   useEffect(() => {
+    const adminAuthToken = localStorage.getItem('adminAuthToken')
+
     async function fetchNotApprovedComments() {
       try {
         if (!adminAuthToken) return
@@ -43,7 +44,7 @@ export default function NotApprovedCommentList() {
     }
 
     fetchNotApprovedComments()
-  }, [adminAuthToken, setNotApprovedCommentsAtom])
+  }, [setNotApprovedCommentsAtom])
 
   return (
     <div className='my-auto ml-auto mr-32 h-full rounded-md border shadow-sm'>
