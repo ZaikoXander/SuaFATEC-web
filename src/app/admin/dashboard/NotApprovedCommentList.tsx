@@ -47,7 +47,7 @@ export default function NotApprovedCommentList() {
   }, [setNotApprovedCommentsAtom])
 
   return (
-    <div className='my-auto ml-auto mr-32 h-full rounded-md border shadow-sm'>
+    <div className='my-auto ml-auto mr-32 h-full w-[22.125rem] rounded-md border shadow-sm'>
       <div className='mx-4 my-3 flex h-7 items-center gap-2'>
         <div className='text-lg font-semibold'>Novos comentários</div>
       </div>
