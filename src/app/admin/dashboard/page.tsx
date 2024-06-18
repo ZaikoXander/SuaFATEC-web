@@ -3,18 +3,38 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { useAtomValue } from 'jotai'
-import { adminAuthTokenAtom } from '@/atoms/admin'
+import api from '@/lib/api'
 
 import NotApprovedCommentList from './NotApprovedCommentList'
 
 export default function Dashboard() {
-  const adminAuthToken = useAtomValue(adminAuthTokenAtom)
   const router = useRouter()
 
   useEffect(() => {
-    if (!adminAuthToken) router.push('/admin')
-  }, [adminAuthToken, router])
+    const adminAuthToken = localStorage.getItem('adminAuthToken')
+
+    function navigateToAdmin() {
+      router.push('/admin')
+    }
+
+    async function validateToken() {
+      try {
+        await api.get('/admins/validate-token', {
+          headers: {
+            Authorization: 'Bearer ' + adminAuthToken,
+          },
+        })
+      } catch (error) {
+        console.error(error)
+        localStorage.removeItem('adminAuthToken')
+        navigateToAdmin()
+      }
+    }
+
+    if (!adminAuthToken) navigateToAdmin()
+
+    validateToken()
+  }, [router])
 
   return (
     <main className='flex min-h-screen'>
