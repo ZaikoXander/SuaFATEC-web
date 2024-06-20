@@ -1,4 +1,6 @@
-// import { Input } from '@/components/ui/input'
+'use client'
+
+import SearchBar from '@/components/SearchBar'
 import GoogleMaps from '@/components/GoogleMaps'
 import InstitutionInfo from '@/components/InstitutionInfo'
 import CourseInfo from '@/components/CourseInfo'
@@ -7,10 +9,7 @@ import CourseComments from '@/components/CourseComments'
 export default function Home() {
   return (
     <main className='flex min-h-screen'>
-      {/* <Input
-        className='absolute z-10 m-3 w-60'
-        placeholder='Pesquisar cidade ou FATEC'
-      /> */}
+      <SearchBar />
       <InstitutionInfo />
       <CourseInfo />
       <CourseComments />

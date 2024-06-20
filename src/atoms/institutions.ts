@@ -1,5 +1,7 @@
 import { atom } from 'jotai'
 
+import type { City } from './cities'
+
 interface Institution {
   id: number
   name: string
@@ -11,8 +13,19 @@ interface Institution {
   longitudeCoordinate: number
 }
 
-const institutionsAtom = atom<Institution[] | undefined>(undefined)
+const institutionsAtom = atom<Institution[]>([])
 
 const selectedInstitutionAtom = atom<Institution | undefined>(undefined)
 
-export { type Institution, institutionsAtom, selectedInstitutionAtom }
+const getCityInstitutionsAtom = atom((get) => (city: City) => {
+  const institutions = get(institutionsAtom)
+
+  return institutions.filter((institution) => institution.cityId === city.id)
+})
+
+export {
+  type Institution,
+  institutionsAtom,
+  selectedInstitutionAtom,
+  getCityInstitutionsAtom,
+}
