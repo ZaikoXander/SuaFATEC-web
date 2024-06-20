@@ -7,12 +7,12 @@ interface City {
   name: string
 }
 
-const citiesAtom = atom<City[] | undefined>(undefined)
+const citiesAtom = atom<City[]>([])
 
 const getInstitutionCityAtom = atom((get) => (institution: Institution) => {
   const cities = get(citiesAtom)
 
-  return cities?.find((city) => city.id === institution.cityId)
+  return cities.find((city) => city.id === institution.cityId)
 })
 
 export { type City, citiesAtom, getInstitutionCityAtom }

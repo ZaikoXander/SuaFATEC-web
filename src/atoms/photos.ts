@@ -1,6 +1,6 @@
-import { atom } from 'jotai'
+import { type Atom, atom } from 'jotai'
 
-import { selectedInstitutionAtom } from './institutions'
+import { type Institution, selectedInstitutionAtom } from './institutions'
 import { selectedCourseAtom } from './courses'
 
 interface Photo {
@@ -30,6 +30,14 @@ const institutionPhotosAtom = atom((get) => {
   )
 })
 
+const getInstitutionFirstPhotoAtom: Atom<
+  (institution: Institution) => Photo | undefined
+> = atom((get) => (institution: Institution) => {
+  const photos = get(photosAtom)
+
+  return photos.find((photo) => photo.institutionId === institution.id)
+})
+
 const coursePhotoAtom = atom<Photo | undefined>((get) => {
   const selectedCourse = get(selectedCourseAtom)
   const photos = get(photosAtom)
@@ -37,4 +45,4 @@ const coursePhotoAtom = atom<Photo | undefined>((get) => {
   return photos.find((photo) => photo.id === selectedCourse?.photoId)
 })
 
-export { institutionPhotosAtom, coursePhotoAtom }
+export { institutionPhotosAtom, getInstitutionFirstPhotoAtom, coursePhotoAtom }
