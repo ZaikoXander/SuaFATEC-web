@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import { atom, useAtom, useAtomValue } from 'jotai'
 import {
   getCityInstitutionsAtom,
@@ -7,20 +5,17 @@ import {
   type Institution,
 } from '@/atoms/institutions'
 import { citiesAtom, getInstitutionCityAtom, type City } from '@/atoms/cities'
+import { getInstitutionFirstPhotoAtom } from '@/atoms/photos'
 
 import Fuse, { type FuseResult } from 'fuse.js'
 
-import { Input } from './ui/input'
-
-import Small from './Typography/Small'
-import Muted from './Typography/Muted'
-
 import { cn } from '@/lib/utils'
 
-import { Button } from './ui/button'
-import { getInstitutionFirstPhotoAtom } from '@/atoms/photos'
+import { Input } from '../ui/input'
 
-interface SearchBarResult {
+import Result from './Result'
+
+export interface SearchBarResult {
   id: number
   name: string
   address: string
@@ -155,31 +150,18 @@ export default function SearchBar() {
     >
       <Input placeholder='Pesquisar cidade ou FATEC' onChange={handleSearch} />
       <div
-        className={cn('rounded bg-white p-2', {
+        className={cn('p-2', {
           hidden: searchBarResults.length === 0,
         })}
       >
         {searchBarResults.map((searchBarResult) => (
-          <Button
-            variant='secondary'
-            className='flex h-32 w-full gap-x-2'
+          <Result
             key={searchBarResult.id}
-          >
-            <div className='flex h-full flex-1 flex-col gap-y-6 pt-1 text-start'>
-              <Small>{searchBarResult.name}</Small>
-              <Muted className='text-pretty'>{searchBarResult.address}</Muted>
-            </div>
-            <div className='flex flex-1 flex-col items-center gap-y-2'>
-              <Muted>{searchBarResult.cityName}</Muted>
-              <Image
-                src={searchBarResult.photoUrl || ''}
-                alt={`Imagem da ${searchBarResult.name}`}
-                width={160}
-                height={82.064516112}
-                className='rounded-sm shadow-sm'
-              />
-            </div>
-          </Button>
+            name={searchBarResult.name}
+            address={searchBarResult.address}
+            cityName={searchBarResult.cityName}
+            photoUrl={searchBarResult.photoUrl}
+          />
         ))}
       </div>
     </div>
