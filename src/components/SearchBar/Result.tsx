@@ -1,5 +1,10 @@
 import Image from 'next/image'
 
+import { useSetAtom } from 'jotai'
+
+import { setSelectedInstitutionByIdAtom } from '@/atoms/institutions'
+import { openInstitutionInfoAtom } from '@/atoms/sheets'
+
 import { Button } from '../ui/button'
 
 import Small from '../Typography/Small'
@@ -7,16 +12,27 @@ import Muted from '../Typography/Muted'
 
 import type { SearchBarResult } from '.'
 
-interface ResultProps extends Omit<SearchBarResult, 'id'> {}
-
 export default function Result({
+  id,
   name,
   address,
   cityName,
   photoUrl,
-}: ResultProps) {
+}: SearchBarResult) {
+  const setSelectedInstitutionById = useSetAtom(setSelectedInstitutionByIdAtom)
+  const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)
+
+  function handleButtonClick() {
+    setSelectedInstitutionById(id)
+    openInstitutionInfo()
+  }
+
   return (
-    <Button variant='secondary' className='flex h-32 w-full gap-x-2'>
+    <Button
+      variant='secondary'
+      className='flex h-32 w-full gap-x-2'
+      onClick={handleButtonClick}
+    >
       <div className='flex h-full flex-1 flex-col gap-y-6 pt-1 text-start'>
         <Small>{name}</Small>
         <Muted className='text-pretty'>{address}</Muted>

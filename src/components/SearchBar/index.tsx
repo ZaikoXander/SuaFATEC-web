@@ -138,6 +138,7 @@ export default function SearchBar() {
     setSearchBarResults(searchResultsFromFuseResults())
   }
 
+  // Melhorar responsividade e simular com mais resultados
   return (
     <div
       className={cn(
@@ -150,13 +151,14 @@ export default function SearchBar() {
     >
       <Input placeholder='Pesquisar cidade ou FATEC' onChange={handleSearch} />
       <div
-        className={cn('p-2', {
+        className={cn('space-y-3 p-2', {
           hidden: searchBarResults.length === 0,
         })}
       >
         {searchBarResults.map((searchBarResult) => (
           <Result
             key={searchBarResult.id}
+            id={searchBarResult.id}
             name={searchBarResult.name}
             address={searchBarResult.address}
             cityName={searchBarResult.cityName}
