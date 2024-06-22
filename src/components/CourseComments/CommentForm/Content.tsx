@@ -3,13 +3,12 @@ import { z } from 'zod'
 import { useAtomValue } from 'jotai'
 import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'
 
-import { useToast } from '@/components/ui/use-toast'
-
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import api from '@/lib/api'
 
+import { useToast } from '@/components/ui/use-toast'
 import { CardContent } from '@/components/ui/card'
 import {
   Form,
@@ -20,7 +19,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import DateInput from './DateInput'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 
@@ -30,10 +28,17 @@ const formSchema = z.object({
     .min(2, 'O nome deve conter pelo menos 2 caracteres')
     .max(64, 'O nome deve conter no máximo 64 caracteres'),
   conclusionDate: z
-    .date({
-      required_error: 'A data de término do curso é obrigatória',
-    })
-    .max(new Date(), 'A data não pode ser no futuro'),
+    .string({ required_error: 'A data de término do curso é obrigatória' })
+    .refine(
+      (value) => {
+        const inputDate = new Date(value)
+        const today = new Date()
+
+        today.setHours(0, 0, 0, 0)
+        return inputDate < today
+      },
+      { message: 'A data não pode ser no futuro' },
+    ),
   content: z
     .string({ required_error: 'O conteúdo é obrigatório' })
     .min(5, 'O conteúdo deve conter pelo menos 5 caracteres')
@@ -61,10 +66,12 @@ export default function Content() {
     if (!selectedCourseOffering) return
 
     try {
+      toast({ title: 'Processando comentário...' })
+
       await api.post('/comments', {
         courseOfferingId: selectedCourseOffering.id,
         studentName,
-        conclusionDate,
+        conclusionDate: new Date(conclusionDate),
         content,
       })
 
@@ -94,15 +101,11 @@ export default function Content() {
           <FormField
             control={form.control}
             name='conclusionDate'
-            render={({ field: { onChange, onBlur } }) => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>Término do curso</FormLabel>
                 <FormControl>
-                  <DateInput
-                    className='w-min'
-                    onChange={onChange}
-                    onBlur={onBlur}
-                  />
+                  <Input type='date' className='w-min' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
