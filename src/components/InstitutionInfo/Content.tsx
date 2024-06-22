@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+'use client'
 
-import Image from 'next/image'
+import { useEffect } from 'react'
 
 import api from '@/lib/api'
 
@@ -18,17 +18,24 @@ import {
   type CourseOffering,
 } from '@/atoms/courseOfferings'
 
-import { SheetDescription, SheetHeader, SheetTitle } from '../ui/sheet'
+import {
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '../ui/sheet'
+import { ScrollArea } from '../ui/scroll-area'
 
 import CourseList from '../CourseList'
-import { ScrollArea } from '../ui/scroll-area'
+import Photo from './Photo'
+import PhotosCarousel from './PhotosCarousel'
 
 interface FetchInstitutionCoursesDataResponse {
   courses: Course[]
   courseOfferings: CourseOffering[]
 }
 
-export default function InstitutionInfoContent() {
+export default function Content() {
   const institutionPhotos = useAtomValue(institutionPhotosAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
   const fetchedInstitutionsIdsOnInstitutionCoursesData = useAtomValue(
@@ -76,49 +83,41 @@ export default function InstitutionInfoContent() {
 
   if (!selectedInstitution) return
 
+  const { name, description, address, phoneNumber } = selectedInstitution
+
   return (
-    <>
+    <SheetContent className='flex w-full flex-col gap-4 sm:w-[84%] sm:max-w-full md:w-[66%] lg:w-[52%] xl:w-[42%] 2xl:w-[36%]'>
       <SheetHeader>
-        <SheetTitle>Informações da {selectedInstitution.name}</SheetTitle>
+        <SheetTitle>Informações da {name}</SheetTitle>
+      </SheetHeader>
+      <ScrollArea className='pr-3'>
         <SheetDescription>
-          {selectedInstitution.description.map((paragraph, index) => (
+          {description.map((paragraph, index) => (
             <span key={index} className='block'>
               {paragraph}
             </span>
           ))}
         </SheetDescription>
-      </SheetHeader>
-      <ScrollArea className='mr-3'>
         <div className='flex flex-col gap-2'>
           <span className='font-semibold'>
             Endereço:{' '}
             <span className='self-center text-sm font-medium leading-none'>
-              {selectedInstitution.address}
+              {address}
             </span>
           </span>
           <span className='font-semibold'>
             Telefone:{' '}
             <span className='text-sm font-medium leading-none'>
-              {selectedInstitution.phoneNumber}
+              {phoneNumber}
             </span>
           </span>
-          <div className='w-[96%] space-y-4'>
-            <div className=' flex flex-wrap gap-3'>
-              {institutionPhotos.map((image, index) => (
-                <Image
-                  key={index}
-                  src={image.url}
-                  alt=''
-                  width={512}
-                  height={512}
-                  className='w-56 rounded-sm shadow-md sm:w-80 2xl:w-96'
-                />
-              ))}
-            </div>
+          <div className='w-full space-y-4'>
+            <Photo />
+            <PhotosCarousel />
             <CourseList />
           </div>
         </div>
       </ScrollArea>
-    </>
+    </SheetContent>
   )
 }

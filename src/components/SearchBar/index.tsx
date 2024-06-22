@@ -1,4 +1,7 @@
+'use client'
+
 import { atom, useAtom, useAtomValue } from 'jotai'
+
 import {
   getCityInstitutionsAtom,
   institutionsAtom,

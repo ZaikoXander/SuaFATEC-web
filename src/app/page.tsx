@@ -1,5 +1,3 @@
-'use client'
-
 import SearchBar from '@/components/SearchBar'
 import GoogleMaps from '@/components/GoogleMaps'
 import InstitutionInfo from '@/components/InstitutionInfo'
