@@ -27,7 +27,7 @@ export default function CoursePhoto({
 
   return (
     <Image
-      src={coursePhoto?.url}
+      src={coursePhoto.url}
       alt={`Imagem ilustrativa do curso ${selectedCourse?.name}`}
       width={width}
       height={height}

@@ -22,12 +22,13 @@ import Comment from '../../Comment'
 
 import { ScrollArea } from '../../ui/scroll-area'
 import { Separator } from '../../ui/separator'
+import { cn } from '@/lib/utils'
 
 interface FetchCourseOfferingCommentsResponse {
   comments: CommentData[]
 }
 
-export default function CommentList() {
+export default function CommentList({ className }: { className?: string }) {
   const filteredCourseOfferingComments = useAtomValue(
     filteredCourseOfferingCommentsAtom,
   )
@@ -75,40 +76,54 @@ export default function CommentList() {
   ])
 
   return (
-    <div className='h-full rounded-md border shadow-sm'>
+    <div
+      className={cn(
+        'h-full w-full rounded-md border shadow-sm lg:w-auto',
+        className,
+      )}
+    >
       <Filters />
       <Separator className='mt-2' />
-      <ScrollArea className='h-[48rem] px-4 pb-0 pt-2'>
-        {filteredCourseOfferingComments.map((comment) => {
-          const lastCommentId = filteredCourseOfferingComments.at(-1)?.id
-          if (lastCommentId === comment.id) {
-            return (
-              <Comment
-                key={comment.id}
-                id={comment.id}
-                studentName={comment.studentName}
-                content={comment.content}
-                conclusionDate={comment.conclusionDate}
-                liked={comment.liked}
-                quantityLikes={comment.quantityLikes}
-              />
-            )
-          }
+      <ScrollArea className='h-[36rem] px-4 pb-0 pt-2 lg:h-[46rem]'>
+        {filteredCourseOfferingComments.map(
+          ({
+            id,
+            studentName,
+            content,
+            conclusionDate,
+            liked,
+            quantityLikes,
+          }) => {
+            const lastCommentId = filteredCourseOfferingComments.at(-1)?.id
+            if (lastCommentId === id) {
+              return (
+                <Comment
+                  key={id}
+                  id={id}
+                  studentName={studentName}
+                  content={content}
+                  conclusionDate={conclusionDate}
+                  liked={liked}
+                  quantityLikes={quantityLikes}
+                />
+              )
+            }
 
-          return (
-            <Fragment key={comment.id}>
-              <Comment
-                id={comment.id}
-                studentName={comment.studentName}
-                content={comment.content}
-                conclusionDate={comment.conclusionDate}
-                liked={comment.liked}
-                quantityLikes={comment.quantityLikes}
-              />
-              <Separator className='my-2' />
-            </Fragment>
-          )
-        })}
+            return (
+              <Fragment key={id}>
+                <Comment
+                  id={id}
+                  studentName={studentName}
+                  content={content}
+                  conclusionDate={conclusionDate}
+                  liked={liked}
+                  quantityLikes={quantityLikes}
+                />
+                <Separator className='my-2' />
+              </Fragment>
+            )
+          },
+        )}
       </ScrollArea>
     </div>
   )
