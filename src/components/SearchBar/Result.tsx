@@ -10,7 +10,13 @@ import { Button } from '../ui/button'
 import Small from '../Typography/Small'
 import Muted from '../Typography/Muted'
 
+import { cn } from '@/lib/utils'
+
 import type { SearchBarResult } from '.'
+
+interface ResultProps extends SearchBarResult {
+  className?: string
+}
 
 export default function Result({
   id,
@@ -18,7 +24,8 @@ export default function Result({
   address,
   cityName,
   photoUrl,
-}: SearchBarResult) {
+  className,
+}: ResultProps) {
   const setSelectedInstitutionById = useSetAtom(setSelectedInstitutionByIdAtom)
   const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)
 
@@ -30,7 +37,7 @@ export default function Result({
   return (
     <Button
       variant='secondary'
-      className='flex h-32 w-full gap-x-2'
+      className={cn('flex h-32 w-full gap-x-2', className)}
       onClick={handleButtonClick}
     >
       <div className='flex h-full flex-1 flex-col gap-y-6 pt-1 text-start'>

@@ -67,14 +67,14 @@ const SheetContent = React.forwardRef<
       {children}
       <SheetPrimitive.Close
         onClick={onReturnButtonClick}
-        className={cn(
-          "absolute top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary",
-          onReturnButtonClick ? "left-4" : "right-4"
-        )}
+        className="absolute top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary right-4 group"
       >
         {
           onReturnButtonClick ?
-            <ArrowLeft className="h-7 w-7" /> :
+            (<div className="flex items-center gap-x-1">
+              <ArrowLeft className="h-7 w-7" />
+              <div className="text-lg font-semibold group-hover:underline decoration-1 underline-offset-2 transition-all">Voltar</div>
+            </div>) :
             <X className="h-7 w-7" />
         }
         <span className="sr-only">
