@@ -1,7 +1,5 @@
 import { useEffect } from 'react'
 
-import Image from 'next/image'
-
 import api from '@/lib/api'
 
 import { useAtomValue, useSetAtom } from 'jotai'
@@ -19,9 +17,11 @@ import {
 } from '@/atoms/courseOfferings'
 
 import { SheetDescription, SheetHeader, SheetTitle } from '../ui/sheet'
+import { ScrollArea } from '../ui/scroll-area'
 
 import CourseList from '../CourseList'
-import { ScrollArea } from '../ui/scroll-area'
+import Photo from './Photo'
+import PhotosCarousel from './PhotosCarousel'
 
 interface FetchInstitutionCoursesDataResponse {
   courses: Course[]
@@ -39,6 +39,8 @@ export default function InstitutionInfoContent() {
   )
   const addCourses = useSetAtom(addCoursesAtom)
   const addCourseOfferings = useSetAtom(addCourseOfferingsAtom)
+
+  const hasOnlyOnePhoto = institutionPhotos.length === 1
 
   useEffect(() => {
     async function fetchData() {
@@ -76,45 +78,36 @@ export default function InstitutionInfoContent() {
 
   if (!selectedInstitution) return
 
+  const { name, description, address, phoneNumber } = selectedInstitution
+
   return (
     <>
       <SheetHeader>
-        <SheetTitle>Informações da {selectedInstitution.name}</SheetTitle>
+        <SheetTitle>Informações da {name}</SheetTitle>
+      </SheetHeader>
+      <ScrollArea className='pr-3'>
         <SheetDescription>
-          {selectedInstitution.description.map((paragraph, index) => (
+          {description.map((paragraph, index) => (
             <span key={index} className='block'>
               {paragraph}
             </span>
           ))}
         </SheetDescription>
-      </SheetHeader>
-      <ScrollArea className='mr-3'>
         <div className='flex flex-col gap-2'>
           <span className='font-semibold'>
             Endereço:{' '}
             <span className='self-center text-sm font-medium leading-none'>
-              {selectedInstitution.address}
+              {address}
             </span>
           </span>
           <span className='font-semibold'>
             Telefone:{' '}
             <span className='text-sm font-medium leading-none'>
-              {selectedInstitution.phoneNumber}
+              {phoneNumber}
             </span>
           </span>
-          <div className='w-[96%] space-y-4'>
-            <div className=' flex flex-wrap gap-3'>
-              {institutionPhotos.map((image, index) => (
-                <Image
-                  key={index}
-                  src={image.url}
-                  alt=''
-                  width={512}
-                  height={512}
-                  className='w-56 rounded-sm shadow-md sm:w-80 2xl:w-96'
-                />
-              ))}
-            </div>
+          <div className='w-full space-y-4'>
+            {hasOnlyOnePhoto ? <Photo /> : <PhotosCarousel />}
             <CourseList />
           </div>
         </div>
