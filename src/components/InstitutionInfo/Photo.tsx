@@ -9,10 +9,13 @@ export default function Photo() {
   const institutionPhotos = useAtomValue(institutionPhotosAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
 
+  const hasOnlyOnePhoto = institutionPhotos.length === 1
+
+  if (!hasOnlyOnePhoto) return
+  if (!selectedInstitution) return
+
   const firstPhoto = institutionPhotos[0]
   const firstPhotoUrl = firstPhoto.url
-
-  if (!selectedInstitution) return
 
   const institutionName = selectedInstitution.name
 

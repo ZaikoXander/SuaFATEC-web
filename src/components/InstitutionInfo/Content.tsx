@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect } from 'react'
 
 import api from '@/lib/api'
@@ -16,7 +18,12 @@ import {
   type CourseOffering,
 } from '@/atoms/courseOfferings'
 
-import { SheetDescription, SheetHeader, SheetTitle } from '../ui/sheet'
+import {
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '../ui/sheet'
 import { ScrollArea } from '../ui/scroll-area'
 
 import CourseList from '../CourseList'
@@ -28,7 +35,7 @@ interface FetchInstitutionCoursesDataResponse {
   courseOfferings: CourseOffering[]
 }
 
-export default function InstitutionInfoContent() {
+export default function Content() {
   const institutionPhotos = useAtomValue(institutionPhotosAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
   const fetchedInstitutionsIdsOnInstitutionCoursesData = useAtomValue(
@@ -39,8 +46,6 @@ export default function InstitutionInfoContent() {
   )
   const addCourses = useSetAtom(addCoursesAtom)
   const addCourseOfferings = useSetAtom(addCourseOfferingsAtom)
-
-  const hasOnlyOnePhoto = institutionPhotos.length === 1
 
   useEffect(() => {
     async function fetchData() {
@@ -81,7 +86,7 @@ export default function InstitutionInfoContent() {
   const { name, description, address, phoneNumber } = selectedInstitution
 
   return (
-    <>
+    <SheetContent className='flex w-full flex-col gap-4 sm:w-[84%] sm:max-w-full md:w-[66%] lg:w-[52%] xl:w-[42%] 2xl:w-[36%]'>
       <SheetHeader>
         <SheetTitle>Informações da {name}</SheetTitle>
       </SheetHeader>
@@ -107,11 +112,12 @@ export default function InstitutionInfoContent() {
             </span>
           </span>
           <div className='w-full space-y-4'>
-            {hasOnlyOnePhoto ? <Photo /> : <PhotosCarousel />}
+            <Photo />
+            <PhotosCarousel />
             <CourseList />
           </div>
         </div>
       </ScrollArea>
-    </>
+    </SheetContent>
   )
 }

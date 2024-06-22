@@ -17,6 +17,9 @@ export default function PhotosCarousel() {
   const institutionPhotos = useAtomValue(institutionPhotosAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
 
+  const hasMultiplePhoto = institutionPhotos.length > 1
+
+  if (!hasMultiplePhoto) return
   if (!selectedInstitution) return
 
   const institutionName = selectedInstitution.name
