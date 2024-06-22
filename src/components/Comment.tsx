@@ -18,7 +18,7 @@ export default function Comment({
   liked,
 }: CommentProps) {
   return (
-    <div className='flex h-min w-80 flex-col gap-2 px-4 py-2'>
+    <div className='flex h-min w-auto flex-col gap-2 px-4 py-2 sm:w-80'>
       <div className='flex items-center justify-between'>
         <span className='text-lg font-bold'>{studentName}</span>
         <span className='text-xs font-medium leading-none text-gray-500'>

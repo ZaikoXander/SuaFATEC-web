@@ -3,9 +3,11 @@
 import { Card, CardHeader, CardTitle } from '../../ui/card'
 import Content from './Content'
 
-export default function CommentForm() {
+import { cn } from '@/lib/utils'
+
+export default function CommentForm({ className }: { className?: string }) {
   return (
-    <Card className='h-min w-[30rem]'>
+    <Card className={cn('h-min w-full sm:w-[30rem]', className)}>
       <CardHeader>
         <CardTitle>Adicionar comentário</CardTitle>
       </CardHeader>
