@@ -6,7 +6,6 @@ import api from '@/lib/api'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
-import { institutionPhotosAtom } from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
@@ -36,7 +35,6 @@ interface FetchInstitutionCoursesDataResponse {
 }
 
 export default function Content() {
-  const institutionPhotos = useAtomValue(institutionPhotosAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
   const fetchedInstitutionsIdsOnInstitutionCoursesData = useAtomValue(
     fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
