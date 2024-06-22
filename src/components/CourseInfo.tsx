@@ -52,7 +52,7 @@ export default function CourseInfo() {
             </span>
           </SheetTitle>
         </SheetHeader>
-        <ScrollArea>
+        <ScrollArea className='pr-3'>
           <SheetDescription>{selectedCourse?.description}</SheetDescription>
           <CoursePhoto height={230} className='w-full' />
           <div className='flex h-full flex-col gap-2'>
