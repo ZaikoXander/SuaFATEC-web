@@ -15,6 +15,7 @@ import Fuse, { type FuseResult } from 'fuse.js'
 import { cn } from '@/lib/utils'
 
 import { Input } from '../ui/input'
+import { ScrollArea } from '../ui/scroll-area'
 
 import Result from './Result'
 
@@ -37,6 +38,8 @@ export default function SearchBar() {
   const getInstitutionFirstPhoto = useAtomValue(getInstitutionFirstPhotoAtom)
 
   const [searchBarResults, setSearchBarResults] = useAtom(searchBarResultsAtom)
+
+  const isSearchBarResultsEmpty = searchBarResults.length === 0
 
   const fuse = new Fuse<Institution | City>([...institutions, ...cities], {
     keys: ['name'],
@@ -141,34 +144,35 @@ export default function SearchBar() {
     setSearchBarResults(searchResultsFromFuseResults())
   }
 
-  // Melhorar responsividade e simular com mais resultados
   return (
     <div
       className={cn(
-        'absolute z-10 w-full space-y-2 bg-white px-5 py-4 transition-all sm:mx-6 sm:my-3 sm:w-96 sm:bg-transparent sm:p-0 2xl:m-3',
+        'absolute z-10 max-h-screen w-full space-y-2 bg-white px-5 py-4 transition-all sm:mx-6 sm:my-3 sm:w-96 sm:bg-transparent sm:p-0 2xl:m-3',
         {
           'rounded sm:m-0 sm:w-[25.5rem] sm:bg-white sm:p-3 2xl:m-0':
-            searchBarResults.length > 0,
+            !isSearchBarResultsEmpty,
         },
       )}
     >
       <Input placeholder='Pesquisar cidade ou FATEC' onChange={handleSearch} />
-      <div
-        className={cn('space-y-3 p-2', {
-          hidden: searchBarResults.length === 0,
+      <ScrollArea
+        className={cn('h-max pr-3 pt-2 transition-all', {
+          hidden: isSearchBarResultsEmpty,
+          'h-96': searchBarResults.length > 1,
         })}
       >
-        {searchBarResults.map((searchBarResult) => (
+        {searchBarResults.map(({ id, name, address, cityName, photoUrl }) => (
           <Result
-            key={searchBarResult.id}
-            id={searchBarResult.id}
-            name={searchBarResult.name}
-            address={searchBarResult.address}
-            cityName={searchBarResult.cityName}
-            photoUrl={searchBarResult.photoUrl}
+            key={id}
+            id={id}
+            name={name}
+            address={address}
+            cityName={cityName}
+            photoUrl={photoUrl}
+            className='mb-3'
           />
         ))}
-      </div>
+      </ScrollArea>
     </div>
   )
 }
