@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 
 import api from '@/lib/api'
 
-import NotApprovedCommentList from './NotApprovedCommentList'
+import NotApprovedCommentList from '@/components/admin/dashboard/NotApprovedCommentList'
+import LogoutButton from '@/components/admin/dashboard/LogoutButton'
 
 export default function Dashboard() {
   const router = useRouter()
@@ -37,7 +38,8 @@ export default function Dashboard() {
   }, [router])
 
   return (
-    <main className='flex min-h-screen'>
+    <main className='flex min-h-screen flex-col'>
+      <LogoutButton />
       <NotApprovedCommentList />
     </main>
   )

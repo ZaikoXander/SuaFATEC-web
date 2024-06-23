@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -8,6 +8,7 @@ import { atom, useAtom, useSetAtom } from 'jotai'
 import { adminAtom } from '@/atoms/admin'
 
 import api from '@/lib/api'
+import { AxiosError } from 'axios'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -37,6 +38,7 @@ export function LoginForm() {
   const [credentials, setCredentials] = useAtom(credentialsAtom)
   const setAdmin = useSetAtom(adminAtom)
   const router = useRouter()
+  const [wrongCredentials, setWrongCredentials] = useState(false)
 
   function handleCredentialsChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target
@@ -51,9 +53,16 @@ export function LoginForm() {
 
       setAdmin(admin)
       localStorage.setItem('adminAuthToken', token)
+      setWrongCredentials(false)
       router.push('/admin/dashboard')
     } catch (error) {
       console.error(error)
+
+      if (!(error instanceof AxiosError)) return
+
+      if (error?.response?.data.error === 'Admin not found') {
+        setWrongCredentials(true)
+      }
     }
   }
 
@@ -84,6 +93,9 @@ export function LoginForm() {
             onChange={handleCredentialsChange}
           />
         </div>
+        {wrongCredentials && (
+          <p className='text-sm text-red-500'>Nome ou senha incorretos.</p>
+        )}
       </CardContent>
       <CardFooter>
         <Button className='w-full' onClick={handleSignIn}>
