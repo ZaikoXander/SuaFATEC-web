@@ -1,3 +1,5 @@
+import Header from '@/components/Header'
+import IntroductionModals from '@/components/IntroductionModals'
 import SearchBar from '@/components/SearchBar'
 import GoogleMaps from '@/components/GoogleMaps'
 import InstitutionInfo from '@/components/InstitutionInfo'
@@ -6,12 +8,16 @@ import CourseComments from '@/components/CourseComments'
 
 export default function Home() {
   return (
-    <main className='flex min-h-screen'>
+    <div className='h-screen max-h-screen w-screen'>
       <SearchBar />
-      <InstitutionInfo />
-      <CourseInfo />
-      <CourseComments />
-      <GoogleMaps />
-    </main>
+      <Header />
+      <main className='flex h-full sm:h-[calc(100%-5rem)]'>
+        <IntroductionModals />
+        <InstitutionInfo />
+        <CourseInfo />
+        <CourseComments />
+        <GoogleMaps />
+      </main>
+    </div>
   )
 }

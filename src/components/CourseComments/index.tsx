@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-
 import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai'
 
 import { courseCommentsOpenAtom, openCourseInfoAtom } from '@/atoms/sheets'

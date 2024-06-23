@@ -54,7 +54,7 @@ export default function GoogleMaps() {
 
   if (!institutions || !cities) {
     return (
-      <div className='flex h-screen w-full items-center justify-center'>
+      <div className='flex w-full items-center justify-center'>
         <p>Carregando...</p>
       </div>
     )
@@ -62,7 +62,7 @@ export default function GoogleMaps() {
 
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-      <div className='h-screen w-full'>
+      <div className='w-full'>
         <Map
           disableDefaultUI
           minZoom={7.5}

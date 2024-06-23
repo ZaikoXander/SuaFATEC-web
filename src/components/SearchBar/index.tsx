@@ -147,9 +147,9 @@ export default function SearchBar() {
   return (
     <div
       className={cn(
-        'absolute z-10 max-h-screen w-full space-y-2 bg-white px-5 py-4 transition-all sm:mx-6 sm:my-3 sm:w-96 sm:bg-transparent sm:p-0 2xl:m-3',
+        'absolute z-10 max-h-screen w-full space-y-2 bg-white px-5 py-4 transition-all sm:mb-3 sm:ml-3 sm:mt-5 sm:w-96 sm:bg-transparent sm:p-0',
         {
-          'rounded sm:m-0 sm:w-[25.5rem] sm:bg-white sm:p-3 2xl:m-0':
+          'rounded-b sm:ml-0 sm:mt-2 sm:w-[25.5rem] sm:bg-white sm:p-3':
             !isSearchBarResultsEmpty,
         },
       )}
