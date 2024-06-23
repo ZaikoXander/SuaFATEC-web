@@ -4,8 +4,9 @@ import { useEffect } from 'react'
 
 import api from '@/lib/api'
 
-import { useAtomValue, useSetAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 
+import { institutionPhotosAtom, photosAtom } from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
@@ -34,11 +35,19 @@ interface FetchInstitutionCoursesDataResponse {
   courseOfferings: CourseOffering[]
 }
 
+const fetchInstitutionPhotos = async (id: number) => {
+  const { data: { photos } } = await api.get(`/photos/institution/${id}`);
+  return photos;
+}
+
 export default function Content() {
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
   const fetchedInstitutionsIdsOnInstitutionCoursesData = useAtomValue(
     fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
   )
+
+  const [photos, setPhotos] = useAtom(photosAtom)
+
   const addFetchedInstitutionIdOnInstitutionCoursesData = useSetAtom(
     addFetchedInstitutionIdOnInstitutionCoursesDataAtom,
   )
@@ -61,6 +70,9 @@ export default function Content() {
         } = await api.get<FetchInstitutionCoursesDataResponse>(
           `/institution-courses-data/${selectedInstitution.id}`,
         )
+
+        const newPhotos = await fetchInstitutionPhotos(selectedInstitution.id)
+        setPhotos([...photos, ...newPhotos]);
 
         addCourses(courses)
         addCourseOfferings(courseOfferings)

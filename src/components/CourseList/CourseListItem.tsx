@@ -6,6 +6,7 @@ import { openCourseInfoAtom } from '@/atoms/sheets'
 import { SheetClose } from '../ui/sheet'
 import { Button } from '../ui/button'
 
+
 export default function CourseListItem({ course }: { course: Course }) {
   const setSelectedCourse = useSetAtom(selectedCourseAtom)
   const openCourseInfo = useSetAtom(openCourseInfoAtom)

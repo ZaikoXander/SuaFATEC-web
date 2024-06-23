@@ -13,9 +13,18 @@ import Muted from '../Typography/Muted'
 import { cn } from '@/lib/utils'
 
 import type { SearchBarResult } from '.'
+import { useAtom } from 'jotai'
+import { photosAtom } from '@/atoms/photos'
+import { useEffect } from 'react'
+import api from '@/lib/api'
 
 interface ResultProps extends SearchBarResult {
   className?: string
+}
+
+const fetchInstitutionPhotos = async (id: number) => {
+  const { data: { photos } } = await api.get(`/photos/institution/${id}`);
+  return photos;
 }
 
 export default function Result({
@@ -26,6 +35,22 @@ export default function Result({
   photoUrl,
   className,
 }: ResultProps) {
+
+  const [photos, setPhotos] = useAtom(photosAtom)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const newPhotos = await fetchInstitutionPhotos(id)
+        setPhotos([...photos, ...newPhotos]);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchData();
+  })
+
   const setSelectedInstitutionById = useSetAtom(setSelectedInstitutionByIdAtom)
   const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)
 
@@ -46,7 +71,7 @@ export default function Result({
       </div>
       <div className='flex flex-1 flex-col items-center gap-y-2'>
         <Muted>{cityName}</Muted>
-        <Image
+        <Image  
           src={photoUrl || ''}
           alt={`Imagem da ${name}`}
           width={160}
