@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import api from '@/lib/api'
 
-import { LoginForm } from './LoginForm'
+import { LoginForm } from '@/components/admin/LoginForm'
 
 export default function Admin() {
   const router = useRouter()
