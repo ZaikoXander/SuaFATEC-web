@@ -26,8 +26,8 @@ const Header = () => {
   }
 
   return (
-    <header className='h-20 bg-[#ebeff7] p-4 text-white shadow-md'>
-      <div className='container mx-auto flex h-full items-center justify-between'>
+    <header className='hidden h-20 w-full bg-white p-4 text-white shadow-md sm:block'>
+      <div className='mx-[26rem] flex h-full items-center justify-between'>
         <div className='flex items-center'>
           <Image src='/logo.png' width={77.092953222} height={48} alt='Logo' />
           <button
