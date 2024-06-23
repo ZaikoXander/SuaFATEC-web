@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 
 import { coursePhotoAtom, photosAtom } from '@/atoms/photos'
 import { selectedCourseAtom } from '@/atoms/courses'
@@ -8,15 +8,16 @@ import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { useEffect } from 'react'
 import api from '@/lib/api'
-import { useSelectedLayoutSegment } from 'next/navigation'
 
 type Dimension = number | `${number}` | undefined
 
 const fetchCoursePhotos = async (id: number | undefined) => {
   if (id !== undefined) {
-    const { data: { photo } } = await api.get(`/photos/course/${id}`);
-    console.log(photo)
-    return photo;
+    const {
+      data: { photo },
+    } = await api.get(`/photos/course/${id}`)
+
+    return photo
   }
 }
 
@@ -35,22 +36,25 @@ export default function CoursePhoto({
 
   const coursePhoto = useAtomValue(coursePhotoAtom)
 
-  const setPhotos = useSetAtom(photosAtom) 
+  const setPhotos = useSetAtom(photosAtom)
 
   useEffect(() => {
     const getCoursePhoto = async () => {
-      if (selectedCourse?.id !== undefined) {
-        const coursePhoto = await fetchCoursePhotos(selectedCourse.id)
-        console.log("logzinho do mal: " + coursePhoto)
-        setPhotos((photos) => [...photos, coursePhoto]); 
+      try {
+        if (selectedCourse?.id !== undefined) {
+          const coursePhoto = await fetchCoursePhotos(selectedCourse.id)
+
+          setPhotos((photos) => [...photos, coursePhoto])
+        }
+      } catch (error) {
+        console.error(error)
       }
     }
     getCoursePhoto()
-  }, [selectedCourse])
-
+  }, [selectedCourse, setPhotos])
 
   if (!coursePhoto) {
-    return <p>Loading...</p> 
+    return <p>Loading...</p>
   }
 
   return (

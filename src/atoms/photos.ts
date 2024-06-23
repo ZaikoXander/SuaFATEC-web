@@ -45,4 +45,9 @@ const coursePhotoAtom = atom<Photo | undefined>((get) => {
   return photos.find((photo) => photo.id === selectedCourse?.photoId)
 })
 
-export { institutionPhotosAtom, getInstitutionFirstPhotoAtom, coursePhotoAtom, photosAtom }
+export {
+  institutionPhotosAtom,
+  getInstitutionFirstPhotoAtom,
+  coursePhotoAtom,
+  photosAtom,
+}

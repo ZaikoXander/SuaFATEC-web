@@ -6,7 +6,7 @@ import api from '@/lib/api'
 
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 
-import { institutionPhotosAtom, photosAtom } from '@/atoms/photos'
+import { photosAtom } from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
@@ -36,8 +36,11 @@ interface FetchInstitutionCoursesDataResponse {
 }
 
 const fetchInstitutionPhotos = async (id: number) => {
-  const { data: { photos } } = await api.get(`/photos/institution/${id}`);
-  return photos;
+  const {
+    data: { photos },
+  } = await api.get(`/photos/institution/${id}`)
+
+  return photos
 }
 
 export default function Content() {
@@ -72,7 +75,7 @@ export default function Content() {
         )
 
         const newPhotos = await fetchInstitutionPhotos(selectedInstitution.id)
-        setPhotos([...photos, ...newPhotos]);
+        setPhotos([...photos, ...newPhotos])
 
         addCourses(courses)
         addCourseOfferings(courseOfferings)
@@ -89,6 +92,8 @@ export default function Content() {
     addFetchedInstitutionIdOnInstitutionCoursesData,
     addCourses,
     addCourseOfferings,
+    setPhotos,
+    photos,
   ])
 
   if (!selectedInstitution) return

@@ -23,8 +23,10 @@ interface ResultProps extends SearchBarResult {
 }
 
 const fetchInstitutionPhotos = async (id: number) => {
-  const { data: { photos } } = await api.get(`/photos/institution/${id}`);
-  return photos;
+  const {
+    data: { photos },
+  } = await api.get(`/photos/institution/${id}`)
+  return photos
 }
 
 export default function Result({
@@ -35,20 +37,19 @@ export default function Result({
   photoUrl,
   className,
 }: ResultProps) {
-
   const [photos, setPhotos] = useAtom(photosAtom)
 
   useEffect(() => {
     async function fetchData() {
       try {
         const newPhotos = await fetchInstitutionPhotos(id)
-        setPhotos([...photos, ...newPhotos]);
+        setPhotos([...photos, ...newPhotos])
       } catch (error) {
         console.error(error)
       }
     }
 
-    fetchData();
+    fetchData()
   })
 
   const setSelectedInstitutionById = useSetAtom(setSelectedInstitutionByIdAtom)
@@ -71,7 +72,7 @@ export default function Result({
       </div>
       <div className='flex flex-1 flex-col items-center gap-y-2'>
         <Muted>{cityName}</Muted>
-        <Image  
+        <Image
           src={photoUrl || ''}
           alt={`Imagem da ${name}`}
           width={160}
