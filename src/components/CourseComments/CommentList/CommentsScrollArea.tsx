@@ -16,15 +16,10 @@ import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 import Comment from '@/components/Comment'
+import CommentsScrollAreaFeedbackMessage from '@/components/CommentsScrollAreaFeedbackMessage'
 
 interface FetchCourseOfferingCommentsResponse {
   comments: CommentData[]
-}
-
-function FeedbackMessage({ children }: { children: React.ReactNode }) {
-  return (
-    <p className='w-auto py-3 text-center text-gray-400 sm:w-80'>{children}</p>
-  )
 }
 
 export default function CommentsScrollArea() {
@@ -92,7 +87,9 @@ export default function CommentsScrollArea() {
   return (
     <ScrollArea className='h-[36rem] px-4 pb-0 pt-2 lg:h-[46rem]'>
       {loadingComments || noComments ? (
-        <FeedbackMessage>{feedBackMessageContent()}</FeedbackMessage>
+        <CommentsScrollAreaFeedbackMessage>
+          {feedBackMessageContent()}
+        </CommentsScrollAreaFeedbackMessage>
       ) : (
         filteredCourseOfferingComments.map(
           (
