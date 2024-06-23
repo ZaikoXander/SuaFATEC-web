@@ -29,7 +29,14 @@ const Header = () => {
     <header className='hidden h-20 w-full bg-white p-4 text-white shadow-md sm:block'>
       <div className='mx-[26rem] flex h-full items-center justify-between'>
         <div className='flex items-center'>
-          <Image src='/logo.png' width={77.092953222} height={48} alt='Logo' />
+          <Image
+            priority
+            src='/logo.png'
+            width={77.092953222}
+            height={48}
+            alt='Logo'
+            className='h-auto w-auto'
+          />
           <button
             onClick={handleOpenHeaderModal}
             className='ml-4 text-blue-500'
