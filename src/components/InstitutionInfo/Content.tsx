@@ -4,9 +4,13 @@ import { useEffect } from 'react'
 
 import api from '@/lib/api'
 
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 
-import { photosAtom } from '@/atoms/photos'
+import {
+  institutionPhotosAtom,
+  type Photo as PhotoData,
+  photosAtom,
+} from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
@@ -35,10 +39,10 @@ interface FetchInstitutionCoursesDataResponse {
   courseOfferings: CourseOffering[]
 }
 
-const fetchInstitutionPhotos = async (id: number) => {
+const fetchInstitutionPhotos = async (id: number): Promise<PhotoData[]> => {
   const {
     data: { photos },
-  } = await api.get(`/photos/institution/${id}`)
+  } = await api.get<{ photos: PhotoData[] }>(`/photos/institution/${id}`)
 
   return photos
 }
@@ -49,7 +53,8 @@ export default function Content() {
     fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
   )
 
-  const [photos, setPhotos] = useAtom(photosAtom)
+  const institutionPhotos = useAtomValue(institutionPhotosAtom)
+  const setPhotos = useSetAtom(photosAtom)
 
   const addFetchedInstitutionIdOnInstitutionCoursesData = useSetAtom(
     addFetchedInstitutionIdOnInstitutionCoursesDataAtom,
@@ -74,8 +79,10 @@ export default function Content() {
           `/institution-courses-data/${selectedInstitution.id}`,
         )
 
-        const newPhotos = await fetchInstitutionPhotos(selectedInstitution.id)
-        setPhotos([...photos, ...newPhotos])
+        if (institutionPhotos.length === 0) {
+          const newPhotos = await fetchInstitutionPhotos(selectedInstitution.id)
+          setPhotos((photos) => [...photos, ...newPhotos])
+        }
 
         addCourses(courses)
         addCourseOfferings(courseOfferings)
@@ -93,7 +100,7 @@ export default function Content() {
     addCourses,
     addCourseOfferings,
     setPhotos,
-    photos,
+    institutionPhotos,
   ])
 
   if (!selectedInstitution) return

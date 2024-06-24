@@ -9,17 +9,7 @@ interface Photo {
   institutionId?: number | null
 }
 
-const photosAtom = atom<Photo[]>([
-  {
-    id: 1,
-    url: 'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/fatec-praia-grande.jpg',
-    institutionId: 1,
-  },
-  {
-    id: 2,
-    url: 'https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/1/2020/10/Analise-e-Desenvolvimento-de-Sistemas_DCStudio_Freepik-scaled.jpg',
-  },
-])
+const photosAtom = atom<Photo[]>([])
 
 const institutionPhotosAtom = atom((get) => {
   const selectedInstitution = get(selectedInstitutionAtom)
@@ -46,6 +36,7 @@ const coursePhotoAtom = atom<Photo | undefined>((get) => {
 })
 
 export {
+  type Photo,
   institutionPhotosAtom,
   getInstitutionFirstPhotoAtom,
   coursePhotoAtom,
