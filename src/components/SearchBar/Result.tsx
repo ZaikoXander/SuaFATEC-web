@@ -1,5 +1,9 @@
 import Image from 'next/image'
 
+import { useEffect, useState } from 'react'
+
+import api from '@/lib/api'
+
 import { useSetAtom } from 'jotai'
 
 import { setSelectedInstitutionByIdAtom } from '@/atoms/institutions'
@@ -13,9 +17,17 @@ import Muted from '../Typography/Muted'
 import { cn } from '@/lib/utils'
 
 import type { SearchBarResult } from '.'
+import { photosAtom } from '@/atoms/photos'
 
 interface ResultProps extends SearchBarResult {
   className?: string
+}
+
+const fetchInstitutionPhotos = async (id: number) => {
+  const {
+    data: { photos },
+  } = await api.get(`/photos/institution/${id}`)
+  return photos
 }
 
 export default function Result({
@@ -26,6 +38,25 @@ export default function Result({
   photoUrl,
   className,
 }: ResultProps) {
+  const setPhotos = useSetAtom(photosAtom)
+  const [actualPhotoUrl, setActualPhotoUrl] = useState(photoUrl)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const newPhotos = await fetchInstitutionPhotos(id)
+        setPhotos((photos) => [...photos, ...newPhotos])
+        setActualPhotoUrl(newPhotos[0]?.url)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    if (!actualPhotoUrl) {
+      fetchData()
+    }
+  }, [actualPhotoUrl, id, setPhotos])
+
   const setSelectedInstitutionById = useSetAtom(setSelectedInstitutionByIdAtom)
   const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)
 
@@ -46,13 +77,15 @@ export default function Result({
       </div>
       <div className='flex flex-1 flex-col items-center gap-y-2'>
         <Muted>{cityName}</Muted>
-        <Image
-          src={photoUrl || ''}
-          alt={`Imagem da ${name}`}
-          width={160}
-          height={82.064516112}
-          className='rounded-sm shadow-sm'
-        />
+        {actualPhotoUrl && (
+          <Image
+            src={actualPhotoUrl}
+            alt={`Imagem da ${name}`}
+            width={160}
+            height={82.064516112}
+            className='rounded-sm shadow-sm'
+          />
+        )}
       </div>
     </Button>
   )

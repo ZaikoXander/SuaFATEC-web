@@ -6,6 +6,11 @@ import api from '@/lib/api'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
+import {
+  institutionPhotosAtom,
+  type Photo as PhotoData,
+  photosAtom,
+} from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
@@ -34,11 +39,23 @@ interface FetchInstitutionCoursesDataResponse {
   courseOfferings: CourseOffering[]
 }
 
+const fetchInstitutionPhotos = async (id: number): Promise<PhotoData[]> => {
+  const {
+    data: { photos },
+  } = await api.get<{ photos: PhotoData[] }>(`/photos/institution/${id}`)
+
+  return photos
+}
+
 export default function Content() {
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
   const fetchedInstitutionsIdsOnInstitutionCoursesData = useAtomValue(
     fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
   )
+
+  const institutionPhotos = useAtomValue(institutionPhotosAtom)
+  const setPhotos = useSetAtom(photosAtom)
+
   const addFetchedInstitutionIdOnInstitutionCoursesData = useSetAtom(
     addFetchedInstitutionIdOnInstitutionCoursesDataAtom,
   )
@@ -62,6 +79,11 @@ export default function Content() {
           `/institution-courses-data/${selectedInstitution.id}`,
         )
 
+        if (institutionPhotos.length === 0) {
+          const newPhotos = await fetchInstitutionPhotos(selectedInstitution.id)
+          setPhotos((photos) => [...photos, ...newPhotos])
+        }
+
         addCourses(courses)
         addCourseOfferings(courseOfferings)
         addFetchedInstitutionIdOnInstitutionCoursesData(selectedInstitution.id)
@@ -77,6 +99,8 @@ export default function Content() {
     addFetchedInstitutionIdOnInstitutionCoursesData,
     addCourses,
     addCourseOfferings,
+    setPhotos,
+    institutionPhotos,
   ])
 
   if (!selectedInstitution) return
