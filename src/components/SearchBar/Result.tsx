@@ -83,7 +83,7 @@ export default function Result({
             alt={`Imagem da ${name}`}
             width={160}
             height={82.064516112}
-            className='rounded-sm shadow-sm'
+            className='h-auto max-h-[5.1175rem] w-auto rounded-sm shadow-sm'
           />
         )}
       </div>
