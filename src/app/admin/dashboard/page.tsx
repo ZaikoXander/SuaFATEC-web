@@ -50,7 +50,7 @@ export default function Dashboard() {
           height={240}
         />
       </div>
-      <div className='flex w-full flex-col items-center gap-2 p-4 sm:w-max'>
+      <div className='flex w-full flex-col items-center justify-center gap-2 p-4 sm:w-max'>
         <LogoutButton />
         <NotApprovedCommentList />
       </div>
