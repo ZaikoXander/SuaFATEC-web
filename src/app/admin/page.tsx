@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import api from '@/lib/api'
 
 import { LoginForm } from '@/components/admin/LoginForm'
+import Image from 'next/image'
 
 export default function Admin() {
   const router = useRouter()
@@ -34,7 +35,15 @@ export default function Admin() {
   }, [router])
 
   return (
-    <main className='flex min-h-screen items-center justify-center'>
+    <main className='flex min-h-screen flex-col items-center justify-center gap-10'>
+      <Image
+        src='/logo.png'
+        priority
+        className='h-auto w-auto'
+        alt='Logo'
+        width={160}
+        height={99.641379279}
+      />
       <LoginForm />
     </main>
   )

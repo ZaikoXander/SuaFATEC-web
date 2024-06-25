@@ -11,7 +11,7 @@ export default function LogoutButton() {
   }
 
   return (
-    <Button className='ml-auto font-bold' onClick={handleLogout}>
+    <Button className='w-[22.125rem] font-bold' onClick={handleLogout}>
       Deslogar
     </Button>
   )
