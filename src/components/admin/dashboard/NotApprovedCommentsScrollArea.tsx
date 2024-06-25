@@ -61,8 +61,10 @@ export default function NotApprovedCommentsScrollArea() {
     }
   }
 
+  // h-[48rem]
+
   return (
-    <ScrollArea className='h-[48rem] px-4 py-2'>
+    <ScrollArea className='h-[36rem] px-4 py-2'>
       {loadingComments || noComments ? (
         <CommentsScrollAreaFeedbackMessage>
           {feedBackMessageContent()}

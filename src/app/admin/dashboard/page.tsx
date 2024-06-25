@@ -39,8 +39,8 @@ export default function Dashboard() {
   }, [router])
 
   return (
-    <main className='flex min-h-screen justify-between'>
-      <div className='mb-auto ml-60 mr-auto mt-60'>
+    <main className='flex min-h-screen sm:justify-between lg:px-16'>
+      <div className='mx-auto my-auto hidden p-4 sm:block'>
         <Image
           src='/logo.png'
           priority
@@ -50,7 +50,7 @@ export default function Dashboard() {
           height={240}
         />
       </div>
-      <div className='my-3 mr-3 flex flex-col gap-4'>
+      <div className='flex w-full flex-col items-center gap-2 p-4 sm:w-max'>
         <LogoutButton />
         <NotApprovedCommentList />
       </div>
