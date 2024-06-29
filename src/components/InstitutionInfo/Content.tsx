@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 
-import api from '@/lib/api'
 import photosApi from '@/lib/api/photosApi'
+import institutionCoursesDataApi from '@/lib/api/institutionCoursesDataApi'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
@@ -69,9 +69,10 @@ export default function Content() {
 
         const {
           data: { courses, courseOfferings },
-        } = await api.get<FetchInstitutionCoursesDataResponse>(
-          `/institution-courses-data/${selectedInstitution.id}`,
-        )
+        } =
+          await institutionCoursesDataApi.get<FetchInstitutionCoursesDataResponse>(
+            selectedInstitution.id.toString(),
+          )
 
         if (selectedInstitutionPhotos.length === 0) {
           const {
