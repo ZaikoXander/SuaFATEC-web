@@ -1,6 +1,5 @@
-'use client'
-
 import { Card, CardHeader, CardTitle } from '../../ui/card'
+
 import Content from './Content'
 
 import { cn } from '@/lib/utils'

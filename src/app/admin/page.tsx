@@ -3,10 +3,11 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
+import Image from 'next/image'
+
 import adminsApi from '@/lib/api/adminsApi'
 
 import { LoginForm } from '@/components/admin/LoginForm'
-import Image from 'next/image'
 
 export default function Admin() {
   const router = useRouter()

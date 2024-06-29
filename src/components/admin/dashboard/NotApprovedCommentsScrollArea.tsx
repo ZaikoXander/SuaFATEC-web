@@ -6,7 +6,7 @@ import { useAtom } from 'jotai'
 import { notApprovedCommentsAtom } from '@/atoms/admin'
 import { type Comment } from '@/atoms/comments'
 
-import api from '@/lib/api'
+import commentsApi from '@/lib/api/commentsApi'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
@@ -33,12 +33,9 @@ export default function NotApprovedCommentsScrollArea() {
 
         const {
           data: { comments },
-        } = await api.get<NotApprovedCommentsResponse>(
-          'comments/not-approved',
-          {
-            headers: { Authorization: 'Bearer ' + adminAuthToken },
-          },
-        )
+        } = await commentsApi.get<NotApprovedCommentsResponse>('not-approved', {
+          headers: { Authorization: 'Bearer ' + adminAuthToken },
+        })
 
         setNotApprovedCommentsAtom(comments)
       } catch (error) {

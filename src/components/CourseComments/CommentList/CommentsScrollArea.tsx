@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
-import api from '@/lib/api'
+import commentsApi from '@/lib/api/commentsApi'
 
 import { filteredCourseOfferingCommentsAtom } from '@/atoms/comments'
 import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'
@@ -51,8 +51,8 @@ export default function CommentsScrollArea() {
 
         const {
           data: { comments },
-        } = await api.get<FetchCourseOfferingCommentsResponse>(
-          `/comments/course-offering/${selectedCourseOffering.id}`,
+        } = await commentsApi.get<FetchCourseOfferingCommentsResponse>(
+          `course-offering/${selectedCourseOffering.id}`,
         )
 
         addComments(comments)

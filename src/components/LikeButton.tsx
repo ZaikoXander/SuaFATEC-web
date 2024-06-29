@@ -1,10 +1,13 @@
-import api from '@/lib/api'
 import { useSetAtom } from 'jotai'
 
 import { toggleCommentLikeByIdAtom } from '@/atoms/comments'
 
+import commentsApi from '@/lib/api/commentsApi'
+
 import { Button } from './ui/button'
+
 import { Heart } from 'lucide-react'
+
 import { cn } from '@/lib/utils'
 
 interface LikeButtonProps {
@@ -21,11 +24,11 @@ export default function LikeButton({
   const toggleCommentLikeById = useSetAtom(toggleCommentLikeByIdAtom)
 
   async function dislikeComment() {
-    await api.patch(`/comments/${commentId}/dislike`)
+    await commentsApi.patch(`${commentId}/dislike`)
   }
 
   async function likeComment() {
-    await api.patch(`/comments/${commentId}/like`)
+    await commentsApi.patch(`${commentId}/like`)
   }
 
   async function handleButtonClick() {

@@ -1,3 +1,5 @@
+'use client'
+
 import { z } from 'zod'
 
 import { useAtomValue } from 'jotai'
@@ -6,7 +8,7 @@ import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import api from '@/lib/api'
+import commentsApi from '@/lib/api/commentsApi'
 
 import { useToast } from '@/components/ui/use-toast'
 import { CardContent } from '@/components/ui/card'
@@ -68,7 +70,7 @@ export default function Content() {
     try {
       toast({ title: 'Processando comentário...' })
 
-      await api.post('/comments', {
+      await commentsApi.post('', {
         courseOfferingId: selectedCourseOffering.id,
         studentName,
         conclusionDate: new Date(conclusionDate),
