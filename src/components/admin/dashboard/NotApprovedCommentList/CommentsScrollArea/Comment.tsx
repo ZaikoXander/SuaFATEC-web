@@ -1,6 +1,6 @@
 import { useSetAtom } from 'jotai'
 
-import { removeNotApprovedCommentByIdAtom } from '@/atoms/admin'
+import { removeNotApprovedCommentByIdAtom } from '@/atoms/notApprovedComments'
 
 import commentsApi from '@/lib/api/commentsApi'
 
