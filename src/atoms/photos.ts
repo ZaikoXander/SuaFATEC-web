@@ -11,7 +11,7 @@ interface Photo {
 
 const photosAtom = atom<Photo[]>([])
 
-const institutionPhotosAtom = atom((get) => {
+const selectedInstitutionPhotosAtom = atom((get) => {
   const selectedInstitution = get(selectedInstitutionAtom)
   const photos = get(photosAtom)
 
@@ -37,7 +37,7 @@ const coursePhotoAtom = atom<Photo | undefined>((get) => {
 
 export {
   type Photo,
-  institutionPhotosAtom,
+  selectedInstitutionPhotosAtom,
   getInstitutionFirstPhotoAtom,
   coursePhotoAtom,
   photosAtom,

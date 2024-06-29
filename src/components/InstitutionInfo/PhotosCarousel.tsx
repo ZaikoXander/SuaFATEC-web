@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import { useAtomValue } from 'jotai'
 
-import { institutionPhotosAtom } from '@/atoms/photos'
+import { selectedInstitutionPhotosAtom } from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 
 import {
@@ -14,10 +14,10 @@ import {
 } from '../ui/carousel'
 
 export default function PhotosCarousel() {
-  const institutionPhotos = useAtomValue(institutionPhotosAtom)
+  const selectedInstitutionPhotos = useAtomValue(selectedInstitutionPhotosAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
 
-  const hasMultiplePhoto = institutionPhotos.length > 1
+  const hasMultiplePhoto = selectedInstitutionPhotos.length > 1
 
   if (!hasMultiplePhoto) return
   if (!selectedInstitution) return
@@ -27,7 +27,7 @@ export default function PhotosCarousel() {
   return (
     <Carousel className='m-auto w-full max-w-80 sm:max-w-sm md:max-w-80 lg:max-w-sm 2xl:max-w-sm'>
       <CarouselContent>
-        {institutionPhotos.map(({ id, url: photoUrl }) => (
+        {selectedInstitutionPhotos.map(({ id, url: photoUrl }) => (
           <CarouselItem key={id}>
             <div className='p-2'>
               <Image

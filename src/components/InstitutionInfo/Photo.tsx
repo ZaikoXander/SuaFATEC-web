@@ -2,19 +2,19 @@ import Image from 'next/image'
 
 import { useAtomValue } from 'jotai'
 
-import { institutionPhotosAtom } from '@/atoms/photos'
+import { selectedInstitutionPhotosAtom } from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 
 export default function Photo() {
-  const institutionPhotos = useAtomValue(institutionPhotosAtom)
+  const selectedInstitutionPhotos = useAtomValue(selectedInstitutionPhotosAtom)
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
 
-  const hasOnlyOnePhoto = institutionPhotos.length === 1
+  const hasOnlyOnePhoto = selectedInstitutionPhotos.length === 1
 
   if (!hasOnlyOnePhoto) return
   if (!selectedInstitution) return
 
-  const firstPhoto = institutionPhotos[0]
+  const firstPhoto = selectedInstitutionPhotos[0]
   const firstPhotoUrl = firstPhoto.url
 
   const institutionName = selectedInstitution.name

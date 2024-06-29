@@ -8,7 +8,7 @@ import photosApi from '@/lib/api/photosApi'
 import { useAtomValue, useSetAtom } from 'jotai'
 
 import {
-  institutionPhotosAtom,
+  selectedInstitutionPhotosAtom,
   type Photo as PhotoData,
   photosAtom,
 } from '@/atoms/photos'
@@ -46,7 +46,7 @@ export default function Content() {
     fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
   )
 
-  const institutionPhotos = useAtomValue(institutionPhotosAtom)
+  const selectedInstitutionPhotos = useAtomValue(selectedInstitutionPhotosAtom)
   const setPhotos = useSetAtom(photosAtom)
 
   const addFetchedInstitutionIdOnInstitutionCoursesData = useSetAtom(
@@ -72,7 +72,7 @@ export default function Content() {
           `/institution-courses-data/${selectedInstitution.id}`,
         )
 
-        if (institutionPhotos.length === 0) {
+        if (selectedInstitutionPhotos.length === 0) {
           const {
             data: { photos: newPhotos },
           } = await photosApi.get<{ photos: PhotoData[] }>(
@@ -98,7 +98,7 @@ export default function Content() {
     addCourses,
     addCourseOfferings,
     setPhotos,
-    institutionPhotos,
+    selectedInstitutionPhotos,
   ])
 
   if (!selectedInstitution) return
