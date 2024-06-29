@@ -1,11 +1,13 @@
 import { atom } from 'jotai'
 
-import { type Comment } from './comments'
+import type { Comment as ApprovedComment } from './comments'
 
 interface Admin {
   id: number
   name: string
 }
+
+type Comment = Omit<ApprovedComment, 'liked'>
 
 const adminAtom = atom<Admin | undefined>(undefined)
 
@@ -23,4 +25,9 @@ const removeNotApprovedCommentByIdAtom = atom(
   },
 )
 
-export { adminAtom, notApprovedCommentsAtom, removeNotApprovedCommentByIdAtom }
+export {
+  type Comment,
+  adminAtom,
+  notApprovedCommentsAtom,
+  removeNotApprovedCommentByIdAtom,
+}

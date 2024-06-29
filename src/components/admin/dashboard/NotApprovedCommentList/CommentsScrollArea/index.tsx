@@ -3,8 +3,10 @@
 import { useEffect, Fragment, useState } from 'react'
 
 import { useAtom } from 'jotai'
-import { notApprovedCommentsAtom } from '@/atoms/admin'
-import { type Comment as CommentData } from '@/atoms/comments'
+import {
+  notApprovedCommentsAtom,
+  type Comment as CommentData,
+} from '@/atoms/admin'
 
 import commentsApi from '@/lib/api/commentsApi'
 
