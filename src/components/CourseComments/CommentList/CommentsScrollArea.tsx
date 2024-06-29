@@ -15,8 +15,9 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
-import Comment from '@/components/Comment'
 import { CommentsScrollAreaFeedbackMessage as FeedbackMessage } from '@/components/CommentsScrollAreaFeedbackMessage'
+
+import Comment from './Comment'
 
 interface FetchCourseOfferingCommentsResponse {
   comments: CommentData[]

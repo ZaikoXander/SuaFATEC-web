@@ -4,7 +4,7 @@ import { toggleCommentLikeByIdAtom } from '@/atoms/comments'
 
 import commentsApi from '@/lib/api/commentsApi'
 
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
 
 import { Heart } from 'lucide-react'
 
