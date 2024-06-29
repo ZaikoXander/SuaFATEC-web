@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import api from '@/lib/api'
+import adminsApi from '@/lib/api/adminsApi'
 
 import NotApprovedCommentList from '@/components/admin/dashboard/NotApprovedCommentList'
 import LogoutButton from '@/components/admin/dashboard/LogoutButton'
@@ -21,13 +21,12 @@ export default function Dashboard() {
 
     async function validateToken() {
       try {
-        await api.get('/admins/validate-token', {
-          headers: {
-            Authorization: 'Bearer ' + adminAuthToken,
-          },
+        await adminsApi.get('validate-token', {
+          headers: { Authorization: 'Bearer ' + adminAuthToken },
         })
       } catch (error) {
         console.error(error)
+
         localStorage.removeItem('adminAuthToken')
         navigateToAdmin()
       }

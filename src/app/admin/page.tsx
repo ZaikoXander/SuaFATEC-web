@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import api from '@/lib/api'
+import adminsApi from '@/lib/api/adminsApi'
 
 import { LoginForm } from '@/components/admin/LoginForm'
 import Image from 'next/image'
@@ -16,10 +16,8 @@ export default function Admin() {
 
     async function validateToken() {
       try {
-        await api.get('/admins/validate-token', {
-          headers: {
-            Authorization: 'Bearer ' + adminAuthToken,
-          },
+        await adminsApi.get('validate-token', {
+          headers: { Authorization: 'Bearer ' + adminAuthToken },
         })
 
         router.push('/admin/dashboard')

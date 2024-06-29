@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useSetAtom } from 'jotai'
 import { adminAtom } from '@/atoms/admin'
 
-import api from '@/lib/api'
+import adminsApi from '@/lib/api/adminsApi'
 import { AxiosError } from 'axios'
 
 import { Button } from '@/components/ui/button'
@@ -60,7 +60,7 @@ export default function Content() {
     try {
       const {
         data: { admin, token },
-      } = await api.post<AdminsAuthResponse>('admins/auth', credentials)
+      } = await adminsApi.post<AdminsAuthResponse>('auth', credentials)
 
       setAdmin(admin)
       localStorage.setItem('adminAuthToken', token)
