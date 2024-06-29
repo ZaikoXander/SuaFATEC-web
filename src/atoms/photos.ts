@@ -11,6 +11,14 @@ interface Photo {
 
 const photosAtom = atom<Photo[]>([])
 
+const addPhotoAtom = atom(null, (_get, set, newPhoto: Photo) => {
+  set(photosAtom, (photos) => [...photos, newPhoto])
+})
+
+const addPhotosAtom = atom(null, (_get, set, newPhotos: Photo[]) => {
+  set(photosAtom, (photos) => [...photos, ...newPhotos])
+})
+
 const selectedInstitutionPhotosAtom = atom((get) => {
   const selectedInstitution = get(selectedInstitutionAtom)
   const photos = get(photosAtom)
@@ -41,4 +49,6 @@ export {
   getInstitutionFirstPhotoAtom,
   coursePhotoAtom,
   photosAtom,
+  addPhotoAtom,
+  addPhotosAtom,
 }

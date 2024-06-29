@@ -11,6 +11,7 @@ import {
   selectedInstitutionPhotosAtom,
   type Photo as PhotoData,
   photosAtom,
+  addPhotosAtom,
 } from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 import {
@@ -47,7 +48,7 @@ export default function Content() {
   )
 
   const selectedInstitutionPhotos = useAtomValue(selectedInstitutionPhotosAtom)
-  const setPhotos = useSetAtom(photosAtom)
+  const addPhotos = useSetAtom(addPhotosAtom)
 
   const addFetchedInstitutionIdOnInstitutionCoursesData = useSetAtom(
     addFetchedInstitutionIdOnInstitutionCoursesDataAtom,
@@ -79,7 +80,7 @@ export default function Content() {
             'institution/' + selectedInstitution.id.toString(),
           )
 
-          setPhotos((photos) => [...photos, ...newPhotos])
+          addPhotos(newPhotos)
         }
 
         addCourses(courses)
@@ -97,8 +98,8 @@ export default function Content() {
     addFetchedInstitutionIdOnInstitutionCoursesData,
     addCourses,
     addCourseOfferings,
-    setPhotos,
     selectedInstitutionPhotos,
+    addPhotos,
   ])
 
   if (!selectedInstitution) return

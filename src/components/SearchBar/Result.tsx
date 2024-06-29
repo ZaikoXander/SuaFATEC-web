@@ -8,7 +8,7 @@ import { useSetAtom } from 'jotai'
 
 import { setSelectedInstitutionByIdAtom } from '@/atoms/institutions'
 import { openInstitutionInfoAtom } from '@/atoms/sheets'
-import { photosAtom } from '@/atoms/photos'
+import { addPhotosAtom, photosAtom } from '@/atoms/photos'
 
 import { Button } from '../ui/button'
 
@@ -31,7 +31,7 @@ export default function Result({
   photoUrl,
   className,
 }: ResultProps) {
-  const setPhotos = useSetAtom(photosAtom)
+  const addPhotos = useSetAtom(addPhotosAtom)
   const [actualPhotoUrl, setActualPhotoUrl] = useState(photoUrl)
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Result({
           data: { photos: newPhotos },
         } = await photosApi.get('institution/' + id.toString())
 
-        setPhotos((photos) => [...photos, ...newPhotos])
+        addPhotos(newPhotos)
         setActualPhotoUrl(newPhotos[0]?.url)
       } catch (error) {
         console.error(error)
@@ -51,7 +51,7 @@ export default function Result({
     if (!actualPhotoUrl) {
       fetchData()
     }
-  }, [actualPhotoUrl, id, setPhotos])
+  }, [actualPhotoUrl, addPhotos, id])
 
   const setSelectedInstitutionById = useSetAtom(setSelectedInstitutionByIdAtom)
   const openInstitutionInfo = useSetAtom(openInstitutionInfoAtom)

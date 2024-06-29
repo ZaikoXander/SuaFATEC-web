@@ -6,7 +6,7 @@ import photosApi from '@/lib/api/photosApi'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
-import { coursePhotoAtom, type Photo, photosAtom } from '@/atoms/photos'
+import { addPhotoAtom, coursePhotoAtom, type Photo } from '@/atoms/photos'
 import { selectedCourseAtom } from '@/atoms/courses'
 
 import { cn } from '@/lib/utils'
@@ -28,7 +28,7 @@ export default function CoursePhoto({
 
   const coursePhoto = useAtomValue(coursePhotoAtom)
 
-  const setPhotos = useSetAtom(photosAtom)
+  const addPhoto = useSetAtom(addPhotoAtom)
 
   useEffect(() => {
     async function fetchCoursePhoto() {
@@ -40,7 +40,7 @@ export default function CoursePhoto({
             'course/' + selectedCourse.id.toString(),
           )
 
-          setPhotos((photos) => [...photos, newPhoto])
+          addPhoto(newPhoto)
         }
       } catch (error) {
         console.error(error)
@@ -48,7 +48,7 @@ export default function CoursePhoto({
     }
 
     fetchCoursePhoto()
-  }, [selectedCourse, setPhotos])
+  }, [addPhoto, selectedCourse])
 
   if (!coursePhoto) {
     return <p>Loading...</p>
