@@ -90,8 +90,8 @@ export default function CommentsScrollArea() {
             { id, studentName, content, conclusionDate, liked, quantityLikes },
             index,
           ) => {
-            const isLastComment =
-              index === filteredCourseOfferingComments.length - 1
+            const lastCommentIndex = filteredCourseOfferingComments.length - 1
+            const isNotLastComment = index !== lastCommentIndex
 
             return (
               <Fragment key={id}>
@@ -103,7 +103,7 @@ export default function CommentsScrollArea() {
                   liked={liked}
                   quantityLikes={quantityLikes}
                 />
-                {!isLastComment && <Separator className='my-2' />}
+                {isNotLastComment && <Separator className='my-2' />}
               </Fragment>
             )
           },

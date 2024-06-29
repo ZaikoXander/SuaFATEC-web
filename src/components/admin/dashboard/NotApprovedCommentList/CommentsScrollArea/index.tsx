@@ -63,7 +63,8 @@ export default function CommentsScrollArea() {
       ) : (
         notApprovedComments.map(
           ({ id, studentName, content, conclusionDate }, index) => {
-            const isLastComment = index === notApprovedComments.length - 1
+            const lastCommentIndex = notApprovedComments.length - 1
+            const isNotLastComment = index !== lastCommentIndex
 
             return (
               <Fragment key={id}>
@@ -73,7 +74,7 @@ export default function CommentsScrollArea() {
                   content={content}
                   conclusionDate={conclusionDate}
                 />
-                {!isLastComment && <Separator className='my-2' />}
+                {isNotLastComment && <Separator className='my-2' />}
               </Fragment>
             )
           },
