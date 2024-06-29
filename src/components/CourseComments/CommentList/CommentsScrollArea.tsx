@@ -2,11 +2,11 @@ import { Fragment, useEffect, useState } from 'react'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
-import commentsApi from '@/lib/api/commentsApi'
+import request from '@/lib/request'
 
 import { filteredCourseOfferingCommentsAtom } from '@/atoms/comments'
 import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'
-import { addCommentsAtom, type Comment as CommentData } from '@/atoms/comments'
+import { addCommentsAtom } from '@/atoms/comments'
 import {
   fetchedCourseOfferingsIdsOnCourseOfferingCommentsAtom,
   addFetchedCourseOfferingIdOnCourseOfferingCommentsAtom,
@@ -18,10 +18,6 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { CommentsScrollAreaFeedbackMessage as FeedbackMessage } from '@/components/CommentsScrollAreaFeedbackMessage'
 
 import Comment from './Comment'
-
-interface FetchCourseOfferingCommentsResponse {
-  comments: CommentData[]
-}
 
 export default function CommentsScrollArea() {
   const filteredCourseOfferingComments = useAtomValue(
@@ -50,10 +46,8 @@ export default function CommentsScrollArea() {
           return
         }
 
-        const {
-          data: { comments },
-        } = await commentsApi.get<FetchCourseOfferingCommentsResponse>(
-          `course-offering/${selectedCourseOffering.id}`,
+        const comments = await request.comments.from.courseOffering(
+          selectedCourseOffering.id,
         )
 
         addComments(comments)

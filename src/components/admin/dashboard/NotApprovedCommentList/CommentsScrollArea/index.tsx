@@ -4,12 +4,9 @@ import { useEffect, Fragment, useState } from 'react'
 
 import { useAtom } from 'jotai'
 
-import {
-  notApprovedCommentsAtom,
-  type Comment as CommentData,
-} from '@/atoms/notApprovedComments'
+import { notApprovedCommentsAtom } from '@/atoms/notApprovedComments'
 
-import commentsApi from '@/lib/api/commentsApi'
+import request from '@/lib/request'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
@@ -17,10 +14,6 @@ import { Separator } from '@/components/ui/separator'
 import { CommentsScrollAreaFeedbackMessage as FeedbackMessage } from '@/components/CommentsScrollAreaFeedbackMessage'
 
 import Comment from './Comment'
-
-interface NotApprovedCommentsResponse {
-  comments: CommentData[]
-}
 
 export default function CommentsScrollArea() {
   const [notApprovedComments, setNotApprovedCommentsAtom] = useAtom(
@@ -35,11 +28,7 @@ export default function CommentsScrollArea() {
       try {
         if (!adminAuthToken) return
 
-        const {
-          data: { comments },
-        } = await commentsApi.get<NotApprovedCommentsResponse>('not-approved', {
-          headers: { Authorization: 'Bearer ' + adminAuthToken },
-        })
+        const comments = await request.comments.notApproved(adminAuthToken)
 
         setNotApprovedCommentsAtom(comments)
       } catch (error) {

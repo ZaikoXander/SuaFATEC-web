@@ -2,7 +2,7 @@ import { useSetAtom } from 'jotai'
 
 import { removeNotApprovedCommentByIdAtom } from '@/atoms/notApprovedComments'
 
-import commentsApi from '@/lib/api/commentsApi'
+import request from '@/lib/request'
 
 import { Button } from '@/components/ui/button'
 
@@ -25,13 +25,11 @@ export default function Comment({
     removeNotApprovedCommentByIdAtom,
   )
 
-  const authorizedRequestConfig = {
-    headers: { Authorization: 'Bearer ' + adminAuthToken },
-  }
-
   async function deleteComment() {
     try {
-      await commentsApi.delete(id.toString(), authorizedRequestConfig)
+      if (!adminAuthToken) return
+
+      await request.comments.deletion(id, adminAuthToken)
 
       removeNotApprovedCommentById(id)
     } catch (error) {
@@ -41,11 +39,9 @@ export default function Comment({
 
   async function approveComment() {
     try {
-      await commentsApi.patch(
-        id.toString() + '/approve',
-        undefined,
-        authorizedRequestConfig,
-      )
+      if (!adminAuthToken) return
+
+      await request.comments.approval(id, adminAuthToken)
 
       removeNotApprovedCommentById(id)
     } catch (error) {

@@ -8,7 +8,7 @@ import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import commentsApi from '@/lib/api/commentsApi'
+import request from '@/lib/request'
 
 import { useToast } from '@/components/ui/use-toast'
 import { CardContent } from '@/components/ui/card'
@@ -70,7 +70,7 @@ export default function Content() {
     try {
       toast({ title: 'Processando comentário...' })
 
-      await commentsApi.post('', {
+      await request.comments.creation({
         courseOfferingId: selectedCourseOffering.id,
         studentName,
         conclusionDate: new Date(conclusionDate),

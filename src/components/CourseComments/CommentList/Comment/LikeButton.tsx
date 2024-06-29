@@ -2,7 +2,7 @@ import { useSetAtom } from 'jotai'
 
 import { toggleCommentLikeByIdAtom } from '@/atoms/comments'
 
-import commentsApi from '@/lib/api/commentsApi'
+import request from '@/lib/request'
 
 import { Button } from '@/components/ui/button'
 
@@ -23,20 +23,13 @@ export default function LikeButton({
 }: LikeButtonProps) {
   const toggleCommentLikeById = useSetAtom(toggleCommentLikeByIdAtom)
 
-  async function dislikeComment() {
-    await commentsApi.patch(`${commentId}/dislike`)
-  }
-
-  async function likeComment() {
-    await commentsApi.patch(`${commentId}/like`)
-  }
-
   async function handleButtonClick() {
-    toggleCommentLikeById(commentId)
-    if (liked) {
-      await dislikeComment()
-    } else {
-      await likeComment()
+    try {
+      await request.comments.toggleLike(commentId, liked)
+
+      toggleCommentLikeById(commentId)
+    } catch (error) {
+      console.error(error)
     }
   }
 
