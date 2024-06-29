@@ -15,7 +15,7 @@ import api from '@/lib/api'
 import { AxiosError } from 'axios'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import {
   Form,
@@ -24,7 +24,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
+} from '@/components/ui/form'
 
 interface AdminsAuthResponse {
   admin: {
@@ -43,7 +43,7 @@ const formSchema = z.object({
     .min(1, 'A senha deve conter pelo menos 1 caractere'),
 })
 
-export function LoginForm() {
+export default function Content() {
   const setAdmin = useSetAtom(adminAtom)
   const router = useRouter()
   const [wrongCredentials, setWrongCredentials] = useState(false)
@@ -64,7 +64,7 @@ export function LoginForm() {
 
       setAdmin(admin)
       localStorage.setItem('adminAuthToken', token)
-      setWrongCredentials(false)
+      if (wrongCredentials) setWrongCredentials(false)
       router.push('/admin/dashboard')
     } catch (error) {
       console.error(error)
@@ -78,48 +78,43 @@ export function LoginForm() {
   }
 
   return (
-    <Card className='w-full max-w-sm'>
-      <CardHeader>
-        <CardTitle className='text-2xl'>Login</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-            <FormField
-              control={form.control}
-              name='name'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nome</FormLabel>
-                  <FormControl>
-                    <Input placeholder='Gabriel Fernandes' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='password'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Senha</FormLabel>
-                  <FormControl>
-                    <Input type='password' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {wrongCredentials && (
-              <p className='text-sm text-red-500'>Nome ou senha incorretos.</p>
+    <CardContent>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+          <FormField
+            control={form.control}
+            name='name'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nome</FormLabel>
+                <FormControl>
+                  <Input placeholder='Gabriel Fernandes' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-            <Button type='submit' className='w-full'>
-              Entrar
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+          />
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Senha</FormLabel>
+                <FormControl>
+                  <Input type='password' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {wrongCredentials && (
+            <p className='text-sm text-red-500'>Nome ou senha incorretos.</p>
+          )}
+          <Button type='submit' className='w-full'>
+            Entrar
+          </Button>
+        </form>
+      </Form>
+    </CardContent>
   )
 }
