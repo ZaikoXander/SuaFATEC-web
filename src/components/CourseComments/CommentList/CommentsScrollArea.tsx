@@ -16,7 +16,7 @@ import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 import Comment from '@/components/Comment'
-import CommentsScrollAreaFeedbackMessage from '@/components/CommentsScrollAreaFeedbackMessage'
+import { CommentsScrollAreaFeedbackMessage as FeedbackMessage } from '@/components/CommentsScrollAreaFeedbackMessage'
 
 interface FetchCourseOfferingCommentsResponse {
   comments: CommentData[]
@@ -76,20 +76,13 @@ export default function CommentsScrollArea() {
 
   const noComments = filteredCourseOfferingComments.length === 0
 
-  function feedBackMessageContent(): string | undefined {
-    if (loadingComments) {
-      return 'Carregando comentários...'
-    } else if (noComments) {
-      return 'Ainda não há comentários 🗨️.'
-    }
-  }
-
   return (
     <ScrollArea className='h-[36rem] px-4 pb-0 pt-2 lg:h-[46rem]'>
       {loadingComments || noComments ? (
-        <CommentsScrollAreaFeedbackMessage>
-          {feedBackMessageContent()}
-        </CommentsScrollAreaFeedbackMessage>
+        <FeedbackMessage
+          loadingComments={loadingComments}
+          noComments={noComments}
+        />
       ) : (
         filteredCourseOfferingComments.map(
           (

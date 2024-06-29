@@ -11,8 +11,9 @@ import commentsApi from '@/lib/api/commentsApi'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 
+import { CommentsScrollAreaFeedbackMessage as FeedbackMessage } from '@/components/CommentsScrollAreaFeedbackMessage'
+
 import Comment from './Comment'
-import CommentsScrollAreaFeedbackMessage from '@/components/CommentsScrollAreaFeedbackMessage'
 
 interface NotApprovedCommentsResponse {
   comments: CommentData[]
@@ -50,20 +51,13 @@ export default function CommentsScrollArea() {
 
   const noComments = notApprovedComments.length === 0
 
-  function feedBackMessageContent(): string | undefined {
-    if (loadingComments) {
-      return 'Carregando comentários...'
-    } else if (noComments) {
-      return 'Ainda não há comentários 🗨️.'
-    }
-  }
-
   return (
     <ScrollArea className='h-[36rem] px-4 py-2'>
       {loadingComments || noComments ? (
-        <CommentsScrollAreaFeedbackMessage>
-          {feedBackMessageContent()}
-        </CommentsScrollAreaFeedbackMessage>
+        <FeedbackMessage
+          loadingComments={loadingComments}
+          noComments={noComments}
+        />
       ) : (
         notApprovedComments.map(
           ({ id, studentName, content, conclusionDate }, index) => {
