@@ -9,7 +9,7 @@ import { selectedCourseOfferingAtom } from './courseOfferings'
 
 import { compareAsc, parse } from 'date-fns'
 
-export interface Comment {
+interface Comment {
   id: number
   courseOfferingId: number
   studentName: string
@@ -85,6 +85,7 @@ const toggleCommentLikeByIdAtom = atom(null, (get, set, commentId: number) => {
 })
 
 export {
+  type Comment,
   commentsAtom,
   addCommentsAtom,
   filteredCourseOfferingCommentsAtom,
