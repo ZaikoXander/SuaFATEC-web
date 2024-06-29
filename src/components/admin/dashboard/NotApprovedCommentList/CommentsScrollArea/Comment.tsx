@@ -6,19 +6,19 @@ import commentsApi from '@/lib/api/commentsApi'
 
 import { Button } from '@/components/ui/button'
 
-interface NotApprovedCommentProps {
+interface CommentProps {
   id: number
   studentName: string
   content: string
   conclusionDate: string
 }
 
-export default function NotApprovedComment({
+export default function Comment({
   id,
   studentName,
   content,
   conclusionDate,
-}: NotApprovedCommentProps) {
+}: CommentProps) {
   const adminAuthToken = window.localStorage.getItem('adminAuthToken')
 
   const removeNotApprovedCommentById = useSetAtom(

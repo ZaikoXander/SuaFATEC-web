@@ -4,21 +4,21 @@ import { useEffect, Fragment, useState } from 'react'
 
 import { useAtom } from 'jotai'
 import { notApprovedCommentsAtom } from '@/atoms/admin'
-import { type Comment } from '@/atoms/comments'
+import { type Comment as CommentData } from '@/atoms/comments'
 
 import commentsApi from '@/lib/api/commentsApi'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 
-import NotApprovedComment from './NotApprovedComment'
+import Comment from './Comment'
 import CommentsScrollAreaFeedbackMessage from '@/components/CommentsScrollAreaFeedbackMessage'
 
 interface NotApprovedCommentsResponse {
-  comments: Comment[]
+  comments: CommentData[]
 }
 
-export default function NotApprovedCommentsScrollArea() {
+export default function CommentsScrollArea() {
   const [notApprovedComments, setNotApprovedCommentsAtom] = useAtom(
     notApprovedCommentsAtom,
   )
@@ -71,7 +71,7 @@ export default function NotApprovedCommentsScrollArea() {
 
             return (
               <Fragment key={id}>
-                <NotApprovedComment
+                <Comment
                   id={id}
                   studentName={studentName}
                   content={content}

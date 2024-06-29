@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator'
 
-import NotApprovedCommentsScrollArea from './NotApprovedCommentsScrollArea'
+import CommentsScrollArea from './CommentsScrollArea'
 
 export default function NotApprovedCommentList() {
   return (
@@ -9,7 +9,7 @@ export default function NotApprovedCommentList() {
         <div className='text-lg font-semibold'>Novos comentários</div>
       </div>
       <Separator className='mt-2' />
-      <NotApprovedCommentsScrollArea />
+      <CommentsScrollArea />
     </div>
   )
 }
