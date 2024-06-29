@@ -52,6 +52,7 @@ export default function CommentsScrollArea() {
   }, [setNotApprovedCommentsAtom])
 
   const noComments = notApprovedComments.length === 0
+  const lastCommentIndex = notApprovedComments.length - 1
 
   return (
     <ScrollArea className='h-[36rem] px-4 py-2'>
@@ -63,7 +64,6 @@ export default function CommentsScrollArea() {
       ) : (
         notApprovedComments.map(
           ({ id, studentName, content, conclusionDate }, index) => {
-            const lastCommentIndex = notApprovedComments.length - 1
             const isNotLastComment = index !== lastCommentIndex
 
             return (

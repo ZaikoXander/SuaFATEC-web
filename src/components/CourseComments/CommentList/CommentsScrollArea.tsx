@@ -76,6 +76,7 @@ export default function CommentsScrollArea() {
   ])
 
   const noComments = filteredCourseOfferingComments.length === 0
+  const lastCommentIndex = filteredCourseOfferingComments.length - 1
 
   return (
     <ScrollArea className='h-[36rem] px-4 pb-0 pt-2 lg:h-[46rem]'>
@@ -90,7 +91,6 @@ export default function CommentsScrollArea() {
             { id, studentName, content, conclusionDate, liked, quantityLikes },
             index,
           ) => {
-            const lastCommentIndex = filteredCourseOfferingComments.length - 1
             const isNotLastComment = index !== lastCommentIndex
 
             return (
