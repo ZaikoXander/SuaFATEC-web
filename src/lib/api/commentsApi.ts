@@ -1,8 +1,9 @@
 import axios from 'axios'
-import api from '.'
+
+import { baseURL } from '.'
 
 const commentsApi = axios.create({
-  baseURL: `${api.defaults.baseURL}/comments`,
+  baseURL: `${baseURL}/comments`,
 })
 
 export default commentsApi

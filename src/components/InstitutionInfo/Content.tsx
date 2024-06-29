@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 
 import api from '@/lib/api'
+import photosApi from '@/lib/api/photosApi'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
@@ -39,14 +40,6 @@ interface FetchInstitutionCoursesDataResponse {
   courseOfferings: CourseOffering[]
 }
 
-const fetchInstitutionPhotos = async (id: number): Promise<PhotoData[]> => {
-  const {
-    data: { photos },
-  } = await api.get<{ photos: PhotoData[] }>(`/photos/institution/${id}`)
-
-  return photos
-}
-
 export default function Content() {
   const selectedInstitution = useAtomValue(selectedInstitutionAtom)
   const fetchedInstitutionsIdsOnInstitutionCoursesData = useAtomValue(
@@ -80,7 +73,12 @@ export default function Content() {
         )
 
         if (institutionPhotos.length === 0) {
-          const newPhotos = await fetchInstitutionPhotos(selectedInstitution.id)
+          const {
+            data: { photos: newPhotos },
+          } = await photosApi.get<{ photos: PhotoData[] }>(
+            'institution/' + selectedInstitution.id.toString(),
+          )
+
           setPhotos((photos) => [...photos, ...newPhotos])
         }
 

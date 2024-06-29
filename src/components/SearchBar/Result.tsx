@@ -2,12 +2,13 @@ import Image from 'next/image'
 
 import { useEffect, useState } from 'react'
 
-import api from '@/lib/api'
+import photosApi from '@/lib/api/photosApi'
 
 import { useSetAtom } from 'jotai'
 
 import { setSelectedInstitutionByIdAtom } from '@/atoms/institutions'
 import { openInstitutionInfoAtom } from '@/atoms/sheets'
+import { photosAtom } from '@/atoms/photos'
 
 import { Button } from '../ui/button'
 
@@ -17,17 +18,9 @@ import Muted from '../Typography/Muted'
 import { cn } from '@/lib/utils'
 
 import type { SearchBarResult } from '.'
-import { photosAtom } from '@/atoms/photos'
 
 interface ResultProps extends SearchBarResult {
   className?: string
-}
-
-const fetchInstitutionPhotos = async (id: number) => {
-  const {
-    data: { photos },
-  } = await api.get(`/photos/institution/${id}`)
-  return photos
 }
 
 export default function Result({
@@ -44,7 +37,10 @@ export default function Result({
   useEffect(() => {
     async function fetchData() {
       try {
-        const newPhotos = await fetchInstitutionPhotos(id)
+        const {
+          data: { photos: newPhotos },
+        } = await photosApi.get('institution/' + id.toString())
+
         setPhotos((photos) => [...photos, ...newPhotos])
         setActualPhotoUrl(newPhotos[0]?.url)
       } catch (error) {

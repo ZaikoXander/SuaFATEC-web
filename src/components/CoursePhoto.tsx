@@ -1,25 +1,17 @@
-import { useAtomValue, useSetAtom } from 'jotai'
-
-import { coursePhotoAtom, photosAtom } from '@/atoms/photos'
-import { selectedCourseAtom } from '@/atoms/courses'
+import { useEffect } from 'react'
 
 import Image from 'next/image'
 
+import photosApi from '@/lib/api/photosApi'
+
+import { useAtomValue, useSetAtom } from 'jotai'
+
+import { coursePhotoAtom, type Photo, photosAtom } from '@/atoms/photos'
+import { selectedCourseAtom } from '@/atoms/courses'
+
 import { cn } from '@/lib/utils'
-import { useEffect } from 'react'
-import api from '@/lib/api'
 
 type Dimension = number | `${number}` | undefined
-
-const fetchCoursePhotos = async (id: number | undefined) => {
-  if (id !== undefined) {
-    const {
-      data: { photo },
-    } = await api.get(`/photos/course/${id}`)
-
-    return photo
-  }
-}
 
 interface CoursePhotoProps {
   className?: string
@@ -39,18 +31,23 @@ export default function CoursePhoto({
   const setPhotos = useSetAtom(photosAtom)
 
   useEffect(() => {
-    const getCoursePhoto = async () => {
+    async function fetchCoursePhoto() {
       try {
         if (selectedCourse?.id !== undefined) {
-          const coursePhoto = await fetchCoursePhotos(selectedCourse.id)
+          const {
+            data: { photo: newPhoto },
+          } = await photosApi.get<{ photo: Photo }>(
+            'course/' + selectedCourse.id.toString(),
+          )
 
-          setPhotos((photos) => [...photos, coursePhoto])
+          setPhotos((photos) => [...photos, newPhoto])
         }
       } catch (error) {
         console.error(error)
       }
     }
-    getCoursePhoto()
+
+    fetchCoursePhoto()
   }, [selectedCourse, setPhotos])
 
   if (!coursePhoto) {

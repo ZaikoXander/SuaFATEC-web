@@ -1,7 +1,8 @@
 'use client'
 
-import { useAtom } from 'jotai'
 import { useEffect } from 'react'
+
+import { useAtom } from 'jotai'
 
 import api from '@/lib/api'
 

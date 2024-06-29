@@ -1,8 +1,9 @@
 import axios from 'axios'
-import api from '.'
+
+import { baseURL } from '.'
 
 const adminsApi = axios.create({
-  baseURL: `${api.defaults.baseURL}/admins`,
+  baseURL: `${baseURL}/admins`,
 })
 
 export default adminsApi
