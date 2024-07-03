@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import adminsApi from '@/lib/api/adminsApi'
+import request from '@/lib/request'
 
 import NotApprovedCommentList from '@/components/admin/dashboard/NotApprovedCommentList'
 import LogoutButton from '@/components/admin/dashboard/LogoutButton'
@@ -13,26 +13,26 @@ export default function Dashboard() {
   const router = useRouter()
 
   useEffect(() => {
-    const adminAuthToken = localStorage.getItem('adminAuthToken')
-
     function navigateToAdmin() {
       router.push('/admin')
     }
 
     async function validateToken() {
+      const adminAuthToken = localStorage.getItem('adminAuthToken')
+
+      if (!adminAuthToken) {
+        navigateToAdmin()
+        return
+      }
+
       try {
-        await adminsApi.get('validate-token', {
-          headers: { Authorization: 'Bearer ' + adminAuthToken },
-        })
+        await request.admins.tokenValidation(adminAuthToken)
       } catch (error) {
         console.error(error)
-
         localStorage.removeItem('adminAuthToken')
         navigateToAdmin()
       }
     }
-
-    if (!adminAuthToken) navigateToAdmin()
 
     validateToken()
   }, [router])

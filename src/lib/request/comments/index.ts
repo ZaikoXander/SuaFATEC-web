@@ -1,17 +1,10 @@
 import commentsApi from '../../api/commentsApi'
+
+import authorizedRequestConfig from '../authorizedRequestConfig'
+
 import from from './from'
 
 import { type Comment as NotApprovedComment } from '@/atoms/notApprovedComments'
-
-interface AuthorizedRequestConfig {
-  headers: { Authorization: string }
-}
-
-function authorizedRequestConfig(
-  adminAuthToken: string,
-): AuthorizedRequestConfig {
-  return { headers: { Authorization: 'Bearer ' + adminAuthToken } }
-}
 
 // Pegar retorno dessa funcao pra ficar documentado
 async function deletion(id: number, adminAuthToken: string) {

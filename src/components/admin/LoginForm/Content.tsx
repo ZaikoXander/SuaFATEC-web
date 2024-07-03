@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useSetAtom } from 'jotai'
 import { adminAtom } from '@/atoms/admin'
 
-import adminsApi from '@/lib/api/adminsApi'
+import request from '@/lib/request'
 import { AxiosError } from 'axios'
 
 import { Button } from '@/components/ui/button'
@@ -25,14 +25,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-
-interface AdminsAuthResponse {
-  admin: {
-    id: number
-    name: string
-  }
-  token: string
-}
 
 const formSchema = z.object({
   name: z
@@ -58,9 +50,7 @@ export default function Content() {
 
   async function onSubmit(credentials: z.infer<typeof formSchema>) {
     try {
-      const {
-        data: { admin, token },
-      } = await adminsApi.post<AdminsAuthResponse>('auth', credentials)
+      const { admin, token } = await request.admins.authentication(credentials)
 
       setAdmin(admin)
       localStorage.setItem('adminAuthToken', token)

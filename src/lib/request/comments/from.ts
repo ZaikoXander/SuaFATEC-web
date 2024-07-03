@@ -12,8 +12,6 @@ async function courseOffering(id: number): Promise<Comment[]> {
   return comments
 }
 
-const from = {
-  courseOffering,
-}
+const from = { courseOffering }
 
 export default from

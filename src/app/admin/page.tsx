@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import Image from 'next/image'
 
-import adminsApi from '@/lib/api/adminsApi'
+import request from '@/lib/request'
 
 import { LoginForm } from '@/components/admin/LoginForm'
 
@@ -17,9 +17,9 @@ export default function Admin() {
 
     async function validateToken() {
       try {
-        await adminsApi.get('validate-token', {
-          headers: { Authorization: 'Bearer ' + adminAuthToken },
-        })
+        if (!adminAuthToken) return
+
+        await request.admins.tokenValidation(adminAuthToken)
 
         router.push('/admin/dashboard')
       } catch (error) {
