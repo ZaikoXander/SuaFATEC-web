@@ -36,7 +36,7 @@ const getInstitutionFirstPhotoAtom: Atom<
   return photos.find((photo) => photo.institutionId === institution.id)
 })
 
-const coursePhotoAtom = atom<Photo | undefined>((get) => {
+const selectedCoursePhotoAtom = atom<Photo | undefined>((get) => {
   const selectedCourse = get(selectedCourseAtom)
   const photos = get(photosAtom)
 
@@ -47,7 +47,7 @@ export {
   type Photo,
   selectedInstitutionPhotosAtom,
   getInstitutionFirstPhotoAtom,
-  coursePhotoAtom,
+  selectedCoursePhotoAtom,
   photosAtom,
   addPhotoAtom,
   addPhotosAtom,

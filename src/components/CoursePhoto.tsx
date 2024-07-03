@@ -6,7 +6,11 @@ import photosApi from '@/lib/api/photosApi'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
-import { addPhotoAtom, coursePhotoAtom, type Photo } from '@/atoms/photos'
+import {
+  addPhotoAtom,
+  selectedCoursePhotoAtom,
+  type Photo,
+} from '@/atoms/photos'
 import { selectedCourseAtom } from '@/atoms/courses'
 
 import { cn } from '@/lib/utils'
@@ -26,7 +30,7 @@ export default function CoursePhoto({
 }: CoursePhotoProps) {
   const selectedCourse = useAtomValue(selectedCourseAtom)
 
-  const coursePhoto = useAtomValue(coursePhotoAtom)
+  const selectedCoursePhoto = useAtomValue(selectedCoursePhotoAtom)
 
   const addPhoto = useSetAtom(addPhotoAtom)
 
@@ -50,13 +54,13 @@ export default function CoursePhoto({
     fetchCoursePhoto()
   }, [addPhoto, selectedCourse])
 
-  if (!coursePhoto) {
+  if (!selectedCoursePhoto) {
     return <p>Loading...</p>
   }
 
   return (
     <Image
-      src={coursePhoto.url}
+      src={selectedCoursePhoto.url}
       alt={`Imagem ilustrativa do curso ${selectedCourse?.name}`}
       width={width}
       height={height}
