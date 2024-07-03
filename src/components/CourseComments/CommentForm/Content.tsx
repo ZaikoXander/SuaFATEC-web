@@ -8,7 +8,7 @@ import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import request from '@/lib/request'
+import request from '@/request'
 
 import { useToast } from '@/components/ui/use-toast'
 import { CardContent } from '@/components/ui/card'

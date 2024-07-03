@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import Image from 'next/image'
 
-import request from '@/lib/request'
+import request from '@/request'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 

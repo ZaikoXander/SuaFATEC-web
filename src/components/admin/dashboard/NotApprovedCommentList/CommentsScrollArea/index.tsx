@@ -6,7 +6,7 @@ import { useAtom } from 'jotai'
 
 import { notApprovedCommentsAtom } from '@/atoms/notApprovedComments'
 
-import request from '@/lib/request'
+import request from '@/request'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'

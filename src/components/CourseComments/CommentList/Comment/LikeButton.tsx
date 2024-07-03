@@ -2,7 +2,7 @@ import { useSetAtom } from 'jotai'
 
 import { toggleCommentLikeByIdAtom } from '@/atoms/comments'
 
-import request from '@/lib/request'
+import request from '@/request'
 
 import { Button } from '@/components/ui/button'
 

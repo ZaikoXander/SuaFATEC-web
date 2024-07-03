@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
-import request from '@/lib/request'
+import request from '@/request'
 
 import { filteredCourseOfferingCommentsAtom } from '@/atoms/comments'
 import { selectedCourseOfferingAtom } from '@/atoms/courseOfferings'

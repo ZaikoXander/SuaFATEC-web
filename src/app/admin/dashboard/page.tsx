@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import request from '@/lib/request'
+import request from '@/request'
 
 import NotApprovedCommentList from '@/components/admin/dashboard/NotApprovedCommentList'
 import LogoutButton from '@/components/admin/dashboard/LogoutButton'

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import Image from 'next/image'
 
-import request from '@/lib/request'
+import request from '@/request'
 
 import { LoginForm } from '@/components/admin/LoginForm'
 

@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useSetAtom } from 'jotai'
 import { adminAtom } from '@/atoms/admin'
 
-import request from '@/lib/request'
+import request from '@/request'
 import { AxiosError } from 'axios'
 
 import { Button } from '@/components/ui/button'
