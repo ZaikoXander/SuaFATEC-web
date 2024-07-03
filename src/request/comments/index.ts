@@ -1,4 +1,4 @@
-import commentsApi from '../../api/commentsApi'
+import commentsApi from '@/lib/api/commentsApi'
 
 import authorizedRequestConfig from '../authorizedRequestConfig'
 
@@ -6,7 +6,6 @@ import from from './from'
 
 import { type Comment as NotApprovedComment } from '@/atoms/notApprovedComments'
 
-// Pegar retorno dessa funcao pra ficar documentado
 async function deletion(id: number, adminAuthToken: string) {
   return await commentsApi.delete(
     id.toString(),

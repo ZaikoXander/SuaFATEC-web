@@ -1,4 +1,4 @@
-import adminsApi from '../api/adminsApi'
+import adminsApi from '@/lib/api/adminsApi'
 
 import authorizedRequestConfig from './authorizedRequestConfig'
 

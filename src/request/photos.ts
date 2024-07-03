@@ -1,4 +1,4 @@
-import photosApi from '../api/photosApi'
+import photosApi from '@/lib/api/photosApi'
 
 import type { Photo } from '@/atoms/photos'
 
