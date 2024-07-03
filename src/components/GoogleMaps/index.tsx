@@ -4,8 +4,8 @@ import { useEffect } from 'react'
 
 import { useAtom } from 'jotai'
 
-import api from '@/lib/api'
 import institutionsApi from '@/lib/api/institutionsApi'
+import citiesApi from '@/lib/api/citiesApi'
 
 import { type Institution, institutionsAtom } from '@/atoms/institutions'
 import { type City, citiesAtom } from '@/atoms/cities'
@@ -16,7 +16,6 @@ import InstitutionMarker from './InstitutionMarker'
 
 import { SaoPauloStateCenterPosition } from './constants'
 import { handleCameraChange } from './helpers'
-import citiesApi from '@/lib/api/citiesApi'
 
 export default function GoogleMaps() {
   const [institutions, setInstitutions] = useAtom(institutionsAtom)

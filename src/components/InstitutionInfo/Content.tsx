@@ -2,17 +2,12 @@
 
 import { useEffect } from 'react'
 
-import photosApi from '@/lib/api/photosApi'
+import request from '@/lib/request'
 import institutionCoursesDataApi from '@/lib/api/institutionCoursesDataApi'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
-import {
-  selectedInstitutionPhotosAtom,
-  type Photo as PhotoData,
-  photosAtom,
-  addPhotosAtom,
-} from '@/atoms/photos'
+import { selectedInstitutionPhotosAtom, addPhotosAtom } from '@/atoms/photos'
 import { selectedInstitutionAtom } from '@/atoms/institutions'
 import {
   fetchedInstitutionsIdsOnInstitutionCoursesDataAtom,
@@ -75,10 +70,8 @@ export default function Content() {
           )
 
         if (selectedInstitutionPhotos.length === 0) {
-          const {
-            data: { photos: newPhotos },
-          } = await photosApi.get<{ photos: PhotoData[] }>(
-            'institution/' + selectedInstitution.id.toString(),
+          const newPhotos = await request.photos.from.institution(
+            selectedInstitution.id,
           )
 
           addPhotos(newPhotos)

@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import { useEffect, useState } from 'react'
 
-import photosApi from '@/lib/api/photosApi'
+import request from '@/lib/request'
 
 import { useSetAtom } from 'jotai'
 
@@ -37,9 +37,7 @@ export default function Result({
   useEffect(() => {
     async function fetchData() {
       try {
-        const {
-          data: { photos: newPhotos },
-        } = await photosApi.get('institution/' + id.toString())
+        const newPhotos = await request.photos.from.institution(id)
 
         addPhotos(newPhotos)
         setActualPhotoUrl(newPhotos[0]?.url)

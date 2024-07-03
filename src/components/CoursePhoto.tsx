@@ -2,15 +2,11 @@ import { useEffect } from 'react'
 
 import Image from 'next/image'
 
-import photosApi from '@/lib/api/photosApi'
+import request from '@/lib/request'
 
 import { useAtomValue, useSetAtom } from 'jotai'
 
-import {
-  addPhotoAtom,
-  selectedCoursePhotoAtom,
-  type Photo,
-} from '@/atoms/photos'
+import { addPhotoAtom, selectedCoursePhotoAtom } from '@/atoms/photos'
 import { selectedCourseAtom } from '@/atoms/courses'
 
 import { cn } from '@/lib/utils'
@@ -38,11 +34,7 @@ export default function CoursePhoto({
     async function fetchCoursePhoto() {
       try {
         if (selectedCourse?.id !== undefined) {
-          const {
-            data: { photo: newPhoto },
-          } = await photosApi.get<{ photo: Photo }>(
-            'course/' + selectedCourse.id.toString(),
-          )
+          const newPhoto = await request.photos.from.course(selectedCourse.id)
 
           addPhoto(newPhoto)
         }
