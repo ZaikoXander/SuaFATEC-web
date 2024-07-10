@@ -1,14 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
-
 import { useAtom } from 'jotai'
 
-import institutionsApi from '@/lib/api/institutionsApi'
-import citiesApi from '@/lib/api/citiesApi'
+import request from '@/request/index'
 
-import { type Institution, institutionsAtom } from '@/atoms/institutions'
-import { type City, citiesAtom } from '@/atoms/cities'
+import { institutionsAtom } from '@/atoms/institutions'
+import { citiesAtom } from '@/atoms/cities'
 
 import { APIProvider, Map } from '@vis.gl/react-google-maps'
 
@@ -18,25 +16,14 @@ import { SaoPauloStateCenterPosition } from './constants'
 import { handleCameraChange } from './helpers'
 
 export default function GoogleMaps() {
-  const [institutions, setInstitutions] = useAtom(institutionsAtom)
-  const [cities, setCities] = useAtom(citiesAtom)
+  const [institutionsState, setInstitutions] = useAtom(institutionsAtom)
+  const [citiesState, setCities] = useAtom(citiesAtom)
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const institutionsRequest = institutionsApi.get<{
-          institutions: Institution[]
-        }>('')
-        const citiesRequest = citiesApi.get<{ cities: City[] }>('')
-
-        const [
-          {
-            data: { institutions: fetchedInstitutions },
-          },
-          {
-            data: { cities: fetchedCities },
-          },
-        ] = await Promise.all([institutionsRequest, citiesRequest])
+        const fetchedInstitutions = await request.institutions.getAllInstitutions() 
+        const fetchedCities = await request.cities.getAllCities()
 
         setInstitutions(fetchedInstitutions)
         setCities(fetchedCities)
@@ -48,7 +35,7 @@ export default function GoogleMaps() {
     fetchData()
   }, [setInstitutions, setCities])
 
-  if (!institutions || !cities) {
+  if (!institutionsState.length || !citiesState.length) {
     return (
       <div className='flex w-full items-center justify-center'>
         <p>Carregando...</p>
@@ -67,7 +54,7 @@ export default function GoogleMaps() {
           onCameraChanged={handleCameraChange}
           mapId={process.env.NEXT_PUBLIC_MAP_ID}
         >
-          {institutions?.map((institution) => (
+          {institutionsState?.map((institution) => (
             <InstitutionMarker key={institution.id} institution={institution} />
           ))}
         </Map>
