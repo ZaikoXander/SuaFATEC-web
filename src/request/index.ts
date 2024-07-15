@@ -9,7 +9,7 @@ const request = {
   admins,
   photos,
   cities,
-  institutions
+  institutions,
 }
 
 export default request
