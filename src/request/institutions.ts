@@ -2,14 +2,6 @@ import institutionsApi from '@/lib/api/institutionsApi'
 
 import type { Institution } from '@/atoms/institutions'
 
-async function getInstitution(id: number): Promise<Institution> {
-  const {
-    data: { institution },
-  } = await institutionsApi.get<{ institution: Institution }>(id.toString())
-
-  return institution
-}
-
 async function getAllInstitutions(): Promise<Institution[]> {
   const {
     data: { institutions },
@@ -18,6 +10,6 @@ async function getAllInstitutions(): Promise<Institution[]> {
   return institutions
 }
 
-const institutions = { getInstitution, getAllInstitutions }
+const institutions = { getAllInstitutions }
 
 export default institutions
