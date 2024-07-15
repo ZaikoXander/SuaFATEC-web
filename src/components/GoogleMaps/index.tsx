@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
 
-import request from '@/request/index'
+import request from '@/request'
 
 import { institutionsAtom } from '@/atoms/institutions'
 import { citiesAtom } from '@/atoms/cities'
@@ -16,14 +16,19 @@ import { SaoPauloStateCenterPosition } from './constants'
 import { handleCameraChange } from './helpers'
 
 export default function GoogleMaps() {
-  const [institutionsState, setInstitutions] = useAtom(institutionsAtom)
-  const [citiesState, setCities] = useAtom(citiesAtom)
+  const [institutions, setInstitutions] = useAtom(institutionsAtom)
+  const [cities, setCities] = useAtom(citiesAtom)
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const fetchedInstitutions = await request.institutions.getAllInstitutions() 
-        const fetchedCities = await request.cities.getAllCities()
+        const institutionsRequest = request.institutions.getAllInstitutions()
+        const citiesRequest = request.cities.getAllCities()
+
+        const [fetchedInstitutions, fetchedCities] = await Promise.all([
+          institutionsRequest,
+          citiesRequest,
+        ])
 
         setInstitutions(fetchedInstitutions)
         setCities(fetchedCities)
@@ -35,7 +40,7 @@ export default function GoogleMaps() {
     fetchData()
   }, [setInstitutions, setCities])
 
-  if (!institutionsState.length || !citiesState.length) {
+  if (!institutions.length || !cities.length) {
     return (
       <div className='flex w-full items-center justify-center'>
         <p>Carregando...</p>
@@ -54,7 +59,7 @@ export default function GoogleMaps() {
           onCameraChanged={handleCameraChange}
           mapId={process.env.NEXT_PUBLIC_MAP_ID}
         >
-          {institutionsState?.map((institution) => (
+          {institutions.map((institution) => (
             <InstitutionMarker key={institution.id} institution={institution} />
           ))}
         </Map>
